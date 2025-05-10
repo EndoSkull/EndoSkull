@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convoy 1943 - Stormworks Addon</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto Slab', serif;
+            background-color: #60665A; /* Desaturated Green-Gray Background */
+            color: #EAE0D5; /* Light Parchment/Cream Text */
+        }
+        .header-font {
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+        }
+        .top-secret-stamp {
+            border: 3px double #993333; /* Dark Red - matching button */
+            color: #993333; /* Dark Red */
+            font-size: 1.5rem;
+            padding: 0.5rem 1rem;
+            transform: rotate(-10deg);
+            display: inline-block;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            text-align: center;
+            background-color: rgba(234, 224, 213, 0.1); /* Subtle light backing for stamp */
+        }
+        .section-title {
+            border-bottom: 2px solid #3A3D36; /* Dark Green-Gray for border */
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            color: #EAE0D5; /* Light Parchment/Cream for section title text */
+        }
+        .nav-link {
+            @apply px-4 py-2 text-lg rounded-md transition-colors duration-300;
+            color: #EAE0D5; /* Light Parchment/Cream for nav links */
+        }
+        .nav-link:hover {
+            background-color: #4B5046; /* Slightly lighter Green-Gray for hover */
+            color: #FFFFFF;
+        }
+        .btn-primary {
+            background-color: #993333; /* Dark Red */
+            color: #FFFFFF; /* White text for button */
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.25rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: background-color 0.3s ease;
+            border: 1px solid #7A2828; /* Slightly darker red border for definition */
+        }
+        .btn-primary:hover {
+            background-color: #7A2828; /* Darker Muted Red */
+            color: #F0EBE0;
+        }
+        .placeholder-img {
+            border: 2px dashed #3A3D36; /* Dark Green-Gray border */
+            background-color: #555A50; /* Darker Green-Gray card-like bg for placeholder */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #EAE0D5; /* Light text for placeholder */
+            font-style: italic;
+        }
+        .dotted-divider {
+            border-top: 2px dotted #3A3D36; /* Dark Green-Gray */
+            margin: 2rem 0;
+        }
+        .card {
+            background-color: #555A50; /* Darker Green-Gray for cards */
+            border: 1px solid #3A3D36; /* Dark Green-Gray border for cards */
+            border-radius: 0.25rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .card h4 {
+            color: #EAE0D5; /* Light Parchment/Cream for card titles */
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="bg-[#3A3D36] text-[#EAE0D5] py-4 shadow-lg sticky top-0 z-50"> {/* Dark Green-Gray Nav Background */}
+        <div class="container mx-auto px-6 flex flex-col sm:flex-row justify-between items-center">
+            <h1 class="header-font text-3xl font-bold mb-2 sm:mb-0">Convoy 1943</h1>
+            <nav>
+                <ul class="flex space-x-2 sm:space-x-4">
+                    <li><a href="#about" class="nav-link header-font">About</a></li>
+                    <li><a href="#features" class="nav-link header-font">Features</a></li>
+                    <li><a href="#gallery" class="nav-link header-font">Gallery</a></li>
+                    <li><a href="#download" class="nav-link header-font">Download</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="hero" class="py-16 md:py-24" style="background-color: #60665A;"> {/* Desaturated Green-Gray Background */}
+        <div class="container mx-auto px-6 text-center bg-black bg-opacity-20 py-12 rounded-lg">
+            <div class="top-secret-stamp mx-auto">CLASSIFIED</div>
+            <h2 class="header-font text-5xl md:text-7xl font-bold text-white mb-4">Convoy 1943</h2>
+            <p class="text-xl md:text-2xl text-[#EAE0D5] mb-8 max-w-3xl mx-auto">
+                Experience the intensity of World War II naval escort missions. Protect your convoy, engage enemy U-boats, and survive the treacherous waters of the Atlantic. Your ultimate Stormworks naval challenge awaits!
+            </p>
+            <a href="#download" class="btn-primary text-lg">Get the Addon Now!</a>
+        </div>
+    </section>
+
+    <main class="container mx-auto px-6 py-12">
+
+        <section id="about" class="mb-16 scroll-mt-20">
+            <h3 class="header-font text-4xl font-bold section-title">Mission Briefing: About Convoy 1943</h3>
+            <div class="grid md:grid-cols-2 gap-8 items-center">
+                <div>
+                    <p class="mb-4 text-lg leading-relaxed">
+                        <strong>Convoy 1943</strong> is a meticulously crafted Stormworks: Build and Rescue addon that thrusts you into the heart of World War II's Battle of the Atlantic. Take command of escort vessels, manage resources, and defend vital supply convoys against relentless enemy attacks.
+                    </p>
+                    <p class="mb-4 text-lg leading-relaxed">
+                        This addon focuses on providing an immersive and challenging experience, blending historical inspiration with Stormworks' unique physics and building capabilities. Prepare for dynamic weather, intelligent enemy AI, and missions that will test your strategic thinking and piloting skills.
+                    </p>
+                    <p class="text-lg leading-relaxed">
+                        <em>"The only thing that ever really frightened me during the war was the U-boat peril." - Winston Churchill (Placeholder quote)</em>
+                    </p>
+                </div>
+                <div>
+                    <img src="https://placehold.co/600x400/993333/EAE0D5?text=Convoy+Illustration" alt="Illustration of a convoy under attack" class="rounded-lg shadow-xl w-full h-auto placeholder-img">
+                    <p class="text-sm text-center mt-2 italic text-gray-400">Artist's rendition of a typical convoy engagement.</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="dotted-divider"></div>
+
+        <section id="features" class="mb-16 scroll-mt-20">
+            <h3 class="header-font text-4xl font-bold section-title">Key Intel: Addon Features</h3>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="card p-6">
+                    <img src="https://placehold.co/100x100/3A3D36/EAE0D5?text=Ship+Icon" alt="Ship Icon" class="w-16 h-16 mx-auto mb-4 placeholder-img rounded-full">
+                    <h4 class="header-font text-2xl font-semibold mb-2 text-center">Authentic Escort Vessels</h4>
+                    <p class="text-center">Pilot detailed, period-inspired escort ships. (Placeholder: Add more specific details about the types of ships available or their capabilities).</p>
+                </div>
+                <div class="card p-6">
+                    <img src="https://placehold.co/100x100/3A3D36/EAE0D5?text=U-Boat+Icon" alt="U-Boat Icon" class="w-16 h-16 mx-auto mb-4 placeholder-img rounded-full">
+                    <h4 class="header-font text-2xl font-semibold mb-2 text-center">Dynamic Enemy AI</h4>
+                    <p class="text-center">Face cunning U-boats and Luftwaffe attacks that adapt to your tactics. (Placeholder: Describe AI behavior or challenge level).</p>
+                </div>
+                <div class="card p-6">
+                    <img src="https://placehold.co/100x100/3A3D36/EAE0D5?text=Convoy+Icon" alt="Convoy Icon" class="w-16 h-16 mx-auto mb-4 placeholder-img rounded-full">
+                    <h4 class="header-font text-2xl font-semibold mb-2 text-center">Challenging Convoy Missions</h4>
+                    <p class="text-center">Multiple mission scenarios with varying objectives and difficulty. (Placeholder: Give examples of mission types or objectives).</p>
+                </div>
+                <div class="card p-6">
+                    <img src="https://placehold.co/100x100/3A3D36/EAE0D5?text=Weather+Icon" alt="Weather Icon" class="w-16 h-16 mx-auto mb-4 placeholder-img rounded-full">
+                    <h4 class="header-font text-2xl font-semibold mb-2 text-center">Immersive Environment</h4>
+                    <p class="text-center">Experience realistic North Atlantic weather conditions and day/night cycles. (Placeholder: Mention specific environmental effects).</p>
+                </div>
+                <div class="card p-6">
+                    <img src="https://placehold.co/100x100/3A3D36/EAE0D5?text=Radio+Icon" alt="Radio Icon" class="w-16 h-16 mx-auto mb-4 placeholder-img rounded-full">
+                    <h4 class="header-font text-2xl font-semibold mb-2 text-center">Radio Communications</h4>
+                    <p class="text-center">Receive vital updates and orders via a themed radio system. (Placeholder: Detail how this enhances immersion).</p>
+                </div>
+                <div class="card p-6">
+                    <img src="https://placehold.co/100x100/3A3D36/EAE0D5?text=Custom+Icon" alt="Customization Icon" class="w-16 h-16 mx-auto mb-4 placeholder-img rounded-full">
+                    <h4 class="header-font text-2xl font-semibold mb-2 text-center">Customizable Experience</h4>
+                    <p class="text-center">Adjust settings to tailor the challenge to your preference. (Placeholder: Mention any specific customizable options).</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="dotted-divider"></div>
+
+        <section id="gallery" class="mb-16 scroll-mt-20">
+            <h3 class="header-font text-4xl font-bold section-title">Visual Reconnaissance: Gallery</h3>
+            <p class="mb-8 text-lg text-center">Take a look at these declassified images from the front lines. (Placeholder: Replace with actual screenshots and videos of your addon in action).</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div class="placeholder-img w-full h-64 rounded-md">Image 1: Escort ship (Placeholder)</div>
+                <div class="placeholder-img w-full h-64 rounded-md">Image 2: U-boat (Placeholder)</div>
+                <div class="placeholder-img w-full h-64 rounded-md">Image 3: Convoy (Placeholder)</div>
+                <div class="placeholder-img w-full h-64 rounded-md">Image 4: Night ops (Placeholder)</div>
+                <div class="placeholder-img w-full h-64 rounded-md">Image 5: Damage (Placeholder)</div>
+                <div class="placeholder-img w-full h-64 rounded-md">Video Thumbnail (Placeholder)</div>
+            </div>
+            <p class="mt-6 text-center italic text-gray-400">More visual intel coming soon. Check back for updates!</p>
+        </section>
+
+        <div class="dotted-divider"></div>
+
+        <section id="download" class="mb-16 scroll-mt-20 text-center">
+            <h3 class="header-font text-4xl font-bold section-title inline-block">Enlist Now: Download Convoy 1943</h3>
+            <div class="mt-8 p-8 card max-w-2xl mx-auto">
+                <p class="text-xl mb-6">
+                    Ready to take on the Atlantic? Download <strong>Convoy 1943</strong> from the Stormworks Steam Workshop and lead your ships to victory!
+                </p>
+                <a href="#" class="btn-primary text-xl inline-block">
+                    Download from Steam Workshop (Placeholder Link)
+                </a>
+                <p class="mt-6 text-sm">
+                    (Placeholder: Add link to your Steam Workshop page here. You might also want to include installation instructions or requirements.)
+                </p>
+                <img src="https://placehold.co/300x150/993333/EAE0D5?text=Steam+Workshop" alt="Steam Workshop" class="mx-auto mt-6 placeholder-img opacity-75">
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-[#2E302A] text-[#CFC5B8] py-8 text-center"> {/* Even Darker Green-Gray Footer BG */}
+        <p class="mb-2">&copy; <span id="currentYear"></span> [Your Name/Modding Group Name]. All Rights Reserved.</p>
+        <p class="text-sm">Convoy 1943 is a fan-made addon for Stormworks: Build and Rescue.</p>
+        <p class="text-sm mt-1">Inspired by historical events. Lest we forget.</p>
+        <p class="text-xs mt-4 opacity-75">Website design adapted to a 1940s dark wartime feel. Placeholder content used.</p>
+    </footer>
+
+    <script>
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Set current year in footer
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    </script>
+
+</body>
+</html>
