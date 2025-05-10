@@ -38,7 +38,7 @@
             @apply px-4 py-2 text-lg rounded-md transition-colors duration-300;
             color: #EAE0D5; /* Light Parchment/Cream for nav links */
         }
-        .nav-link:hover, .nav-link.active { /* Added .active for potential future use */
+        .nav-link:hover, .nav-link.active {
             background-color: #4B5046; /* Slightly lighter Green-Gray for hover/active */
             color: #FFFFFF;
         }
@@ -51,39 +51,81 @@
             text-transform: uppercase;
             transition: background-color 0.3s ease;
             border: 1px solid #7A2828; /* Slightly darker red border for definition */
+            display: inline-block;
+            text-align: center;
         }
         .btn-primary:hover {
             background-color: #7A2828; /* Darker Muted Red */
             color: #F0EBE0;
         }
-        .placeholder-img {
-            border: 2px dashed #3A3D36; /* Dark Green-Gray border */
-            background-color: #555A50; /* Darker Green-Gray card-like bg for placeholder */
+        .btn-discord {
+            background-color: #5865F2; /* Discord Blue */
+            color: #FFFFFF;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.25rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: background-color 0.3s ease;
+            border: 1px solid #404EED;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .btn-discord:hover {
+            background-color: #404EED; /* Darker Discord Blue */
+        }
+        .btn-discord svg {
+            width: 1.5em;
+            height: 1.5em;
+            margin-right: 0.5em;
+        }
+        .placeholder-img { /* This class is still used for gallery placeholders */
+            border: 2px dashed #3A3D36;
+            background-color: #555A50;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
-            color: #EAE0D5; /* Light text for placeholder */
+            color: #EAE0D5;
             font-style: italic;
         }
         .dotted-divider {
-            border-top: 2px dotted #3A3D36; /* Dark Green-Gray */
+            border-top: 2px dotted #3A3D36;
             margin: 2rem 0;
         }
         .card {
-            background-color: #555A50; /* Darker Green-Gray for cards */
-            border: 1px solid #3A3D36; /* Dark Green-Gray border for cards */
+            background-color: #555A50;
+            border: 1px solid #3A3D36;
             border-radius: 0.25rem;
             box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
         .card h4 {
-            color: #EAE0D5; /* Light Parchment/Cream for card titles */
+            color: #EAE0D5;
+        }
+        /* Responsive iframe container for YouTube embed */
+        .video-container {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+            border-radius: 0.375rem; /* Tailwind's rounded-md */
+            border: 2px dashed #3A3D36; /* Matching placeholder border */
+            background-color: #000; /* Black background for player */
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
         }
     </style>
 </head>
 <body class="antialiased">
 
-    <header class="bg-[#3A3D36] text-[#EAE0D5] py-4 shadow-lg sticky top-0 z-50"> {/* Dark Green-Gray Nav Background */}
+    <header class="bg-[#3A3D36] text-[#EAE0D5] py-4 shadow-lg sticky top-0 z-50">
         <div class="container mx-auto px-6 flex flex-col sm:flex-row justify-between items-center">
             <a href="index.html" class="header-font text-3xl font-bold mb-2 sm:mb-0 hover:text-white transition-colors">Convoy 1943</a>
             <nav>
@@ -98,14 +140,14 @@
         </div>
     </header>
 
-    <section id="hero" class="py-16 md:py-24" style="background-color: #60665A;"> {/* Desaturated Green-Gray Background */}
+    <section id="hero" class="py-16 md:py-24" style="background-color: #60665A;">
         <div class="container mx-auto px-6 text-center bg-black bg-opacity-20 py-12 rounded-lg">
             <div class="top-secret-stamp mx-auto">CLASSIFIED</div>
             <h2 class="header-font text-5xl md:text-7xl font-bold text-white mb-4">Convoy 1943</h2>
             <p class="text-xl md:text-2xl text-[#EAE0D5] mb-8 max-w-3xl mx-auto">
                 Experience the intensity of World War II naval escort missions. Protect your convoy, engage enemy U-boats, and survive the treacherous waters of the Atlantic. Your ultimate Stormworks naval challenge awaits!
             </p>
-            <a href="#download" class="btn-primary text-lg">Get the Addon Now!</a>
+            <a href="#download" class="btn-primary text-lg">Join the Next Event!</a>
         </div>
     </section>
 
@@ -125,11 +167,17 @@
                         <em>"The only thing that ever really frightened me during the war was the U-boat peril." - Winston Churchill (Placeholder quote)</em>
                     </p>
                 </div>
-                <div>
-                    <img src="https://placehold.co/600x400/993333/EAE0D5?text=Convoy+Illustration" alt="Illustration of a convoy under attack" class="rounded-lg shadow-xl w-full h-auto placeholder-img">
-                    <p class="text-sm text-center mt-2 italic text-gray-400">Artist's rendition of a typical convoy engagement.</p>
+                <div class="video-container shadow-xl">
+                    <iframe 
+                        src="https://www.youtube.com/embed/1eCTKHL-Q0c?si=jwJeJ8Ey-3rAWm9G" 
+                        title="YouTube video player" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                        referrerpolicy="strict-origin-when-cross-origin" 
+                        allowfullscreen>
+                    </iframe>
                 </div>
-            </div>
+                </div>
         </section>
 
         <div class="dotted-divider"></div>
@@ -189,24 +237,27 @@
         <div class="dotted-divider"></div>
 
         <section id="download" class="mb-16 scroll-mt-20 text-center">
-            <h3 class="header-font text-4xl font-bold section-title inline-block">Enlist Now: Download Convoy 1943</h3>
+            <h3 class="header-font text-4xl font-bold section-title inline-block">Join the Front Lines!</h3>
             <div class="mt-8 p-8 card max-w-2xl mx-auto">
                 <p class="text-xl mb-6">
-                    Ready to take on the Atlantic? Download <strong>Convoy 1943</strong> from the Stormworks Steam Workshop and lead your ships to victory!
+                    The <strong>Convoy 1943</strong> addon is currently available exclusively during our live Stormworks events. No public code release is available at this time.
                 </p>
-                <a href="#" class="btn-primary text-xl inline-block">
-                    Download from Steam Workshop (Placeholder Link)
+                <p class="text-lg mb-8">
+                    To participate in the next event and experience Convoy 1943, join the Endo Events Discord server for announcements and details:
+                </p>
+                <a href="https://discord.gg/KJTXUyQMT2" target="_blank" rel="noopener noreferrer" class="btn-discord text-xl">
+                    <svg aria-hidden="true" role="img" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M20.222 0H3.778C1.691 0 0 1.732 0 3.86v16.28C0 22.268 1.691 24 3.778 24h12.667l1.187-1.152 1.618-1.584 2.972-2.912V3.86C24 1.732 22.309 0 20.222 0zM8.167 14.6c-.883 0-1.6-.744-1.6-1.656s.717-1.656 1.6-1.656c.882 0 1.6.744 1.6 1.656s-.718 1.656-1.6 1.656zm4.028.033c-.883 0-1.6-.744-1.6-1.656s.717-1.656 1.6-1.656c.882 0 1.6.744 1.6 1.656s-.718 1.656-1.6 1.656zm3.805-3.312c.883 0 1.6.744 1.6 1.656s-.717-1.656 1.6-1.656c-.882 0-1.6-.744-1.6-1.656s.718-1.656 1.6-1.656z"></path></svg>
+                    Join Endo Events Discord
                 </a>
                 <p class="mt-6 text-sm">
-                    (Placeholder: Add link to your Steam Workshop page here. You might also want to include installation instructions or requirements.)
+                    Follow announcements there for upcoming Convoy 1943 live events and how to participate!
                 </p>
-                <img src="https://placehold.co/300x150/993333/EAE0D5?text=Steam+Workshop" alt="Steam Workshop" class="mx-auto mt-6 placeholder-img opacity-75">
-            </div>
+                </div>
         </section>
 
     </main>
 
-    <footer class="bg-[#2E302A] text-[#CFC5B8] py-8 text-center"> {/* Even Darker Green-Gray Footer BG */}
+    <footer class="bg-[#2E302A] text-[#CFC5B8] py-8 text-center">
         <p class="mb-2">&copy; <span id="currentYear"></span> [Your Name/Modding Group Name]. All Rights Reserved.</p>
         <p class="text-sm">Convoy 1943 is a fan-made addon for Stormworks: Build and Rescue.</p>
         <p class="text-sm mt-1">Inspired by historical events. Lest we forget.</p>
@@ -218,13 +269,12 @@
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                // Check if the link is for the current page or another page
                 const targetId = this.getAttribute('href');
-                if (targetId.startsWith('#')) { // Internal link on the same page
+                if (targetId.startsWith('#')) {
                     document.querySelector(targetId).scrollIntoView({
                         behavior: 'smooth'
                     });
-                } else { // Link to another page (or section on another page)
+                } else {
                     window.location.href = targetId;
                 }
             });
