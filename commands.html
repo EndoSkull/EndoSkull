@@ -26,8 +26,8 @@
             @apply px-4 py-2 text-lg rounded-md transition-colors duration-300;
             color: #EAE0D5; /* Light Parchment/Cream for nav links */
         }
-        .nav-link:hover {
-            background-color: #4B5046; /* Slightly lighter Green-Gray for hover */
+        .nav-link:hover, .nav-link.active { /* Added .active for the current page link */
+            background-color: #4B5046; /* Slightly lighter Green-Gray for hover/active */
             color: #FFFFFF;
         }
         .content-container { /* Renamed from placeholder-img for clarity */
@@ -93,11 +93,12 @@
         <div class="container mx-auto px-6 flex flex-col sm:flex-row justify-between items-center">
             <a href="index.html" class="header-font text-3xl font-bold mb-2 sm:mb-0 hover:text-white transition-colors">Convoy 1943</a>
             <nav>
-                <ul class="flex space-x-2 sm:space-x-4">
+                <ul class="flex flex-wrap space-x-2 sm:space-x-4 justify-center"> {/* Added flex-wrap and justify-center */}
                     <li><a href="index.html#about" class="nav-link header-font">About</a></li>
                     <li><a href="index.html#features" class="nav-link header-font">Features</a></li>
+                    <li><a href="escorts.html" class="nav-link header-font">Escorts</a></li> {/* Added Escorts link */}
                     <li><a href="index.html#gallery" class="nav-link header-font">Gallery</a></li>
-                    <li><a href="commands.html" class="nav-link header-font bg-[#4B5046] text-white">Commands</a></li>
+                    <li><a href="commands.html" class="nav-link header-font active">Commands</a></li> {/* Commands is active on this page */}
                     <li><a href="index.html#download" class="nav-link header-font">Download</a></li>
                 </ul>
             </nav>
@@ -105,10 +106,10 @@
     </header>
 
     <main class="container mx-auto px-6 py-12">
-        <section id="commands-section" class="mb-16 scroll-mt-20"> {/* Changed id to avoid conflict with nav link */}
+        <section id="commands-section" class="mb-16 scroll-mt-20">
             <h2 class="header-font text-5xl md:text-6xl font-bold section-title text-center mb-12">Addon Command Roster</h2>
 
-            <div class="max-w-4xl mx-auto content-container"> {/* Increased max-width for more space */}
+            <div class="max-w-4xl mx-auto content-container">
                 <p class="text-lg mb-6">
                     Below is a list of available commands to enhance your experience with the Convoy 1943 addon. Familiarize yourself with these orders to effectively manage your missions and assets.
                 </p>
