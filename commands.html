@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convoy 1943 - Addon Commands</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto Slab', serif;
+            background-color: #60665A; /* Desaturated Green-Gray Background */
+            color: #EAE0D5; /* Light Parchment/Cream Text */
+        }
+        .header-font {
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+        }
+        .section-title { /* Used for the main page title "Addon Command Roster" */
+            border-bottom: 2px solid #3A3D36; /* Dark Green-Gray for border */
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            color: #EAE0D5; /* Light Parchment/Cream for section title text */
+        }
+        .nav-link {
+            @apply px-4 py-2 text-lg rounded-md transition-colors duration-300;
+            color: #EAE0D5; /* Light Parchment/Cream for nav links */
+        }
+        .nav-link:hover {
+            background-color: #4B5046; /* Slightly lighter Green-Gray for hover */
+            color: #FFFFFF;
+        }
+        .content-container { /* Renamed from placeholder-img for clarity */
+            border: 2px dashed #3A3D36; /* Dark Green-Gray border */
+            background-color: #555A50; /* Darker Green-Gray card-like bg */
+            padding: 1.5rem;
+            color: #EAE0D5; /* Light text */
+            border-radius: 0.5rem; /* Added border-radius */
+        }
+        .command-category-title { /* New style for command category titles */
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+            font-size: 1.75rem; /* h3 equivalent: text-2xl */
+            font-weight: 600; /* semibold */
+            margin-bottom: 0.75rem; /* mb-3 */
+            margin-top: 1.5rem; /* mt-6 */
+            color: #EAE0D5;
+            border-bottom: 1px solid #4B5046; /* Lighter border for category titles */
+            padding-bottom: 0.25rem;
+        }
+        .command-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .command-list li {
+            background-color: #4B5046; /* Slightly lighter than content-container bg for contrast */
+            border: 1px solid #3A3D36;
+            padding: 0.75rem 1rem;
+            margin-bottom: 0.75rem; /* Increased margin slightly */
+            border-radius: 0.25rem;
+        }
+        .command-list code {
+            background-color: #3A3D36;
+            color: #EAE0D5;
+            padding: 0.2rem 0.5rem; /* Slightly more padding */
+            border-radius: 0.2rem;
+            font-family: 'Courier New', Courier, monospace; /* Monospace for commands */
+            font-size: 0.95em; /* Slightly larger code text */
+            display: inline-block; /* Ensures background covers whole command */
+            margin-bottom: 0.25rem; /* Space below code block if description wraps */
+        }
+        .command-description {
+            display: block; /* Ensures description is on its own line if needed */
+            margin-top: 0.25rem;
+            font-size: 0.9em;
+        }
+        .command-example {
+            display: block;
+            margin-top: 0.25rem;
+            font-style: italic;
+            color: #CFC5B8; /* Slightly muted for examples */
+            font-size: 0.85em;
+        }
+        .command-example code { /* Specific styling for code within examples */
+            background-color: #33362F; /* Darker for example code */
+            font-size: 1em; /* Reset to match surrounding example text size */
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="bg-[#3A3D36] text-[#EAE0D5] py-4 shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-6 flex flex-col sm:flex-row justify-between items-center">
+            <a href="index.html" class="header-font text-3xl font-bold mb-2 sm:mb-0 hover:text-white transition-colors">Convoy 1943</a>
+            <nav>
+                <ul class="flex space-x-2 sm:space-x-4">
+                    <li><a href="index.html#about" class="nav-link header-font">About</a></li>
+                    <li><a href="index.html#features" class="nav-link header-font">Features</a></li>
+                    <li><a href="index.html#gallery" class="nav-link header-font">Gallery</a></li>
+                    <li><a href="commands.html" class="nav-link header-font bg-[#4B5046] text-white">Commands</a></li>
+                    <li><a href="index.html#download" class="nav-link header-font">Download</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 py-12">
+        <section id="commands-section" class="mb-16 scroll-mt-20"> {/* Changed id to avoid conflict with nav link */}
+            <h2 class="header-font text-5xl md:text-6xl font-bold section-title text-center mb-12">Addon Command Roster</h2>
+
+            <div class="max-w-4xl mx-auto content-container"> {/* Increased max-width for more space */}
+                <p class="text-lg mb-6">
+                    Below is a list of available commands to enhance your experience with the Convoy 1943 addon. Familiarize yourself with these orders to effectively manage your missions and assets.
+                </p>
+
+                <h3 class="command-category-title">Team Commands</h3>
+                <ul class="command-list mb-6">
+                    <li>
+                        <code>?join [axis/allies]</code>
+                        <span class="command-description">Used to join a team.</span>
+                        <span class="command-example">Example: <code>?join allies</code></span>
+                    </li>
+                    <li>
+                        <code>?leave</code>
+                        <span class="command-description">Used to leave current team. However, you can switch teams at anytime by using the ?join command.</span>
+                        <span class="command-example">Example: <code>?leave</code></span>
+                    </li>
+                    <li>
+                        <code>?tp [id] / ?tp [name]</code>
+                        <span class="command-description">Teleport to the specified vehicle, if it’s on the same team as you.</span>
+                        <span class="command-example">Example: <code>?tp 27</code> or <code>?tp EggsShip</code></span>
+                    </li>
+                </ul>
+
+                <h3 class="command-category-title">Convoy Related Commands</h3>
+                <ul class="command-list mb-6">
+                    <li>
+                        <code>?convoy [wp1] [wp2]</code>
+                        <span class="command-description">Spawn a convoy between the two specified waypoints.</span>
+                        <span class="command-example">Example: <code>?convoy 1 5</code></span>
+                    </li>
+                    <li>
+                        <code>?spawn [vehicle] [quantity]</code>
+                        <span class="command-description">Use the optional quantity argument to create formations of vehicles.</span>
+                        <span class="command-example">Example: <code>?spawn Type-IIA</code> or <code>?spawn Foxhound 2</code></span>
+                    </li>
+                </ul>
+
+                <h3 class="command-category-title">Player Vehicle Related Commands</h3>
+                <ul class="command-list mb-6">
+                    <li>
+                        <code>?empty [ship]</code>
+                        <span class="command-description">Spawn selected ship without NPC crewmembers.</span>
+                        <span class="command-example">Example: <code>?empty Type-IIA</code></span>
+                    </li>
+                    <li>
+                        <code>?spawn [ship]</code>
+                        <span class="command-description">Spawn selected ship with NPC crewmembers.</span>
+                        <span class="command-example">Example: <code>?spawn Type-IIA</code></span>
+                    </li>
+                    <li>
+                        <code>?gunners</code>
+                        <span class="command-description">Refresh gunners if they have despawned (useful for submarines, where gunners despawn when submarine submerges).</span>
+                        <span class="command-example">Example: <code>?gunners</code></span>
+                    </li>
+                    <li>
+                        <code>?name [id] [name]</code>
+                        <span class="command-description">Names the ship with ID to specified name, look at top left for ID of nearest ship.</span>
+                        <span class="command-example">Example: <code>?name 5 Greyhound</code></span>
+                    </li>
+                    <li>
+                        <code>?commandeer</code>
+                        <span class="command-description">Remove an NPC vehicle’s captain/pilot so you can take over.</span>
+                        <span class="command-example">Example: <code>?commandeer</code></span>
+                    </li>
+                    <li>
+                        <code>?control [vehicle] [quantity]</code>
+                        <span class="command-description">Similar to ?spawn, but teleports you to pilot/captain seat. Currently should be used to spawn and control team scout planes and bombers.</span>
+                        <span class="command-example">Example: <code>?control B17 2</code></span>
+                    </li>
+                    <li>
+                        <code>?bail</code>
+                        <span class="command-description">Trigger crew to bail out of your aircraft you are currently in control of. You will be transported back to your ship after aircraft is destroyed, you are killed, or reach the ground (i think?).</span>
+                        <span class="command-example">Example: <code>?bail</code></span>
+                    </li>
+                </ul>
+
+                <h3 class="command-category-title">Team Gameplay Related Commands</h3>
+                <ul class="command-list mb-6">
+                    <li>
+                        <code>?resupply</code>
+                        <span class="command-description">Request a new supply ship. Supply ships spawn 3-5km from you, and will attempt to rendezvous with your ship. Look out for messages from them, and use ?request when they’re ready.</span>
+                        <span class="command-example">Example: <code>?resupply</code></span>
+                    </li>
+                    <li>
+                        <code>?request [first letter of commodity]</code>
+                        <span class="command-description">Requests a commodity from a waiting supply ship.</span>
+                        <span class="command-example">Example: <code>?request a</code> (requests advanced torpedo)</span>
+                        <span class="command-example" style="margin-left: 5.5em;"><code>?request b</code> (requests basic torpedo)</span>
+                        <span class="command-example" style="margin-left: 5.5em;"><code>?request h</code> (requests hedgehog round)</span>
+                    </li>
+                    <li>
+                        <code>?dismiss</code>
+                        <span class="command-description">Dismiss a waiting supply ship.</span>
+                        <span class="command-example">Example: <code>?dismiss</code></span>
+                    </li>
+                </ul>
+
+                <h3 class="command-category-title">Utility Related Commands</h3>
+                <ul class="command-list">
+                    <li>
+                        <code>?scuttle</code>
+                        <span class="command-description">Destroy the nearest vehicle to you instantly. Useful for disabled ships.</span>
+                        <span class="command-example">Example: <code>?scuttle</code></span>
+                    </li>
+                    <li>
+                        <code>?clear [all]</code>
+                        <span class="command-description">Used to clear convoys or convoys and all other ships/subs.</span>
+                        <span class="command-example">Example: <code>?clear</code> (despawn convoys)</span>
+                        <span class="command-example" style="margin-left: 5.5em;"><code>?clear all</code> (despawn convoys and other ships/subs)</span>
+                    </li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-[#2E302A] text-[#CFC5B8] py-8 text-center">
+        <p class="mb-2">&copy; <span id="currentYear"></span> [Your Name/Modding Group Name]. All Rights Reserved.</p>
+        <p class="text-sm">Convoy 1943 is a fan-made addon for Stormworks: Build and Rescue.</p>
+        <p class="text-sm mt-1">Inspired by historical events. Lest we forget.</p>
+        <p class="text-xs mt-4 opacity-75">Website design adapted to a 1940s dark wartime feel. Placeholder content used.</p>
+    </footer>
+
+    <script>
+        // Set current year in footer
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    </script>
+
+</body>
+</html>
