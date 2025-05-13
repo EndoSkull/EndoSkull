@@ -9,41 +9,41 @@
     <style>
         body {
             font-family: 'Roboto Slab', serif;
-            background-color: #60665A; /* Desaturated Green-Gray Background */
-            color: #EAE0D5; /* Light Parchment/Cream Text */
+            background-color: #60665A; 
+            color: #EAE0D5; 
         }
         .header-font {
             font-family: 'Oswald', sans-serif;
             text-transform: uppercase;
         }
-        .section-title { /* Used for the main page title "Addon Command Roster" */
-            border-bottom: 2px solid #3A3D36; /* Dark Green-Gray for border */
+        .section-title { 
+            border-bottom: 2px solid #3A3D36; 
             padding-bottom: 0.5rem;
             margin-bottom: 1.5rem;
             color: #EAE0D5;
         }
         .nav-link {
-            @apply px-3 py-2 text-lg rounded-md transition-colors duration-300; /* Adjusted padding for more links */
+            @apply px-2 py-2 text-lg rounded-md transition-colors duration-300; 
             color: #EAE0D5;
         }
-        .nav-link:hover, .nav-link.active {
-            background-color: #4B5046; /* Slightly lighter Green-Gray for hover/active */
+        .nav-link:hover, .nav-link.active { 
+            background-color: #4B5046; 
             color: #FFFFFF;
         }
-        .content-container { /* Main content wrapper for the page */
+        .content-container { 
             border: 2px dashed #3A3D36;
             background-color: #555A50;
             padding: 1.5rem;
-            color: #EAE0D5;
-            border-radius: 0.5rem;
+            color: #EAE0D5; 
+            border-radius: 0.5rem; 
         }
-        .command-category-title {
+        .command-category-title { 
             font-family: 'Oswald', sans-serif;
             text-transform: uppercase;
-            font-size: 1.75rem; /* h3 equivalent: text-2xl */
-            font-weight: 600; /* semibold */
-            margin-bottom: 0.75rem; /* mb-3 */
-            margin-top: 1.5rem; /* mt-6 */
+            font-size: 1.75rem; 
+            font-weight: 600; 
+            margin-bottom: 0.75rem; 
+            margin-top: 1.5rem; 
             color: #EAE0D5;
             border-bottom: 1px solid #4B5046;
             padding-bottom: 0.25rem;
@@ -93,13 +93,14 @@
         <div class="container mx-auto px-6 flex flex-col sm:flex-row justify-between items-center">
             <a href="index.html" class="header-font text-3xl font-bold mb-2 sm:mb-0 hover:text-white transition-colors">Convoy 1943</a>
             <nav>
-                <ul class="flex flex-wrap space-x-1 sm:space-x-2 justify-center">
+                <ul class="flex flex-wrap space-x-1 sm:space-x-1.5 justify-center">
                     <li><a href="index.html#about" class="nav-link header-font">About</a></li>
-                    <li><a href="index.html#features" class="nav-link header-font">Features</a></li>
+                    <li><a href="features.html" class="nav-link header-font">Features</a></li>
                     <li><a href="escorts.html" class="nav-link header-font">Escorts</a></li>
                     <li><a href="ai.html" class="nav-link header-font">AI Units</a></li>
+                    <li><a href="missions.html" class="nav-link header-font">Missions</a></li> {/* Added Missions link */}
                     <li><a href="index.html#gallery" class="nav-link header-font">Gallery</a></li>
-                    <li><a href="commands.html" class="nav-link header-font active">Commands</a></li>
+                    <li><a href="commands.html" class="nav-link header-font active">Commands</a></li> 
                     <li><a href="index.html#download" class="nav-link header-font">Download</a></li>
                 </ul>
             </nav>
@@ -109,160 +110,55 @@
     <main class="container mx-auto px-6 py-12">
         <section id="commands-section" class="mb-16 scroll-mt-20">
             <h2 class="header-font text-5xl md:text-6xl font-bold section-title text-center mb-12">Addon Command Roster</h2>
-
             <div class="max-w-4xl mx-auto content-container">
                 <p class="text-lg mb-6">
                     Below is a list of available commands to enhance your experience with the Convoy 1943 addon. Use these commands by typing them into the in-game chat. Arguments in <code>[brackets]</code> are placeholders for your input.
                 </p>
-
                 <h3 class="command-category-title">Team Management</h3>
                 <ul class="command-list mb-6">
-                    <li>
-                        <code>?join [axis/allies]</code>
-                        <span class="command-description">Join either the Axis or Allies team.</span>
-                        <span class="command-example">Example: <code>?join allies</code></span>
-                    </li>
-                    <li>
-                        <code>?leave</code>
-                        <span class="command-description">Leave your current team. You can switch teams anytime using <code>?join</code>.</span>
-                        <span class="command-example">Example: <code>?leave</code></span>
-                    </li>
+                    <li><code>?join [axis/allies]</code><span class="command-description">Join either the Axis or Allies team.</span><span class="command-example">Example: <code>?join allies</code></span></li>
+                    <li><code>?leave</code><span class="command-description">Leave your current team. You can switch teams anytime using <code>?join</code>.</span><span class="command-example">Example: <code>?leave</code></span></li>
                 </ul>
-
                 <h3 class="command-category-title">Information & Display</h3>
                 <ul class="command-list mb-6">
-                    <li>
-                        <code>?stats</code>
-                        <span class="command-description">Displays your personal player statistics (e.g., torpedo hits, ships sunk).</span>
-                        <span class="command-example">Example: <code>?stats</code></span>
-                    </li>
-                    <li>
-                        <code>?score</code>
-                        <span class="command-description">Shows the current scores for both Allied and Axis teams.</span>
-                        <span class="command-example">Example: <code>?score</code></span>
-                    </li>
-                    <li>
-                        <code>?version</code>
-                        <span class="command-description">Displays the current version of the Convoy 1943 addon.</span>
-                        <span class="command-example">Example: <code>?version</code></span>
-                    </li>
+                    <li><code>?stats</code><span class="command-description">Displays your personal player statistics (e.g., torpedo hits, ships sunk).</span><span class="command-example">Example: <code>?stats</code></span></li>
+                    <li><code>?score</code><span class="command-description">Shows the current scores for both Allied and Axis teams.</span><span class="command-example">Example: <code>?score</code></span></li>
+                    <li><code>?version</code><span class="command-description">Displays the current version of the Convoy 1943 addon.</span><span class="command-example">Example: <code>?version</code></span></li>
                 </ul>
-                
                 <h3 class="command-category-title">Player Movement & Interaction</h3>
                 <ul class="command-list mb-6">
-                    <li>
-                        <code>?tp [vehicle_id / vehicle_name / base]</code>
-                        <span class="command-description">Teleport to a specified friendly vehicle (using its ID or name) or back to your team's base. If no argument is given, attempts to teleport you to your last nearby ship.</span>
-                        <span class="command-example">Example: <code>?tp 27</code> or <code>?tp EggsShip</code> or <code>?tp base</code> or <code>?tp</code></span>
-                    </li>
-                     <li>
-                        <code>?route [x_coordinate] [y_coordinate]</code>
-                        <span class="command-description">Sets a fast travel marker on your map to the specified world coordinates.</span>
-                        <span class="command-example">Example: <code>?route 5000 -3400</code></span>
-                    </li>
-                    <li>
-                        <code>?go [x_coordinate] [y_coordinate]</code>
-                        <span class="command-description">If you are in a vehicle and have set a fast travel marker using <code>?route</code>, this command initiates fast travel to those coordinates. If coordinates are provided directly, it attempts to fast travel there.</span>
-                        <span class="command-example">Example: <code>?go</code> (after using ?route) or <code>?go 5000 -3400</code></span>
-                    </li>
+                    <li><code>?tp [vehicle_id / vehicle_name / base]</code><span class="command-description">Teleport to a specified friendly vehicle (using its ID or name) or back to your team's base. If no argument is given, attempts to teleport you to your last nearby ship.</span><span class="command-example">Example: <code>?tp 27</code> or <code>?tp EggsShip</code> or <code>?tp base</code> or <code>?tp</code></span></li>
+                    <li><code>?route [x_coordinate] [y_coordinate]</code><span class="command-description">Sets a fast travel marker on your map to the specified world coordinates.</span><span class="command-example">Example: <code>?route 5000 -3400</code></span></li>
+                    <li><code>?go [x_coordinate] [y_coordinate]</code><span class="command-description">If you are in a vehicle and have set a fast travel marker using <code>?route</code>, this command initiates fast travel to those coordinates. If coordinates are provided directly, it attempts to fast travel there.</span><span class="command-example">Example: <code>?go</code> (after using ?route) or <code>?go 5000 -3400</code></span></li>
                 </ul>
-
                 <h3 class="command-category-title">Vehicle Spawning & Control (Player Focus)</h3>
                 <ul class="command-list mb-6">
-                    <li>
-                        <code>?empty [ship_type]</code>
-                        <span class="command-description">Spawns the selected ship type directly under your control, without any NPC crew members.</span>
-                        <span class="command-example">Example: <code>?empty Type-IIA</code></span>
-                    </li>
-                    <li>
-                        <code>?control [vehicle_type] [quantity (optional)]</code>
-                        <span class="command-description">Spawns the specified vehicle type (and optional quantity in formation) and teleports you into the pilot/captain seat. This is typically used for scout planes and bombers that you intend to pilot yourself. NPCs may crew other positions if applicable.</span>
-                        <span class="command-example">Example: <code>?control B17 2</code> or <code>?control Storch</code></span>
-                    </li>
-                    <li>
-                        <code>?place [vehicle_type]</code>
-                        <span class="command-description">Spawns the specified vehicle type in front of you, facing your look direction. The vehicle will be uncrewed.</span>
-                        <span class="command-example">Example: <code>?place Type-IIA</code></span>
-                    </li>
-                     <li>
-                        <code>?torp [a (optional)]</code>
-                        <span class="command-description">Spawns a torpedo in front of you. Use 'a' for an advanced torpedo, otherwise a basic torpedo is spawned.</span>
-                        <span class="command-example">Example: <code>?torp</code> or <code>?torp a</code></span>
-                    </li>
+                    <li><code>?empty [ship_type]</code><span class="command-description">Spawns the selected ship type directly under your control, without any NPC crew members.</span><span class="command-example">Example: <code>?empty Type-IIA</code></span></li>
+                    <li><code>?control [vehicle_type] [quantity (optional)]</code><span class="command-description">Spawns the specified vehicle type (and optional quantity in formation) and teleports you into the pilot/captain seat. This is typically used for scout planes and bombers that you intend to pilot yourself. NPCs may crew other positions if applicable.</span><span class="command-example">Example: <code>?control B17 2</code> or <code>?control Storch</code></span></li>
+                    <li><code>?place [vehicle_type]</code><span class="command-description">Spawns the specified vehicle type in front of you, facing your look direction. The vehicle will be uncrewed.</span><span class="command-example">Example: <code>?place Type-IIA</code></span></li>
+                    <li><code>?torp [a (optional)]</code><span class="command-description">Spawns a torpedo in front of you. Use 'a' for an advanced torpedo, otherwise a basic torpedo is spawned.</span><span class="command-example">Example: <code>?torp</code> or <code>?torp a</code></span></li>
                 </ul>
-
                 <h3 class="command-category-title">AI & Convoy Management</h3>
                 <ul class="command-list mb-6">
-                    <li>
-                        <code>?convoy [waypoint_start_id] [waypoint_end_id (optional)]</code>
-                        <span class="command-description">Spawns an AI convoy. If two waypoint IDs are given, it travels between them. If one ID is given, it travels from your current location to that waypoint. Waypoint IDs are shown on the map.</span>
-                        <span class="command-example">Example: <code>?convoy 1 5</code> or <code>?convoy 27</code></span>
-                    </li>
-                    <li>
-                        <code>?spawn [vehicle_type] [quantity (optional)]</code>
-                        <span class="command-description">Spawns an AI-controlled vehicle of the specified type. Use the optional quantity argument to create a formation. These vehicles will operate based on their AI programming.</span>
-                        <span class="command-example">Example: <code>?spawn Type-IIA</code> or <code>?spawn Foxhound 2</code></span>
-                    </li>
-                    <li>
-                        <code>?preset [preset_name]</code>
-                        <span class="command-description">Sets the composition of ships for convoys spawned with <code>?convoy</code>. Type <code>?preset</code> without a name to see available presets.</span>
-                        <span class="command-example">Example: <code>?preset sp1</code> or <code>?preset</code></span>
-                    </li>
-                    <li>
-                        <code>?scout [sector_label] [manual (optional)]</code>
-                        <span class="command-description">Deploys a scout aircraft to the specified map sector. Add 'manual' to spawn a scout plane you can control with `?control`.</span>
-                        <span class="command-example">Example: <code>?scout Alpha-1</code> or <code>?scout Bravo-3 manual</code></span>
-                    </li>
+                    <li><code>?convoy [waypoint_start_id] [waypoint_end_id (optional)]</code><span class="command-description">Spawns an AI convoy. If two waypoint IDs are given, it travels between them. If one ID is given, it travels from your current location to that waypoint. Waypoint IDs are shown on the map.</span><span class="command-example">Example: <code>?convoy 1 5</code> or <code>?convoy 27</code></span></li>
+                    <li><code>?spawn [vehicle_type] [quantity (optional)]</code><span class="command-description">Spawns an AI-controlled vehicle of the specified type. Use the optional quantity argument to create a formation. These vehicles will operate based on their AI programming.</span><span class="command-example">Example: <code>?spawn Type-IIA</code> or <code>?spawn Foxhound 2</code></span></li>
+                    <li><code>?preset [preset_name]</code><span class="command-description">Sets the composition of ships for convoys spawned with <code>?convoy</code>. Type <code>?preset</code> without a name to see available presets.</span><span class="command-example">Example: <code>?preset sp1</code> or <code>?preset</code></span></li>
+                    <li><code>?scout [sector_label] [manual (optional)]</code><span class="command-description">Deploys a scout aircraft to the specified map sector. Add 'manual' to spawn a scout plane you can control with `?control`.</span><span class="command-example">Example: <code>?scout Alpha-1</code> or <code>?scout Bravo-3 manual</code></span></li>
                 </ul>
-
                 <h3 class="command-category-title">Player Vehicle Actions</h3>
                 <ul class="command-list mb-6">
-                    <li>
-                        <code>?gunners</code>
-                        <span class="command-description">Refreshes the AI gunners on your current vehicle if they have despawned (e.g., after a submarine submerges).</span>
-                        <span class="command-example">Example: <code>?gunners</code></span>
-                    </li>
-                    <li>
-                        <code>?name [vehicle_id] [new_name]</code>
-                        <span class="command-description">Assigns a custom name to the vehicle with the specified ID. Look at the top left of your screen for the ID of the nearest ship.</span>
-                        <span class="command-example">Example: <code>?name 5 Greyhound</code></span>
-                    </li>
-                    <li>
-                        <code>?commandeer</code>
-                        <span class="command-description">Removes the AI captain/pilot from the nearest NPC vehicle, allowing you to take control.</span>
-                        <span class="command-example">Example: <code>?commandeer</code></span>
-                    </li>
-                    <li>
-                        <code>?bail</code>
-                        <span class="command-description">Orders the crew (including yourself if AI pilots) to bail out of the aircraft you are currently controlling. You'll be returned to your ship or a safe location after.</span>
-                        <span class="command-example">Example: <code>?bail</code></span>
-                    </li>
-                     <li>
-                        <code>?resupply</code>
-                        <span class="command-description">Requests an AI supply ship to your current location. It will attempt to rendezvous with your ship.</span>
-                        <span class="command-example">Example: <code>?resupply</code></span>
-                    </li>
+                    <li><code>?gunners</code><span class="command-description">Refreshes the AI gunners on your current vehicle if they have despawned (e.g., after a submarine submerges).</span><span class="command-example">Example: <code>?gunners</code></span></li>
+                    <li><code>?name [vehicle_id] [new_name]</code><span class="command-description">Assigns a custom name to the vehicle with the specified ID. Look at the top left of your screen for the ID of the nearest ship.</span><span class="command-example">Example: <code>?name 5 Greyhound</code></span></li>
+                    <li><code>?commandeer</code><span class="command-description">Removes the AI captain/pilot from the nearest NPC vehicle, allowing you to take control.</span><span class="command-example">Example: <code>?commandeer</code></span></li>
+                    <li><code>?bail</code><span class="command-description">Orders the crew (including yourself if AI pilots) to bail out of the aircraft you are currently controlling. You'll be returned to your ship or a safe location after.</span><span class="command-example">Example: <code>?bail</code></span></li>
+                    <li><code>?resupply</code><span class="command-description">Requests an AI supply ship to your current location. It will attempt to rendezvous with your ship.</span><span class="command-example">Example: <code>?resupply</code></span></li>
                 </ul>
-
                 <h3 class="command-category-title">Utility Commands</h3>
                 <ul class="command-list mb-6">
-                    <li>
-                        <code>?scuttle</code>
-                        <span class="command-description">Instantly destroys the nearest vehicle to you. Useful for clearing wreckage or disabled friendly ships.</span>
-                        <span class="command-example">Example: <code>?scuttle</code></span>
-                    </li>
-                    <li>
-                        <code>?clear [all (optional)]</code>
-                        <span class="command-description">Despawns all active AI convoys. If 'all' is added, it despawns convoys AND all other AI-spawned ships and submarines.</span>
-                        <span class="command-example">Example: <code>?clear</code> or <code>?clear all</code></span>
-                    </li>
-                    <li>
-                        <code>?cleanmap</code>
-                        <span class="command-description">Removes a large number of temporary map markers. Useful if the map becomes cluttered.</span>
-                        <span class="command-example">Example: <code>?cleanmap</code></span>
-                    </li>
+                    <li><code>?scuttle</code><span class="command-description">Instantly destroys the nearest vehicle to you. Useful for clearing wreckage or disabled friendly ships.</span><span class="command-example">Example: <code>?scuttle</code></span></li>
+                    <li><code>?clear [all (optional)]</code><span class="command-description">Despawns all active AI convoys. If 'all' is added, it despawns convoys AND all other AI-spawned ships and submarines.</span><span class="command-example">Example: <code>?clear</code> or <code>?clear all</code></span></li>
+                    <li><code>?cleanmap</code><span class="command-description">Removes a large number of temporary map markers. Useful if the map becomes cluttered.</span><span class="command-example">Example: <code>?cleanmap</code></span></li>
                 </ul>
-
                 <h3 class="command-category-title">Debug & Test Commands (Primarily for Testing/Admin)</h3>
                 <ul class="command-list">
                     <li><code>?debug</code> - Toggles debug message logging.</li>
@@ -301,17 +197,14 @@
             </div>
         </section>
     </main>
-
     <footer class="bg-[#2E302A] text-[#CFC5B8] py-8 text-center">
         <p class="mb-2">© <span id="currentYear"></span> [Your Name/Modding Group Name]. All Rights Reserved.</p>
         <p class="text-sm">Convoy 1943 is a fan-made addon for Stormworks: Build and Rescue.</p>
         <p class="text-sm mt-1">Inspired by historical events. Lest we forget.</p>
         <p class="text-xs mt-4 opacity-75">Website design adapted to a 1940s dark wartime feel. Placeholder content used.</p>
     </footer>
-
     <script>
         document.getElementById('currentYear').textContent = new Date().getFullYear();
     </script>
-
 </body>
 </html>

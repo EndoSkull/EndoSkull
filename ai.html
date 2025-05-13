@@ -9,75 +9,75 @@
     <style>
         body {
             font-family: 'Roboto Slab', serif;
-            background-color: #60665A; /* Desaturated Green-Gray Background */
-            color: #EAE0D5; /* Light Parchment/Cream Text */
+            background-color: #60665A; 
+            color: #EAE0D5; 
         }
         .header-font {
             font-family: 'Oswald', sans-serif;
             text-transform: uppercase;
         }
-        .section-title { /* Used for the main page title */
-            border-bottom: 2px solid #3A3D36; /* Dark Green-Gray for border */
+        .section-title { 
+            border-bottom: 2px solid #3A3D36; 
             padding-bottom: 0.5rem;
             margin-bottom: 1.5rem;
             color: #EAE0D5;
         }
         .nav-link {
-            @apply px-3 py-2 text-lg rounded-md transition-colors duration-300; /* Adjusted padding for more links */
+            @apply px-2 py-2 text-lg rounded-md transition-colors duration-300; 
             color: #EAE0D5;
         }
         .nav-link:hover, .nav-link.active {
-            background-color: #4B5046; /* Slightly lighter Green-Gray for hover/active */
+            background-color: #4B5046; 
             color: #FFFFFF;
         }
-        .content-container { /* Main content wrapper for the page */
+        .content-container { 
             padding: 1.5rem;
             color: #EAE0D5;
             border-radius: 0.5rem;
         }
-        .ai-card { /* Styling for individual AI unit/category cards */
-            background-color: #555A50; /* Darker Green-Gray for cards */
+        .ai-card { 
+            background-color: #555A50; 
             border: 1px solid #3A3D36;
-            border-radius: 0.375rem; /* rounded-md */
-            padding: 1.5rem; /* p-6 */
-            margin-bottom: 2rem; /* mb-8 */
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-lg */
+            border-radius: 0.375rem; 
+            padding: 1.5rem; 
+            margin-bottom: 2rem; 
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); 
         }
-        .ai-main-title { /* Title for major sections like "Hostile AI Forces" */
+        .ai-main-title { 
             font-family: 'Oswald', sans-serif;
             text-transform: uppercase;
-            font-size: 2.25rem; /* text-4xl */
+            font-size: 2.25rem; 
             font-weight: 700;
             text-align: center;
             border-bottom: 1px solid #4B5046;
             padding-bottom: 0.5rem;
-            margin-bottom: 1.5rem; /* mb-6 */
+            margin-bottom: 1.5rem; 
             color: #EAE0D5;
         }
-        .ai-unit-title { /* Title for specific AI units like "U-Boat Wolfpacks" */
+        .ai-unit-title { 
             font-family: 'Oswald', sans-serif;
             text-transform: uppercase;
-            font-size: 1.875rem; /* text-3xl */
+            font-size: 1.875rem; 
             font-weight: 700; 
-            margin-bottom: 0.75rem; /* mb-3 */
+            margin-bottom: 0.75rem; 
             color: #EAE0D5;
         }
-        .ai-subsection-title { /* Title for subsections like "Key Behaviors" */
+        .ai-subsection-title { 
             font-family: 'Oswald', sans-serif;
-            font-size: 1.25rem; /* text-xl */
-            font-weight: 600; /* semibold */
-            margin-top: 1rem; /* mt-4 */
-            margin-bottom: 0.5rem; /* mb-2 */
-            color: #E0DACE; /* Slightly lighter for emphasis */
+            font-size: 1.25rem; 
+            font-weight: 600; 
+            margin-top: 1rem; 
+            margin-bottom: 0.5rem; 
+            color: #E0DACE; 
         }
         .ai-features-list {
             list-style-type: disc;
             padding-left: 1.5rem;
-            margin-top: 0.5rem; /* mt-2 */
+            margin-top: 0.5rem; 
             font-size: 0.95em;
         }
         .ai-features-list li {
-            margin-bottom: 0.5rem; /* mb-2 */
+            margin-bottom: 0.5rem; 
         }
         .placeholder-img-ai {
             border: 2px dashed #3A3D36;
@@ -89,10 +89,10 @@
             color: #CFC5B8;
             font-style: italic;
             width: 100%;
-            min-height: 200px; /* Adjusted min height for AI unit placeholder */
+            min-height: 200px; 
             border-radius: 0.25rem;
         }
-        hr.ai-divider { /* Custom styled HR */
+        hr.ai-divider { 
             border-top: 1px dashed #4B5046;
             margin-top: 2rem;
             margin-bottom: 2rem;
@@ -100,16 +100,16 @@
     </style>
 </head>
 <body class="antialiased">
-
     <header class="bg-[#3A3D36] text-[#EAE0D5] py-4 shadow-lg sticky top-0 z-50">
         <div class="container mx-auto px-6 flex flex-col sm:flex-row justify-between items-center">
             <a href="index.html" class="header-font text-3xl font-bold mb-2 sm:mb-0 hover:text-white transition-colors">Convoy 1943</a>
             <nav>
-                <ul class="flex flex-wrap space-x-1 sm:space-x-2 justify-center">
+                <ul class="flex flex-wrap space-x-1 sm:space-x-1.5 justify-center">
                     <li><a href="index.html#about" class="nav-link header-font">About</a></li>
-                    <li><a href="index.html#features" class="nav-link header-font">Features</a></li>
+                    <li><a href="features.html" class="nav-link header-font">Features</a></li>
                     <li><a href="escorts.html" class="nav-link header-font">Escorts</a></li>
                     <li><a href="ai.html" class="nav-link header-font active">AI Units</a></li>
+                    <li><a href="missions.html" class="nav-link header-font">Missions</a></li>
                     <li><a href="index.html#gallery" class="nav-link header-font">Gallery</a></li>
                     <li><a href="commands.html" class="nav-link header-font">Commands</a></li>
                     <li><a href="index.html#download" class="nav-link header-font">Download</a></li>
@@ -117,25 +117,17 @@
             </nav>
         </div>
     </header>
-
     <main class="container mx-auto px-6 py-12">
         <section id="ai-units-section" class="mb-16 scroll-mt-20">
             <h2 class="header-font text-5xl md:text-6xl font-bold section-title text-center mb-12">AI Controlled Units & Behavior</h2>
-
             <div class="max-w-4xl mx-auto content-container">
-                <p class="text-lg mb-8 text-center">
-                    Convoy 1943 features a range of AI-controlled units, both friendly and hostile, designed to create a dynamic and challenging battlefield. Their actions are influenced by visibility, weather, and their own detection systems like sonar and hydrophones.
-                </p>
-
+                <p class="text-lg mb-8 text-center">Convoy 1943 features a range of AI-controlled units, both friendly and hostile, designed to create a dynamic and challenging battlefield. Their actions are influenced by visibility, weather, and their own detection systems like sonar and hydrophones.</p>
                 <div class="ai-card mb-12">
                     <h3 class="ai-main-title">Hostile AI Forces</h3>
-                    
                     <div class="grid md:grid-cols-2 gap-8 items-start">
                         <div>
                             <h4 class="ai-unit-title">U-Boat Wolfpacks</h4>
-                            <p class="mb-4">
-                                German U-boats are a primary threat, operating with cunning tactics. They actively hunt convoys, utilizing sonar for detection and coordinating attacks, sometimes in deadly "wolfpacks." Their effectiveness can be hampered by explosions disrupting their hydrophones.
-                            </p>
+                            <p class="mb-4">German U-boats are a primary threat, operating with cunning tactics. They actively hunt convoys, utilizing sonar for detection and coordinating attacks, sometimes in deadly "wolfpacks." Their effectiveness can be hampered by explosions disrupting their hydrophones.</p>
                             <h5 class="ai-subsection-title">Key Behaviors & Tactics:</h5>
                             <ul class="ai-features-list text-sm">
                                 <li><strong>Stealthy Approach:</strong> Often attack while submerged, attempting to ambush unsuspecting vessels.</li>
@@ -146,20 +138,14 @@
                                 <li><strong>Engine Management:</strong> May switch between diesel (faster, noisier, surface/snorkel) and electric engines (slower, quieter, submerged).</li>
                             </ul>
                         </div>
-                        <div class="mt-6 md:mt-0">
-                            <div class="placeholder-img-ai"><span>Placeholder for U-Boat AI Image</span></div>
-                        </div>
+                        <div class="mt-6 md:mt-0"><div class="placeholder-img-ai"><span>Placeholder for U-Boat AI Image</span></div></div>
                     </div>
-
                     <hr class="ai-divider">
-                    
                     <div class="grid md:grid-cols-2 gap-8 items-start">
                         <div>
                             <h4 class="ai-unit-title">Luftwaffe Recon & Attack</h4>
-                            <p class="mb-4">
-                                Axis air power poses a significant threat from above. Aircraft like the Fw 200 Condor or Ju 88 can conduct reconnaissance to locate convoys or launch direct assaults with bombs and strafing runs.
-                            </p>
-                             <h5 class="ai-subsection-title">Key Behaviors & Tactics:</h5>
+                            <p class="mb-4">Axis air power poses a significant threat from above. Aircraft like the Fw 200 Condor or Ju 88 can conduct reconnaissance to locate convoys or launch direct assaults with bombs and strafing runs.</p>
+                            <h5 class="ai-subsection-title">Key Behaviors & Tactics:</h5>
                             <ul class="ai-features-list text-sm">
                                 <li><strong>Reconnaissance:</strong> Scout planes search for convoys, reporting their position.</li>
                                 <li><strong>Bombing Runs:</strong> Bombers will attempt to fly over targets and release bombs. Heavy bombers might drop multiple bombs.</li>
@@ -168,21 +154,15 @@
                                 <li><strong>Return to Base (RTB):</strong> Aircraft have logic to return to base after their mission or if damaged.</li>
                             </ul>
                         </div>
-                        <div class="mt-6 md:mt-0">
-                            <div class="placeholder-img-ai"><span>Placeholder for Luftwaffe AI Image</span></div>
-                        </div>
+                        <div class="mt-6 md:mt-0"><div class="placeholder-img-ai"><span>Placeholder for Luftwaffe AI Image</span></div></div>
                     </div>
                 </div>
-
                 <div class="ai-card">
                     <h3 class="ai-main-title">Friendly & Neutral AI Units</h3>
-                    
                     <div class="grid md:grid-cols-2 gap-8 items-start">
                         <div>
                             <h4 class="ai-unit-title">Convoy Merchant Vessels</h4>
-                            <p class="mb-4">
-                                These are the vital cargo ships (freighters, tankers) forming the convoy. Their primary goal is to follow a predetermined route between waypoints. They are generally slow, vulnerable, and rely heavily on player and AI escorts for protection.
-                            </p>
+                            <p class="mb-4">These are the vital cargo ships (freighters, tankers) forming the convoy. Their primary goal is to follow a predetermined route between waypoints. They are generally slow, vulnerable, and rely heavily on player and AI escorts for protection.</p>
                             <h5 class="ai-subsection-title">Key Behaviors:</h5>
                             <ul class="ai-features-list text-sm">
                                 <li><strong>Navigation:</strong> Follow a path generated by a pathfinding system, moving from one waypoint to the next.</li>
@@ -191,19 +171,13 @@
                                 <li><strong>Commands Response:</strong> The convoy flagship can respond to commands (via CRIF system) like halting, resuming navigation, changing formation tightness, or following a player vessel.</li>
                             </ul>
                         </div>
-                        <div class="mt-6 md:mt-0">
-                            <div class="placeholder-img-ai"><span>Placeholder for Merchant AI Image</span></div>
-                        </div>
+                        <div class="mt-6 md:mt-0"><div class="placeholder-img-ai"><span>Placeholder for Merchant AI Image</span></div></div>
                     </div>
-
                     <hr class="ai-divider">
-
                     <div class="grid md:grid-cols-2 gap-8 items-start">
                         <div>
                             <h4 class="ai-unit-title">AI Escort Support (Allied & Axis)</h4>
-                            <p class="mb-4">
-                                Both Allied and Axis forces can have AI-controlled escort vessels (e.g., destroyers, corvettes). These ships actively defend their charges or patrol sectors. Player-allied AI escorts can also be commanded to some extent.
-                            </p>
+                            <p class="mb-4">Both Allied and Axis forces can have AI-controlled escort vessels (e.g., destroyers, corvettes). These ships actively defend their charges or patrol sectors. Player-allied AI escorts can also be commanded to some extent.</p>
                             <h5 class="ai-subsection-title">Key Behaviors & Tactics:</h5>
                             <ul class="ai-features-list text-sm">
                                 <li><strong>Patrolling & Detection:</strong> Scan for enemies using visual detection (affected by visibility) and hydrophones/active sonar. AI destroyers actively use hydrophones and can ping with ASDIC.</li>
@@ -214,17 +188,13 @@
                                 <li><strong>Damage Response:</strong> May deploy flares or activate spotlights when damaged at night.</li>
                             </ul>
                         </div>
-                        <div class="mt-6 md:mt-0">
-                            <div class="placeholder-img-ai"><span>Placeholder for Friendly Escort AI Image</span></div>
-                        </div>
+                        <div class="mt-6 md:mt-0"><div class="placeholder-img-ai"><span>Placeholder for Friendly Escort AI Image</span></div></div>
                     </div>
                     <hr class="ai-divider">
-                     <div class="grid md:grid-cols-2 gap-8 items-start">
+                    <div class="grid md:grid-cols-2 gap-8 items-start">
                         <div>
                             <h4 class="ai-unit-title">AI Air Support (Allied & Axis)</h4>
-                            <p class="mb-4">
-                                Players can request or encounter AI air support, including scouts, fighters, bombers, and even large airships like the Akron (Allies). These units perform specialized roles.
-                            </p>
+                            <p class="mb-4">Players can request or encounter AI air support, including scouts, fighters, bombers, and even large airships like the Akron (Allies). These units perform specialized roles.</p>
                             <h5 class="ai-subsection-title">Key Behaviors & Tactics:</h5>
                             <ul class="ai-features-list text-sm">
                                 <li><strong>Scouting:</strong> AI scout planes (e.g., Hampden, BV-141) fly to designated sectors to search for enemies.</li>
@@ -236,29 +206,21 @@
                                 <li><strong>Return to Base/Mothership:</strong> Aircraft will return to their designated base or mothership after completing tasks or if fuel is low.</li>
                             </ul>
                         </div>
-                        <div class="mt-6 md:mt-0">
-                            <div class="placeholder-img-ai"><span>Placeholder for AI Air Support Image</span></div>
-                        </div>
+                        <div class="mt-6 md:mt-0"><div class="placeholder-img-ai"><span>Placeholder for AI Air Support Image</span></div></div>
                     </div>
                 </div>
-
-                 <p class="mt-12 text-center italic">
-                    (Note: This page provides a general overview based on the addon's script. Specific AI capabilities may vary depending on the unit type and mission scenario.)
-                </p>
+                <p class="mt-12 text-center italic">(Note: This page provides a general overview based on the addon's script. Specific AI capabilities may vary depending on the unit type and mission scenario.)</p>
             </div>
         </section>
     </main>
-
     <footer class="bg-[#2E302A] text-[#CFC5B8] py-8 text-center">
         <p class="mb-2">© <span id="currentYear"></span> [Your Name/Modding Group Name]. All Rights Reserved.</p>
         <p class="text-sm">Convoy 1943 is a fan-made addon for Stormworks: Build and Rescue.</p>
         <p class="text-sm mt-1">Inspired by historical events. Lest we forget.</p>
         <p class="text-xs mt-4 opacity-75">Website design adapted to a 1940s dark wartime feel. Placeholder content used.</p>
     </footer>
-
     <script>
         document.getElementById('currentYear').textContent = new Date().getFullYear();
     </script>
-
 </body>
 </html>
