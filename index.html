@@ -99,8 +99,16 @@
             border-radius: 0.25rem;
             box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
-        .card h4 {
+        .card h4 { /* Default card heading color */
             color: #EAE0D5;
+        }
+        .card h4 a { /* Styling for linked card headings */
+            color: #EAE0D5; /* Match default card heading color */
+            text-decoration: none; /* Remove underline from link */
+        }
+        .card h4 a:hover {
+            color: #FFFFFF; /* Brighter color on hover for linked heading */
+            text-decoration: underline; /* Add underline on hover for discoverability */
         }
         /* Responsive iframe container for YouTube embed */
         .video-container {
@@ -188,8 +196,10 @@
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <div class="card p-6">
                     <img src="https://placehold.co/100x100/3A3D36/EAE0D5?text=Ship+Icon" alt="Ship Icon" class="w-16 h-16 mx-auto mb-4 placeholder-img rounded-full">
-                    <h4 class="header-font text-2xl font-semibold mb-2 text-center">Authentic Escort Vessels</h4>
-                    <p class="text-center">Pilot detailed, period-inspired escort ships. (Placeholder: Add more specific details about the types of ships available or their capabilities).</p>
+                    <h4 class="header-font text-2xl font-semibold mb-2 text-center">
+                        <a href="escorts.html">Authentic Escort Vessels</a>
+                    </h4>
+                    <p class="text-center">Pilot detailed, period-inspired escort ships. Click title for more details.</p> {/* Added a note about clicking */}
                 </div>
                 <div class="card p-6">
                     <img src="https://placehold.co/100x100/3A3D36/EAE0D5?text=U-Boat+Icon" alt="U-Boat Icon" class="w-16 h-16 mx-auto mb-4 placeholder-img rounded-full">
