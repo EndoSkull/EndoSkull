@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convoy 1943 - Frequently Asked Questions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto Slab', serif;
+            background-color: #60665A; /* Desaturated Green-Gray Background */
+            color: #EAE0D5; /* Light Parchment/Cream Text */
+        }
+        .header-font {
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+        }
+        .main-title { /* For the main page title */
+            border-bottom: 2px solid #3A3D36; 
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            color: #EAE0D5;
+        }
+        .nav-link {
+            @apply px-1.5 py-2 text-xs rounded-md transition-colors duration-300; /* Adjusted padding & font size for many links */
+            color: #EAE0D5;
+        }
+        /* Adjust space-x on larger screens if needed */
+        @media (min-width: 1024px) { /* lg breakpoint */
+            .nav-link {
+                @apply px-2 text-sm;
+            }
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background-color: #4B5046; 
+            color: #FFFFFF;
+        }
+        .content-container { 
+            padding: 1.5rem;
+            color: #EAE0D5;
+            border-radius: 0.5rem;
+        }
+        .faq-item {
+            background-color: #555A50; 
+            border: 1px solid #3A3D36;
+            border-radius: 0.375rem; 
+            padding: 1.5rem; 
+            margin-bottom: 1.5rem; 
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); 
+        }
+        .faq-question {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.5rem; /* text-2xl */
+            font-weight: 600; 
+            margin-bottom: 0.75rem; 
+            color: #EAE0D5;
+        }
+        .faq-answer p, .faq-answer ul {
+            margin-bottom: 0.75rem;
+            line-height: 1.6;
+            font-size: 1em;
+        }
+        .faq-answer ul {
+            list-style-type: disc;
+            padding-left: 1.5rem; /* Indent list items */
+        }
+        .faq-answer ul li {
+            margin-bottom: 0.5rem;
+        }
+        .faq-answer strong { /* For sub-questions or emphasis in answers */
+            font-weight: bold;
+            color: #F0EBE0;
+            display: block; /* Make strong elements block for better separation */
+            margin-top: 0.5rem;
+        }
+         /* Skip link styling */
+         .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: #A03C35; /* Muted Red */
+            color: white;
+            padding: 8px;
+            z-index: 100;
+            transition: top 0.3s;
+        }
+        .skip-link:focus {
+            top: 0;
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <a href="#main-content" class="skip-link header-font">Skip to main content</a>
+
+    <header role="banner" class="bg-[#3A3D36] text-[#EAE0D5] py-4 shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-6 flex flex-col sm:flex-row justify-between items-center">
+            <a href="index.html" class="header-font text-3xl font-bold mb-2 sm:mb-0 hover:text-white transition-colors">Convoy 1943</a>
+            <nav role="navigation" aria-label="Main Navigation">
+                <ul class="flex flex-wrap space-x-1 sm:space-x-1.5 lg:space-x-2 justify-center">
+                    <li><a href="index.html#about" class="nav-link header-font">About</a></li>
+                    <li><a href="features.html" class="nav-link header-font">Features</a></li>
+                    <li><a href="world_history.html" class="nav-link header-font">Lore</a></li>
+                    <li><a href="escorts.html" class="nav-link header-font">Escorts</a></li>
+                    <li><a href="ai.html" class="nav-link header-font">AI Units</a></li>
+                    <li><a href="missions.html" class="nav-link header-font">Missions</a></li>
+                    <li><a href="index.html#gallery" class="nav-link header-font">Gallery</a></li>
+                    <li><a href="youtube.html" class="nav-link header-font">YouTube</a></li>
+                    <li><a href="commands.html" class="nav-link header-font">Commands</a></li>
+                    <li><a href="faq.html" class="nav-link header-font active">FAQ</a></li>
+                    <li><a href="index.html#download" class="nav-link header-font">Download</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main role="main" id="main-content" class="container mx-auto px-6 py-12">
+        <section id="faq-section" aria-labelledby="faq-heading" class="mb-16 scroll-mt-20">
+            <h1 id="faq-heading" class="header-font text-5xl md:text-6xl font-bold main-title text-center mb-12">Frequently Asked Questions</h1>
+
+            <div class="max-w-3xl mx-auto content-container bg-[#555A50] border-2 border-dashed border-[#3A3D36]">
+                <p class="text-lg mb-8 text-center">
+                    Have questions about the Convoy 1943 addon? Find answers to common queries below.
+                </p>
+
+                <article class="faq-item" aria-labelledby="q1">
+                    <h2 id="q1" class="faq-question">What is Convoy 1943?</h2>
+                    <div class="faq-answer">
+                        <p>Convoy 1943 is an ambitious addon for Stormworks: Build and Rescue, designed to simulate naval convoy battles and operations during World War II, specifically focusing on the Battle of the Atlantic. It features AI-driven convoys, hostile U-boats and aircraft, player-controllable escort vessels, and various simulated wartime systems.</p>
+                    </div>
+                </article>
+
+                <article class="faq-item" aria-labelledby="q2">
+                    <h2 id="q2" class="faq-question">How can I play Convoy 1943?</h2>
+                    <div class="faq-answer">
+                        <p>Currently, Convoy 1943 is primarily available during live, organized events. There is no public code release at this time. To participate in future events, please join the Endo Events Discord server (link on the main page) for announcements and details.</p>
+                    </div>
+                </article>
+
+                <article class="faq-item" aria-labelledby="q3">
+                    <h2 id="q3" class="faq-question">What kind of vehicles can I control?</h2>
+                    <div class="faq-answer">
+                        <p>Players can take command of various escort vessels, such as the Flower-class Corvette (fully upgraded). The addon also supports spawning and controlling certain aircraft for specific roles. Details on available player-controlled escorts can be found on the <a href="escorts.html" class="underline hover:text-white">Escorts page</a>.</p>
+                    </div>
+                </article>
+
+                <article class="faq-item" aria-labelledby="q4">
+                    <h2 id="q4" class="faq-question">What are the main objectives?</h2>
+                    <div class="faq-answer">
+                        <p>The primary objectives revolve around convoy operations. As an escort, your main goal is to protect AI merchant convoys from U-boat and air attacks. If playing as an Axis U-boat (during specific event scenarios), your objective would be to sink Allied shipping. The addon also features emergent gameplay around strategic sector control. See the <a href="missions.html" class="underline hover:text-white">Missions page</a> for more details on gameplay loops.</p>
+                    </div>
+                </article>
+
+                <article class="faq-item" aria-labelledby="q5">
+                    <h2 id="q5" class="faq-question">Are there different factions?</h2>
+                    <div class="faq-answer">
+                        <p>Yes, players can typically join either the "Sawyer Alliance" (Allies) or the "Meier Isles" (Axis) forces during events. This allows for team-based gameplay and objectives.</p>
+                    </div>
+                </article>
+                
+                <article class="faq-item" aria-labelledby="q6">
+                    <h2 id="q6" class="faq-question">Where can I find a list of in-game commands?</h2>
+                    <div class="faq-answer">
+                        <p>A comprehensive list of chat commands for spawning units, managing teams, and other utilities can be found on our <a href="commands.html" class="underline hover:text-white">Commands page</a>.</p>
+                    </div>
+                </article>
+
+                <article class="faq-item" aria-labelledby="q7">
+                    <h2 id="q7" class="faq-question">Is there a story or lore for this addon?</h2>
+                    <div class="faq-answer">
+                        <p>Yes! We've developed a rich backstory for the Sawyer Isles and the ongoing conflict. You can read all about it on the <a href="world_history.html" class="underline hover:text-white">Lore page</a>.</p>
+                    </div>
+                </article>
+
+                <article class="faq-item" aria-labelledby="q8">
+                    <h2 id="q8" class="faq-question">Build Requirements</h2>
+                    <div class="faq-answer">
+                        <p><strong>Is it permitted for me to design and build a smaller scale replica of submarines/ships/aircraft for the event that follow all specifications? For example: A replica of the I-400 largest submarine of ww2 built small enough to fit in a default workbench.</strong></p>
+                        <p>Builds for non-official events are only required to meet speed/diving speed/turning speed and WWII Design Theme. I don't have an exact spec yet for the above but basically realistic behavior. And of course optimized as possible.</p>
+                    </div>
+                </article>
+
+                <article class="faq-item" aria-labelledby="q9">
+                    <h2 id="q9" class="faq-question">Torpedo System</h2>
+                    <div class="faq-answer">
+                        <p><strong>What speed do the torpedoes run at?</strong></p>
+                        <p>Last I checked 20kts but due to testing they have been tweaked weekly.</p>
+                        <p><strong>Do torpedos only fire straight out from the bow?</strong></p>
+                        <p>Torpedos currently fire in a direction based on paint block locations (although I haven't tested side paint blocks or paint blocks angled - I think currently paint blocks facing bow or aft).</p>
+                        <p><strong>Can I feed angles from the periscope to shoot side to side or directly aft?</strong></p>
+                        <p>Currently you can feed an angle offset, I haven't messed with the new feature yet but X64 has added a system to determine an angle setting for their uboat.</p>
+                        <p><strong>Can I set a depth for them to run at?</strong></p>
+                        <p>Currently torpedos run at a shallow depth in order for look outs to have a chance of seeing torpedo wakes - this is not likely to change or be editable.</p>
+                    </div>
+                </article>
+
+                <article class="faq-item" aria-labelledby="q10">
+                    <h2 id="q10" class="faq-question">Testing My Build</h2>
+                    <div class="faq-answer">
+                        <p><strong>How can I test the functionality of my submarines with the mod parts? Do I have to join the server every time in order to test it?</strong></p>
+                        <p>A mod pack is available for installing addons (hydrophone, torpedo system etc) but currently the addon is not available for download so you will not be able to test working systems. Currently addons are not all available anyway as we're still testing and changing things. As for mod pack you will find it at this link: <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=3466807589" target="_blank" rel="noopener noreferrer" class="underline hover:text-white">https://steamcommunity.com/sharedfiles/filedetails/?id=3466807589</a></p>
+                        <p><em>Note: This is just mods used and modded parts (does NOT contain systems released ADDONS are currently located here: ⁠🧱│addon-parts )</em></p>
+                        <p>Later on it's possible I'll be able to setup a server for you to test builds during the week.</p>
+                    </div>
+                </article>
+
+                <article class="faq-item" aria-labelledby="q11">
+                    <h2 id="q11" class="faq-question">How many convoy ships in events?</h2>
+                    <div class="faq-answer">
+                        <p>Currently in testing we've run 4 convoy ships along with 3 player vehicles not noticing any more lag than usual. Depending on the number of player vehicles, I don't think there will be more than 4 convoy ships in play at a single time. Upcoming addon updates are planned to keep gameplay flow going by replacing convoy ships and player ships to simulate a larger convoy - this update has not been started yet.</p>
+                    </div>
+                </article>
+
+                <article class="faq-item" aria-labelledby="q12">
+                    <h2 id="q12" class="faq-question">Dedicated Server?</h2>
+                    <div class="faq-answer">
+                        <p>I started out checking out dedicated servers early on but even mid priced dedicated servers caused jittering and lag. As for a in house server - I don't have the funds for a new pc and the pc I attempted to run a dedicated server was 14 years old and would fall behind and drop TPS. Current the game is being hosted on a steam account on a 3900x AMD 64 gigs ram, ssd and Nivida 4060ti.</p>
+                    </div>
+                </article>
+
+                <article class="faq-item" aria-labelledby="q13">
+                    <h2 id="q13" class="faq-question">Max Number Of Players?</h2>
+                    <div class="faq-answer">
+                        <p>Currently I think we've tested with a max of 14 players but that was early on and I believe ships and code are more optimized now. So far we have not reached a 14 players since then - so it is unknown how many players we can actually run without gameplay falling apart. So max number of players in events is to be determined...</p>
+                    </div>
+                </article>
+
+                <p class="mt-12 text-center italic">
+                    If you have more questions, feel free to ask in the Endo Events Discord community!
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <footer role="contentinfo" class="bg-[#2E302A] text-[#CFC5B8] py-8 text-center">
+        <p class="text-sm">Convoy 1943 is a fan-made addon for Stormworks: Build and Rescue.</p>
+        <p class="text-sm mt-1">Inspired by historical events. Lest we forget.</p>
+    </footer>
+
+    <script>
+        // document.getElementById('currentYear').textContent = new Date().getFullYear(); 
+    </script>
+
+</body>
+</html>
