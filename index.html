@@ -87,7 +87,44 @@
             height: 1.5em;
             margin-right: 0.5em;
         }
-        .placeholder-img { 
+        
+        /* Gallery Item Container for 16:9 Aspect Ratio */
+        .gallery-item-container {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%; /* 16:9 Aspect Ratio (9 / 16 = 0.5625) */
+            overflow: hidden;
+            border-radius: 0.375rem; /* rounded-md */
+            background-color: #555A50; /* Fallback background for placeholders */
+        }
+
+        .gallery-image { /* For actual images in the gallery */
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; 
+            border-radius: 0.375rem; /* Ensure image corners match container if needed */
+        }
+
+        .placeholder-img-gallery { /* For placeholder divs within the gallery */
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 2px dashed #3A3D36;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #EAE0D5;
+            font-style: italic;
+            border-radius: 0.375rem; /* Match container rounding */
+        }
+        /* General placeholder class - still used elsewhere if needed */
+         .placeholder-img { 
             border: 2px dashed #3A3D36;
             background-color: #555A50;
             display: flex;
@@ -97,6 +134,7 @@
             color: #EAE0D5;
             font-style: italic;
         }
+
         .dotted-divider {
             border-top: 2px dotted #3A3D36;
             margin: 2rem 0;
@@ -205,12 +243,29 @@
             <h3 class="header-font text-4xl font-bold section-title">Visual Reconnaissance: Gallery</h3>
             <p class="mb-8 text-lg text-center">Take a look at these declassified images from the front lines. (Placeholder: Replace with actual screenshots and videos of your addon in action).</p>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                <div class="placeholder-img w-full h-64 rounded-md">Image 1: Escort ship (Placeholder)</div>
-                <div class="placeholder-img w-full h-64 rounded-md">Image 2: U-boat (Placeholder)</div>
-                <div class="placeholder-img w-full h-64 rounded-md">Image 3: Convoy (Placeholder)</div>
-                <div class="placeholder-img w-full h-64 rounded-md">Image 4: Night ops (Placeholder)</div>
-                <div class="placeholder-img w-full h-64 rounded-md">Image 5: Damage (Placeholder)</div>
-                <div class="placeholder-img w-full h-64 rounded-md">Video Thumbnail (Placeholder)</div>
+                <div class="gallery-item-container">
+                    <img 
+                        src="https://github.com/EndoSkull/EndoSkull/blob/main/images/index_flower_corvette.jpg?raw=true" 
+                        alt="Flower Corvette escort ship" 
+                        class="gallery-image"
+                        onerror="this.onerror=null;this.src='https://placehold.co/600x338/555A50/EAE0D5?text=Image+Not+Available';this.parentElement.innerHTML='<div class=\'placeholder-img-gallery\'>Image Not Available</div>';"
+                    >
+                </div>
+                <div class="gallery-item-container">
+                    <div class="placeholder-img-gallery">Image 2: U-boat (Placeholder)</div>
+                </div>
+                <div class="gallery-item-container">
+                    <div class="placeholder-img-gallery">Image 3: Convoy (Placeholder)</div>
+                </div>
+                <div class="gallery-item-container">
+                    <div class="placeholder-img-gallery">Image 4: Night ops (Placeholder)</div>
+                </div>
+                <div class="gallery-item-container">
+                    <div class="placeholder-img-gallery">Image 5: Damage (Placeholder)</div>
+                </div>
+                <div class="gallery-item-container">
+                    <div class="placeholder-img-gallery">Video Thumbnail (Placeholder)</div>
+                </div>
             </div>
             <p class="mt-6 text-center italic text-gray-400">More visual intel coming soon. Check back for updates!</p>
         </section>
