@@ -88,27 +88,26 @@
             margin-right: 0.5em;
         }
         
-        /* Gallery Item Container for 16:9 Aspect Ratio */
         .gallery-item-container {
             position: relative;
             width: 100%;
-            padding-top: 56.25%; /* 16:9 Aspect Ratio (9 / 16 = 0.5625) */
+            padding-top: 56.25%; 
             overflow: hidden;
-            border-radius: 0.375rem; /* rounded-md */
-            background-color: #555A50; /* Fallback background for placeholders */
+            border-radius: 0.375rem; 
+            background-color: #555A50; 
         }
 
-        .gallery-image { /* For actual images in the gallery */
+        .gallery-image { 
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             object-fit: cover; 
-            border-radius: 0.375rem; /* Ensure image corners match container if needed */
+            border-radius: 0.375rem; 
         }
 
-        .placeholder-img-gallery { /* For placeholder divs within the gallery */
+        .placeholder-img-gallery { 
             position: absolute;
             top: 0;
             left: 0;
@@ -121,9 +120,8 @@
             text-align: center;
             color: #EAE0D5;
             font-style: italic;
-            border-radius: 0.375rem; /* Match container rounding */
+            border-radius: 0.375rem; 
         }
-        /* General placeholder class - still used elsewhere if needed */
          .placeholder-img { 
             border: 2px dashed #3A3D36;
             background-color: #555A50;
@@ -174,14 +172,29 @@
             width: 100%;
             height: 100%;
         }
+        /* Skip link styling */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: #A03C35; /* Muted Red */
+            color: white;
+            padding: 8px;
+            z-index: 100;
+            transition: top 0.3s;
+        }
+        .skip-link:focus {
+            top: 0;
+        }
     </style>
 </head>
 <body class="antialiased">
+    <a href="#main-content" class="skip-link header-font">Skip to main content</a>
 
-    <header class="bg-[#3A3D36] text-[#EAE0D5] py-4 shadow-lg sticky top-0 z-50">
+    <header role="banner" class="bg-[#3A3D36] text-[#EAE0D5] py-4 shadow-lg sticky top-0 z-50">
         <div class="container mx-auto px-6 flex flex-col sm:flex-row justify-between items-center">
             <a href="index.html" class="header-font text-3xl font-bold mb-2 sm:mb-0 hover:text-white transition-colors">Convoy 1943</a>
-            <nav>
+            <nav role="navigation" aria-label="Main Navigation">
                 <ul class="flex flex-wrap space-x-1 sm:space-x-0.5 justify-center"> 
                     <li><a href="#about" class="nav-link header-font">About</a></li>
                     <li><a href="features.html" class="nav-link header-font">Features</a></li>
@@ -198,10 +211,10 @@
         </div>
     </header>
 
-    <section id="hero" class="py-16 md:py-24 bg-cover bg-center" style="background-image: url('https://github.com/EndoSkull/EndoSkull/blob/main/images/banner.jpg?raw=true');">
+    <section id="hero" class="py-16 md:py-24 bg-cover bg-center" style="background-image: url('https://github.com/EndoSkull/EndoSkull/blob/main/images/banner.jpg?raw=true');" aria-labelledby="hero-heading">
         <div class="container mx-auto px-6 text-center bg-black bg-opacity-25 py-12 rounded-lg"> 
-            <div class="top-secret-stamp mx-auto">CLASSIFIED</div>
-            <h2 class="header-font text-5xl md:text-7xl font-bold text-white mb-4">Convoy 1943</h2>
+            <div class="top-secret-stamp" aria-hidden="true">CLASSIFIED</div>
+            <h1 id="hero-heading" class="header-font text-5xl md:text-7xl font-bold text-white mb-4">Convoy 1943</h1>
             <p class="text-xl md:text-2xl text-gray-100 mb-8 max-w-3xl mx-auto"> 
                 Experience the intensity of World War II naval escort missions. Protect your convoy, engage enemy U-boats, and survive the treacherous waters of the Atlantic. Your ultimate Stormworks naval challenge awaits!
             </p>
@@ -209,9 +222,9 @@
         </div>
     </section>
 
-    <main class="container mx-auto px-6 py-12">
-        <section id="about" class="mb-16 scroll-mt-20">
-            <h3 class="header-font text-4xl font-bold section-title">Mission Briefing: About Convoy 1943</h3>
+    <main role="main" id="main-content" class="container mx-auto px-6 py-12">
+        <section id="about" aria-labelledby="about-heading" class="mb-16 scroll-mt-20">
+            <h2 id="about-heading" class="header-font text-4xl font-bold section-title">Mission Briefing: About Convoy 1943</h2>
             <div class="grid md:grid-cols-2 gap-8 items-center">
                 <div>
                     <p class="mb-4 text-lg leading-relaxed">
@@ -224,10 +237,10 @@
                         <em>"The only thing that ever really frightened me during the war was the U-boat peril." - Winston Churchill</em>
                     </p>
                 </div>
-                <div class="video-container shadow-xl">
+                <div class="video-container shadow-xl" aria-label="Embedded YouTube Video Player">
                     <iframe 
                         src="https://www.youtube.com/embed/1eCTKHL-Q0c?si=jwJeJ8Ey-3rAWm9G" 
-                        title="YouTube video player" 
+                        title="YouTube video player for Convoy 1943" 
                         frameborder="0" 
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
                         referrerpolicy="strict-origin-when-cross-origin" 
@@ -239,32 +252,32 @@
 
         <div class="dotted-divider"></div> 
 
-        <section id="gallery" class="mb-16 scroll-mt-20">
-            <h3 class="header-font text-4xl font-bold section-title">Visual Reconnaissance: Gallery</h3>
+        <section id="gallery" aria-labelledby="gallery-heading" class="mb-16 scroll-mt-20">
+            <h2 id="gallery-heading" class="header-font text-4xl font-bold section-title">Visual Reconnaissance: Gallery</h2>
             <p class="mb-8 text-lg text-center">Take a look at these declassified images from the front lines. (Placeholder: Replace with actual screenshots and videos of your addon in action).</p>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 <div class="gallery-item-container">
                     <img 
                         src="https://github.com/EndoSkull/EndoSkull/blob/main/images/index_flower_corvette.jpg?raw=true" 
-                        alt="Flower Corvette escort ship" 
+                        alt="Flower Corvette escort ship in Convoy 1943 addon" 
                         class="gallery-image"
-                        onerror="this.onerror=null;this.src='https://placehold.co/600x338/555A50/EAE0D5?text=Image+Not+Available';this.parentElement.innerHTML='<div class=\'placeholder-img-gallery\'>Image Not Available</div>';"
+                        onerror="this.onerror=null; this.src='https://placehold.co/600x338/555A50/EAE0D5?text=Image+Not+Available'; this.alt='Image not available';"
                     >
                 </div>
                 <div class="gallery-item-container">
-                    <div class="placeholder-img-gallery">Image 2: U-boat (Placeholder)</div>
+                    <div class="placeholder-img-gallery" role="img" aria-label="Placeholder image for U-boat">Image 2: U-boat (Placeholder)</div>
                 </div>
                 <div class="gallery-item-container">
-                    <div class="placeholder-img-gallery">Image 3: Convoy (Placeholder)</div>
+                    <div class="placeholder-img-gallery" role="img" aria-label="Placeholder image for Convoy">Image 3: Convoy (Placeholder)</div>
                 </div>
                 <div class="gallery-item-container">
-                    <div class="placeholder-img-gallery">Image 4: Night ops (Placeholder)</div>
+                    <div class="placeholder-img-gallery" role="img" aria-label="Placeholder image for Night operations">Image 4: Night ops (Placeholder)</div>
                 </div>
                 <div class="gallery-item-container">
-                    <div class="placeholder-img-gallery">Image 5: Damage (Placeholder)</div>
+                    <div class="placeholder-img-gallery" role="img" aria-label="Placeholder image for Damage effects">Image 5: Damage (Placeholder)</div>
                 </div>
                 <div class="gallery-item-container">
-                    <div class="placeholder-img-gallery">Video Thumbnail (Placeholder)</div>
+                    <div class="placeholder-img-gallery" role="img" aria-label="Placeholder for Video Thumbnail">Video Thumbnail (Placeholder)</div>
                 </div>
             </div>
             <p class="mt-6 text-center italic text-gray-400">More visual intel coming soon. Check back for updates!</p>
@@ -272,8 +285,8 @@
 
         <div class="dotted-divider"></div>
 
-        <section id="download" class="mb-16 scroll-mt-20 text-center">
-            <h3 class="header-font text-4xl font-bold section-title inline-block">Join the Front Lines!</h3>
+        <section id="download" aria-labelledby="download-heading" class="mb-16 scroll-mt-20 text-center">
+            <h2 id="download-heading" class="header-font text-4xl font-bold section-title inline-block">Join the Front Lines!</h2>
             <div class="mt-8 p-8 card max-w-2xl mx-auto">
                 <p class="text-xl mb-6">
                     The <strong>Convoy 1943</strong> addon is currently available exclusively during our live Stormworks events. No public code release is available at this time.
@@ -293,7 +306,7 @@
 
     </main>
 
-    <footer class="bg-[#2E302A] text-[#CFC5B8] py-8 text-center">
+    <footer role="contentinfo" class="bg-[#2E302A] text-[#CFC5B8] py-8 text-center">
         <p class="text-sm">Convoy 1943 is a fan-made addon for Stormworks: Build and Rescue.</p>
         <p class="text-sm mt-1">Inspired by historical events. Lest we forget.</p>
     </footer>
