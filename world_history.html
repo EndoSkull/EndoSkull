@@ -9,21 +9,21 @@
     <style>
         body {
             font-family: 'Roboto Slab', serif;
-            background-color: #60665A; /* Desaturated Green-Gray Background */
-            color: #EAE0D5; /* Light Parchment/Cream Text */
+            background-color: #60665A; 
+            color: #EAE0D5; 
         }
         .header-font {
             font-family: 'Oswald', sans-serif;
             text-transform: uppercase;
         }
-        .main-title { /* For the main page title */
+        .main-title { 
             border-bottom: 2px solid #3A3D36; 
             padding-bottom: 0.5rem;
             margin-bottom: 1.5rem;
             color: #EAE0D5;
         }
         .nav-link {
-            @apply px-2 py-2 text-base rounded-md transition-colors duration-300; /* Adjusted padding for more links, text-base for slightly smaller nav text */
+            @apply px-2 py-2 text-sm rounded-md transition-colors duration-300; 
             color: #EAE0D5;
         }
         .nav-link:hover, .nav-link.active {
@@ -43,20 +43,20 @@
             margin-bottom: 2rem; 
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); 
         }
-        .history-section h2 { /* Sub-section titles like "Captain James..." */
+        .history-section h2 { 
             font-family: 'Oswald', sans-serif;
             text-transform: uppercase;
-            font-size: 1.875rem; /* text-3xl */
+            font-size: 1.875rem; 
             font-weight: 700; 
             margin-bottom: 1rem; 
             color: #EAE0D5;
             border-bottom: 1px solid #4B5046;
             padding-bottom: 0.5rem;
         }
-        .history-section h3 { /* Further sub-headings like "The Early Years..." */
+        .history-section h3 { 
             font-family: 'Oswald', sans-serif;
             text-transform: uppercase;
-            font-size: 1.5rem; /* text-2xl */
+            font-size: 1.5rem; 
             font-weight: 600;
             margin-top: 1.5rem;
             margin-bottom: 0.75rem;
@@ -73,13 +73,13 @@
         }
         .history-section strong {
             font-weight: 700;
-            color: #F0EBE0; /* Slightly brighter for emphasis */
+            color: #F0EBE0; 
         }
-        .history-section em { /* For ship names or emphasized text */
+        .history-section em { 
             font-style: italic;
             color: #D4C8B8;
         }
-        .story-highlight { /* For the faction perspectives */
+        .story-highlight { 
             background-color: #4B5046;
             padding: 1rem;
             border-radius: 0.25rem;
@@ -103,14 +103,15 @@
         <div class="container mx-auto px-6 flex flex-col sm:flex-row justify-between items-center">
             <a href="index.html" class="header-font text-3xl font-bold mb-2 sm:mb-0 hover:text-white transition-colors">Convoy 1943</a>
             <nav>
-                <ul class="flex flex-wrap space-x-1 sm:space-x-1 justify-center">
+                <ul class="flex flex-wrap space-x-1 sm:space-x-0.5 justify-center">
                     <li><a href="index.html#about" class="nav-link header-font">About</a></li>
                     <li><a href="features.html" class="nav-link header-font">Features</a></li>
-                    <li><a href="world_history.html" class="nav-link header-font active">Lore</a></li> {/* Updated text and active class */}
+                    <li><a href="world_history.html" class="nav-link header-font active">Lore</a></li>
                     <li><a href="escorts.html" class="nav-link header-font">Escorts</a></li>
                     <li><a href="ai.html" class="nav-link header-font">AI Units</a></li>
                     <li><a href="missions.html" class="nav-link header-font">Missions</a></li>
                     <li><a href="index.html#gallery" class="nav-link header-font">Gallery</a></li>
+                    <li><a href="youtube.html" class="nav-link header-font">YouTube</a></li>
                     <li><a href="commands.html" class="nav-link header-font">Commands</a></li>
                     <li><a href="index.html#download" class="nav-link header-font">Download</a></li>
                 </ul>
@@ -121,22 +122,18 @@
     <main class="container mx-auto px-6 py-12">
         <section id="world-history-section" class="mb-16 scroll-mt-20">
             <h1 class="header-font text-5xl md:text-6xl font-bold main-title text-center mb-12">The History of the Sawyer Isles</h1>
-
             <div class="max-w-4xl mx-auto content-container bg-[#555A50] border-2 border-dashed border-[#3A3D36]">
-                
                 <div class="history-section">
                     <h2>Captain James "Storm Eye" Sawyer: A Visionary's Discovery (Born 1889)</h2>
                     <p>Captain James "Storm Eye" Sawyer, born in 1889, was a legendary merchant marine captain renowned for his uncanny ability to predict weather patterns and navigate through the most treacherous storms. In 1925, at the age of 36, while commanding his vessel through a particularly violent tempest, he discovered a largely uninhabited archipelago that would later bear his name.</p>
                     <p>Sawyer immediately recognized the profound strategic potential of these islands. Despite their exposure to fierce weather, the natural deep harbors and protected coves offered exceptional maritime advantages. He saw beyond the challenges, envisioning not just a commercial hub, but a vital haven for ships – a place where vessels could find refuge from storms and receive aid when desperately needed.</p>
                     <p>Using his life savings and leveraging his extensive connections in the maritime industry, Sawyer purchased the rights to develop the main island in 1926. His first and foremost priority was establishing a safe harbor and fundamental rescue services, having witnessed countless ships struggle against the region's notorious and unforgiving weather.</p>
                 </div>
-
                 <div class="history-section">
                     <h3>The Early Years: Foundations of Aid (1926-1935)</h3>
                     <p>The initial development of the Sawyer Isles was modest but strategically profound. Sawyer began with a single, sturdy dock and a small, purpose-built rescue boat. He meticulously recruited a handful of experienced sailors and dedicated individuals who shared his unwavering vision, including Thomas "Doc" Miller, a former naval medic who established the islands' very first medical station. The early settlement comprised basic, yet resilient, wooden structures, meticulously engineered to withstand the harsh weather conditions that frequently assailed the archipelago.</p>
                     <p>The fledgling settlement faced its first major test in 1928 during what became known as the "Great Atlantic Storm." Sawyer's nascent rescue service, against all odds, saved three merchant vessels and their entire crews from certain doom. This heroic feat rapidly earned the islands a burgeoning reputation as a crucial and reliable safe haven. The event attracted the keen attention of several prominent shipping companies, leading to the first significant investments in the islands' burgeoning port infrastructure.</p>
                 </div>
-
                 <div class="history-section">
                     <h3>Growth Amidst Rising Tides: The Pre-War and War Years (1935-1943)</h3>
                     <p>As the 1930s progressed, the world grew increasingly unstable. The shadow of the "Arid Doctrine," a militaristic and expansionist ideology championed by the formidable General Valerius Meier, began to lengthen across the globe. The nearby archipelago, later named the <strong>Meier Isles</strong> in his honor after his forces secured them as a key naval outpost, became a focal point of this doctrine. Despite these rising global tensions and the growing influence of General Meier's aggressive policies, the Sawyer Isles continued their vital development. Their strategic location became increasingly apparent, transforming them into a crucial potential hub for any future global conflict.</p>
@@ -150,27 +147,22 @@
                     </ul>
                     <p>Captain Sawyer, while firmly aligned with the "Sawyer Alliance" and committed to its cause, insisted that the islands maintain their fundamental mission of rescue and aid. Even amidst the brutal conflict, the Isles' rescue services, under Sawyer's direct influence, continued to save sailors in distress, regardless of their flag. This unwavering commitment to humanitarian principles, even towards those from the Meier Isles, earned the Sawyer Isles a unique, albeit grudging, respect from all sides of the conflict. The battles to protect the vital convoys arriving at the Sawyer Isles became the very crucible of the war in this region, with the islanders playing a direct and perilous role in ensuring the lifeline of the "Sawyer Alliance" remained open.</p>
                 </div>
-
                 <div class="history-section">
                     <h3>The Sawyer Isles in 1943: A Beacon in the Storm</h3>
                     <p>In 1943, the Sawyer Isles stand as a testament to Captain Sawyer's enduring vision, now more crucial than ever. They are a bustling, fortified hub, a beacon of hope and resilience amidst the global conflict. The original rescue station, though expanded, remains a symbol of their founding principles, while the modern facilities around it operate at peak capacity, continuously striving to fulfill Captain Sawyer's mission on a scale he could only have dreamed of just a few years prior.</p>
                 </div>
-                
                 <div class="history-section">
                     <h2>The Unending Convoy Struggle: A War of Attrition</h2>
                     <p>The seas surrounding the Sawyer Isles are a ceaseless battlefield. The "Sawyer Alliance" relies entirely on convoys, massive processions of merchant ships, often numbering in the dozens, protected by a thin but resolute screen of escort warships. These convoys, originating from "distant lands," are the lifeblood of the war effort, bringing in essential resources, fuel, ammunition, and raw materials that the Sawyer Isles and their allies desperately need to continue the fight.</p>
-                    
                     <div class="story-highlight">
                         <h4>For the "Sawyer Alliance" (Flower Corvette Crews):</h4>
                         <p>The burden of protecting these convoys falls heavily upon the crews of ships like the nimble, yet robust, Flower-class Corvettes. These vessels, though small, are the workhorses of the escort fleet. Their crews face constant, soul-crushing vigilance against the Meier Isles' "Sand Shark" U-boats. Days bleed into weeks of endless patrols in treacherous weather – gale-force winds, towering waves, and pea-soup fog that can hide a lurking submarine or cause an escort to lose contact with its charges. Every radar sweep is a moment of dread, every hydrophone contact a potential attack. When a torpedo strikes, the explosion reverberates not just through the ocean, but through the very hearts of the crews. They race to the scene, deploying depth charges, scanning for periscopes, and desperately searching for survivors in the frigid, oil-slicked waters. Losses are heavy; many brave sailors are lost to the deep. The Flower Corvette crews, often young and inexperienced at the start, rapidly age under the immense pressure, their resolve hardening with each successful rescue and each fallen comrade. Their struggle is one of relentless defense, a grim determination to see the precious cargo through, no matter the cost.</p>
                     </div>
-
                     <div class="story-highlight">
                         <h4>For the Meier Isles (U-boat Crews):</h4>
                         <p>From the depths, the Meier Isles' "Sand Shark" U-boat crews wage their own desperate war. For them, every torpedo fired is a contribution to the "Fatherland" and the "Arid Doctrine." Life aboard these steel coffins is one of cramped conditions, constant tension, and incredible risk. The air is thick with diesel fumes and the smell of unwashed bodies. Weeks on patrol mean agonizing hunts, stalking convoys for days, trying to slip past vigilant escorts. The terror of a sudden depth charge attack, shaking the boat violently and threatening to crush it, is a constant companion. As 1943 wears on, the struggle intensifies for the U-boats. "Sawyer Alliance" anti-submarine tactics improve, radar and sonar become more effective, and patrol aircraft extend their reach. The losses mount for the "Sand Sharks." Each successful attack is celebrated, but the return journey is fraught with increasing danger. Many U-boats simply vanish, victims of the ever-more lethal convoy defenses. Despite the growing odds against them, the U-boat crews remain fanatically dedicated, driven by a fierce loyalty to their homeland and the desperate hope of turning the tide of the war by strangling the "Sawyer Alliance's" lifeline. Their struggle is one of grim attrition, a relentless push against increasingly insurmountable odds, believing that every ton of shipping sunk brings them closer to victory.</p>
                     </div>
                 </div>
-
                 <div class="history-section">
                     <p>Captain Sawyer himself, now in his mid-fifties, remains a driving force, actively overseeing operations and planning for the future. He has already begun laying the groundwork for what he envisions as the Sawyer Islands Trust, an entity designed to ensure that, even after the war, the archipelago will continue its mission of maritime safety and rescue operations, forever serving as a "beacon of hope for sailors in distress."</p>
                     <p>The Sawyer Maritime Council, though not yet formally established as a post-war governing body, is already forming informally around Sawyer, guided by his core principles:</p>
@@ -185,21 +177,15 @@
                     <p>The local museum, though still under construction in some parts, already houses many of Sawyer's personal effects, including his weather journals, which are still studied today for their remarkably accurate predictions. His original rescue boat, the <em>"First Response,"</em> has been carefully preserved and stands as a monument in the harbor square, a symbol of the humble beginnings of this vital wartime bastion.</p>
                     <p>Perhaps most importantly, the spirit of Sawyer lives on in the islands' unwavering dedication to maritime safety and rescue operations, making the archipelago one of the most respected and essential maritime services in the world, a critical lifeline for the "Sawyer Alliance" in 1943.</p>
                 </div>
-
             </div>
         </section>
     </main>
-
     <footer class="bg-[#2E302A] text-[#CFC5B8] py-8 text-center">
-        <p class="mb-2">© <span id="currentYear"></span> [Your Name/Modding Group Name]. All Rights Reserved.</p>
         <p class="text-sm">Convoy 1943 is a fan-made addon for Stormworks: Build and Rescue.</p>
         <p class="text-sm mt-1">Inspired by historical events. Lest we forget.</p>
-        <p class="text-xs mt-4 opacity-75">Website design adapted to a 1940s dark wartime feel. Placeholder content used.</p>
     </footer>
-
     <script>
-        document.getElementById('currentYear').textContent = new Date().getFullYear();
+        // document.getElementById('currentYear').textContent = new Date().getFullYear(); 
     </script>
-
 </body>
 </html>

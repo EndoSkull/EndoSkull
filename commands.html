@@ -23,7 +23,7 @@
             color: #EAE0D5;
         }
         .nav-link {
-            @apply px-2 py-2 text-lg rounded-md transition-colors duration-300; 
+            @apply px-2 py-2 text-sm rounded-md transition-colors duration-300; 
             color: #EAE0D5;
         }
         .nav-link:hover, .nav-link.active { 
@@ -93,13 +93,15 @@
         <div class="container mx-auto px-6 flex flex-col sm:flex-row justify-between items-center">
             <a href="index.html" class="header-font text-3xl font-bold mb-2 sm:mb-0 hover:text-white transition-colors">Convoy 1943</a>
             <nav>
-                <ul class="flex flex-wrap space-x-1 sm:space-x-1.5 justify-center">
+                <ul class="flex flex-wrap space-x-1 sm:space-x-0.5 justify-center">
                     <li><a href="index.html#about" class="nav-link header-font">About</a></li>
                     <li><a href="features.html" class="nav-link header-font">Features</a></li>
+                    <li><a href="world_history.html" class="nav-link header-font">Lore</a></li>
                     <li><a href="escorts.html" class="nav-link header-font">Escorts</a></li>
                     <li><a href="ai.html" class="nav-link header-font">AI Units</a></li>
-                    <li><a href="missions.html" class="nav-link header-font">Missions</a></li> {/* Added Missions link */}
+                    <li><a href="missions.html" class="nav-link header-font">Missions</a></li>
                     <li><a href="index.html#gallery" class="nav-link header-font">Gallery</a></li>
+                    <li><a href="youtube.html" class="nav-link header-font">YouTube</a></li>
                     <li><a href="commands.html" class="nav-link header-font active">Commands</a></li> 
                     <li><a href="index.html#download" class="nav-link header-font">Download</a></li>
                 </ul>
@@ -198,13 +200,11 @@
         </section>
     </main>
     <footer class="bg-[#2E302A] text-[#CFC5B8] py-8 text-center">
-        <p class="mb-2">© <span id="currentYear"></span> [Your Name/Modding Group Name]. All Rights Reserved.</p>
         <p class="text-sm">Convoy 1943 is a fan-made addon for Stormworks: Build and Rescue.</p>
         <p class="text-sm mt-1">Inspired by historical events. Lest we forget.</p>
-        <p class="text-xs mt-4 opacity-75">Website design adapted to a 1940s dark wartime feel. Placeholder content used.</p>
     </footer>
     <script>
-        document.getElementById('currentYear').textContent = new Date().getFullYear();
+        // document.getElementById('currentYear').textContent = new Date().getFullYear(); 
     </script>
 </body>
 </html>

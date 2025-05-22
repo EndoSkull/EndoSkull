@@ -9,16 +9,16 @@
     <style>
         body {
             font-family: 'Roboto Slab', serif;
-            background-color: #60665A; /* Desaturated Green-Gray Background */
-            color: #EAE0D5; /* Light Parchment/Cream Text */
+            background-color: #60665A; 
+            color: #EAE0D5; 
         }
         .header-font {
             font-family: 'Oswald', sans-serif;
             text-transform: uppercase;
         }
         .top-secret-stamp {
-            border: 3px double #993333; /* Dark Red - matching button */
-            color: #993333; /* Dark Red */
+            border: 3px double #993333; 
+            color: #993333; 
             font-size: 1.5rem;
             padding: 0.5rem 1rem;
             transform: rotate(-10deg);
@@ -26,13 +26,13 @@
             font-weight: bold;
             margin-bottom: 1rem;
             text-align: center;
-            background-color: rgba(234, 224, 213, 0.1); /* Subtle light backing for stamp */
+            background-color: rgba(234, 224, 213, 0.1); 
         }
         .section-title {
-            border-bottom: 2px solid #3A3D36; /* Dark Green-Gray for border */
+            border-bottom: 2px solid #3A3D36; 
             padding-bottom: 0.5rem;
             margin-bottom: 1.5rem;
-            color: #EAE0D5; /* Light Parchment/Cream for section title text */
+            color: #EAE0D5; 
         }
         .section-title a { 
             color: inherit; 
@@ -43,7 +43,7 @@
             text-decoration: underline;
         }
         .nav-link {
-            @apply px-2 py-2 text-lg rounded-md transition-colors duration-300; /* Adjusted padding for more links */
+            @apply px-2 py-2 text-sm rounded-md transition-colors duration-300; 
             color: #EAE0D5; 
         }
         .nav-link:hover, .nav-link.active {
@@ -101,17 +101,11 @@
             border-top: 2px dotted #3A3D36;
             margin: 2rem 0;
         }
-        .card {
+        .card { 
             background-color: #555A50;
             border: 1px solid #3A3D36;
             border-radius: 0.25rem;
             box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-            display: flex; 
-            flex-direction: column; 
-            height: 100%; 
-        }
-        .card-content {
-            flex-grow: 1; 
         }
         .card h4 { 
             color: #EAE0D5;
@@ -150,13 +144,15 @@
         <div class="container mx-auto px-6 flex flex-col sm:flex-row justify-between items-center">
             <a href="index.html" class="header-font text-3xl font-bold mb-2 sm:mb-0 hover:text-white transition-colors">Convoy 1943</a>
             <nav>
-                <ul class="flex flex-wrap space-x-1 sm:space-x-1.5 justify-center"> 
+                <ul class="flex flex-wrap space-x-1 sm:space-x-0.5 justify-center"> 
                     <li><a href="#about" class="nav-link header-font">About</a></li>
                     <li><a href="features.html" class="nav-link header-font">Features</a></li>
+                    <li><a href="world_history.html" class="nav-link header-font">Lore</a></li>
                     <li><a href="escorts.html" class="nav-link header-font">Escorts</a></li>
                     <li><a href="ai.html" class="nav-link header-font">AI Units</a></li> 
                     <li><a href="missions.html" class="nav-link header-font">Missions</a></li>
                     <li><a href="#gallery" class="nav-link header-font">Gallery</a></li>
+                    <li><a href="youtube.html" class="nav-link header-font">YouTube</a></li>
                     <li><a href="commands.html" class="nav-link header-font">Commands</a></li>
                     <li><a href="#download" class="nav-link header-font">Download</a></li>
                 </ul>
@@ -176,7 +172,6 @@
     </section>
 
     <main class="container mx-auto px-6 py-12">
-
         <section id="about" class="mb-16 scroll-mt-20">
             <h3 class="header-font text-4xl font-bold section-title">Mission Briefing: About Convoy 1943</h3>
             <div class="grid md:grid-cols-2 gap-8 items-center">
@@ -204,54 +199,7 @@
                 </div>
         </section>
 
-        <div class="dotted-divider"></div>
-
-        <section id="features" class="mb-16 scroll-mt-20">
-            <h3 class="header-font text-4xl font-bold section-title">
-                <a href="features.html" class="hover:text-white transition-colors">Key Intel: Addon Features</a>
-            </h3>
-             <p class="text-lg text-center mb-6">
-                Convoy 1943 is packed with features designed for an immersive WWII naval combat experience. 
-                Click the title above or <a href="features.html" class="underline hover:text-white">here</a> for a detailed breakdown on our Features Page.
-            </p>
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="card p-6">
-                    <a href="escorts.html" class="block mb-4">
-                        <img src="https://placehold.co/100x100/3A3D36/EAE0D5?text=Ship+Icon" alt="Ship Icon" class="w-16 h-16 mx-auto placeholder-img rounded-full hover:opacity-75 transition-opacity">
-                    </a>
-                    <div class="card-content text-center">
-                        <h4 class="header-font text-2xl font-semibold mb-2">
-                            <a href="escorts.html">Authentic Escort Vessels</a>
-                        </h4>
-                        <p>Pilot detailed, period-inspired escort ships. Click title or image for more details.</p>
-                    </div>
-                </div>
-                <div class="card p-6">
-                     <a href="ai.html" class="block mb-4">
-                        <img src="https://placehold.co/100x100/3A3D36/EAE0D5?text=U-Boat+Icon" alt="U-Boat Icon" class="w-16 h-16 mx-auto placeholder-img rounded-full hover:opacity-75 transition-opacity">
-                    </a>
-                    <div class="card-content text-center">
-                        <h4 class="header-font text-2xl font-semibold mb-2">
-                            <a href="ai.html">Dynamic Enemy AI</a>
-                        </h4>
-                        <p>Face cunning U-boats and Luftwaffe attacks. Click title or image for AI details.</p>
-                    </div>
-                </div>
-                <div class="card p-6">
-                    <a href="missions.html" class="block mb-4">
-                        <img src="https://placehold.co/100x100/3A3D36/EAE0D5?text=Convoy+Icon" alt="Convoy Icon" class="w-16 h-16 mx-auto placeholder-img rounded-full hover:opacity-75 transition-opacity">
-                    </a>
-                    <div class="card-content text-center">
-                        <h4 class="header-font text-2xl font-semibold mb-2">
-                             <a href="missions.html">Challenging Convoy Missions</a>
-                        </h4>
-                        <p>Protect vital supply lines against relentless attacks in various scenarios. Click title or image for mission details.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <div class="dotted-divider"></div>
+        <div class="dotted-divider"></div> 
 
         <section id="gallery" class="mb-16 scroll-mt-20">
             <h3 class="header-font text-4xl font-bold section-title">Visual Reconnaissance: Gallery</h3>
@@ -291,10 +239,8 @@
     </main>
 
     <footer class="bg-[#2E302A] text-[#CFC5B8] py-8 text-center">
-        <p class="mb-2">© <span id="currentYear"></span> [Your Name/Modding Group Name]. All Rights Reserved.</p>
         <p class="text-sm">Convoy 1943 is a fan-made addon for Stormworks: Build and Rescue.</p>
         <p class="text-sm mt-1">Inspired by historical events. Lest we forget.</p>
-        <p class="text-xs mt-4 opacity-75">Website design adapted to a 1940s dark wartime feel. Placeholder content used.</p>
     </footer>
 
     <script>
@@ -311,237 +257,8 @@
                 }
             });
         });
-        document.getElementById('currentYear').textContent = new Date().getFullYear();
+        // document.getElementById('currentYear').textContent = new Date().getFullYear(); // Removed as the span is gone
     </script>
 
-</body>
-</html>
-```
-
-```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Convoy 1943 - Addon Features</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Roboto Slab', serif;
-            background-color: #60665A; 
-            color: #EAE0D5; 
-        }
-        .header-font {
-            font-family: 'Oswald', sans-serif;
-            text-transform: uppercase;
-        }
-        .section-title { 
-            border-bottom: 2px solid #3A3D36; 
-            padding-bottom: 0.5rem;
-            margin-bottom: 1.5rem;
-            color: #EAE0D5;
-        }
-        .nav-link {
-            @apply px-2 py-2 text-lg rounded-md transition-colors duration-300; 
-            color: #EAE0D5;
-        }
-        .nav-link:hover, .nav-link.active {
-            background-color: #4B5046; 
-            color: #FFFFFF;
-        }
-        .content-container { 
-            padding: 1.5rem;
-            color: #EAE0D5;
-            border-radius: 0.5rem;
-        }
-        .feature-card {
-            background-color: #555A50; 
-            border: 1px solid #3A3D36;
-            border-radius: 0.375rem; 
-            padding: 1.5rem; 
-            margin-bottom: 2rem; 
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); 
-        }
-        .feature-title {
-            font-family: 'Oswald', sans-serif;
-            text-transform: uppercase;
-            font-size: 1.875rem; 
-            font-weight: 700; 
-            margin-bottom: 1rem; 
-            color: #EAE0D5;
-            border-bottom: 1px solid #4B5046;
-            padding-bottom: 0.5rem;
-        }
-        .feature-description p {
-            margin-bottom: 0.75rem; 
-            line-height: 1.6;
-        }
-        .feature-description ul {
-            list-style-type: disc;
-            padding-left: 1.5rem;
-            margin-top: 0.5rem;
-            margin-bottom: 0.75rem;
-        }
-        .feature-description li {
-            margin-bottom: 0.25rem;
-        }
-        .placeholder-img-feature { 
-            border: 2px dashed #3A3D36;
-            background-color: #4B5046;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: #CFC5B8;
-            font-style: italic;
-            width: 100%;
-            height: 150px; 
-            border-radius: 0.25rem;
-            margin-top: 1rem;
-        }
-    </style>
-</head>
-<body class="antialiased">
-
-    <header class="bg-[#3A3D36] text-[#EAE0D5] py-4 shadow-lg sticky top-0 z-50">
-        <div class="container mx-auto px-6 flex flex-col sm:flex-row justify-between items-center">
-            <a href="index.html" class="header-font text-3xl font-bold mb-2 sm:mb-0 hover:text-white transition-colors">Convoy 1943</a>
-            <nav>
-                <ul class="flex flex-wrap space-x-1 sm:space-x-1.5 justify-center">
-                    <li><a href="index.html#about" class="nav-link header-font">About</a></li>
-                    <li><a href="features.html" class="nav-link header-font active">Features</a></li>
-                    <li><a href="escorts.html" class="nav-link header-font">Escorts</a></li>
-                    <li><a href="ai.html" class="nav-link header-font">AI Units</a></li>
-                    <li><a href="missions.html" class="nav-link header-font">Missions</a></li>
-                    <li><a href="index.html#gallery" class="nav-link header-font">Gallery</a></li>
-                    <li><a href="commands.html" class="nav-link header-font">Commands</a></li>
-                    <li><a href="index.html#download" class="nav-link header-font">Download</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
-
-    <main class="container mx-auto px-6 py-12">
-        <section id="features-section" class="mb-16 scroll-mt-20">
-            <h2 class="header-font text-5xl md:text-6xl font-bold section-title text-center mb-12">Key Addon Features</h2>
-            <div class="max-w-4xl mx-auto content-container">
-                <p class="text-lg mb-8 text-center">
-                    Convoy 1943 aims to provide an immersive World War II naval experience within Stormworks. Discover the core gameplay elements and simulated systems that bring the Battle of the Atlantic to life.
-                </p>
-                <div class="feature-card">
-                    <h3 class="feature-title">Dynamic Team-Based Gameplay</h3>
-                    <div class="feature-description">
-                        <p>Engage in a persistent conflict between the Allies and Axis powers. Player actions can influence the strategic situation, with a map grid system featuring sectors that can be claimed and contested by each team.</p>
-                        <ul>
-                            <li>Join either the Allied or Axis faction.</li>
-                            <li>Contribute to your team's score by completing objectives and destroying enemy assets.</li>
-                            <li>Experience a changing battlefield where territorial control matters.</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="feature-card">
-                    <h3 class="feature-title">Advanced Convoy & AI Fleet Operations</h3>
-                    <div class="feature-description">
-                        <p>The heart of the addon revolves around convoys. AI-controlled merchant fleets navigate dangerous waters, while both friendly and enemy AI warships and aircraft execute tactical behaviors.</p>
-                        <ul>
-                            <li><strong>AI Convoys:</strong> Spawn and manage AI convoys with multiple merchant ships (freighters, tankers) and escorts, following complex pathfinding routes.</li>
-                            <li><strong>Flagship Mechanics:</strong> Convoys are led by a flagship; its survival and navigation are key. If a flagship is lost, a new one may be designated.</li>
-                            <li><strong>AI Formations:</strong> AI ships attempt to maintain formation, with options for players to command convoys to tighten or loosen their spacing via the CRIF radio system.</li>
-                            <li><strong>Intelligent AI:</strong> Enemy U-boats, surface ships, and aircraft exhibit varied tactics including ambushes, evasive maneuvers, and coordinated attacks. Friendly AI provides support. (See <a href="ai.html" class="underline hover:text-white">AI Units page</a> for details).</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="feature-card">
-                    <h3 class="feature-title">Authentic Player-Controllable Escorts</h3>
-                    <div class="feature-description">
-                        <p>Take command of meticulously detailed escort vessels, each with unique capabilities and simulated systems. Manage your ship's resources and crew to protect the convoy. (See <a href="escorts.html" class="underline hover:text-white">Escorts page</a> for specific vessels).</p>
-                        <ul>
-                            <li>Variety of historically-inspired escort ships.</li>
-                            <li>Functional weapon systems, detection gear, and ship controls.</li>
-                            <li>NPC crew management for certain tasks (e.g., gunners).</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="feature-card">
-                    <h3 class="feature-title">Simulated Naval Weaponry</h3>
-                    <div class="feature-description">
-                        <p>Experience a range of WWII-era naval armaments with simulated functionalities, including loading, firing, and ammunition management for some systems.</p>
-                        <ul>
-                            <li><strong>Torpedoes:</strong> Basic and advanced types, launched from ship tubes (bow/stern) or aircraft. Includes simulation of tube flooding, draining, and loading procedures.</li>
-                            <li><strong>Depth Charges:</strong> Deployed from stern racks or side-projecting K-guns. Players can set fuzing depths and fire salvos. Reloading times are simulated.</li>
-                            <li><strong>Hedgehog Mortars:</strong> Forward-throwing anti-submarine weapon, firing a pattern of projectiles.</li>
-                            <li><strong>Naval Mines:</strong> Deployable minefields to create hazards for enemy shipping.</li>
-                            <li><strong>Anti-Aircraft (Flak) & Deck Guns:</strong> AI gunners and player-controlled guns engage air and surface targets. Flak explosions create a visual and area-denial effect.</li>
-                            <li><strong>Aircraft Bombs:</strong> Dropped by AI bombers on surface targets.</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="feature-card">
-                    <h3 class="feature-title">Advanced Detection & Evasion Systems</h3>
-                    <div class="feature-description">
-                        <p>Locating the enemy and avoiding detection are crucial. The addon simulates various period-appropriate detection methods and their limitations.</p>
-                        <ul>
-                            <li><strong>Hydrophones (Passive Sonar):</strong> Detects underwater acoustic signatures. Performance affected by own ship's speed and noise. Explosions can temporarily disrupt ("blind") hydrophones.</li>
-                            <li><strong>ASDIC (Active Sonar):</strong> Sends out "pings" to detect submerged targets, but also reveals the user's position. AI destroyers and submarines utilize this.</li>
-                            <li><strong>Radar:</strong> (As equipped on player vessels like the Flower Corvette) Detects surface and air contacts.</li>
-                            <li><strong>Visual Detection:</strong> Heavily influenced by simulated weather (fog, rain) and the day/night cycle, affecting AI and player spotting ranges.</li>
-                            <li><strong>Acoustic & Radar Signatures:</strong> Ships generate varying levels of noise and radar reflectivity based on their size, speed, and if they are submerged, affecting detection chances.</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="feature-card">
-                    <h3 class="feature-title">Immersive Damage & Environmental Effects</h3>
-                    <div class="feature-description">
-                        <p>Witness realistic consequences of combat and navigate a challenging environment.</p>
-                        <ul>
-                            <li><strong>Detailed Damage Model:</strong> Ships can sustain damage, catch fire, and critical hits can disable systems or lead to sinking. Specific damage zones on larger vessels like airships.</li>
-                            <li><strong>Sinking & Crush Depth:</strong> Vessels take on water and sink. Submarines have a crush depth; exceeding it causes progressive damage and eventual implosion.</li>
-                            <li><strong>Aircraft Damage:</strong> Planes can be damaged, shot down, or forced to bail out. Crew may use parachutes.</li>
-                            <li><strong>Lifeboats & Crew Survival:</strong> Disabled ships may deploy lifeboats for AI crew.</li>
-                            <li><strong>Dynamic Weather & Time:</strong> Fog, rain, and day/night cycles impact visibility and tactical decisions. Weather data (wind, fog) is available on vehicle keypads.</li>
-                            <li><strong>Visual Effects:</strong> Explosions (including mushroom clouds for large detonations), fires, flares, and flak bursts enhance the atmosphere.</li>
-                        </ul>
-                    </div>
-                </div>
-                 <div class="feature-card">
-                    <h3 class="feature-title">Command, Control & Communication</h3>
-                    <div class="feature-description">
-                        <p>Coordinate with AI units and manage your assets through various in-game systems.</p>
-                        <ul>
-                            <li><strong>CRIF Radio System:</strong> An in-vehicle interface allowing players to issue commands to friendly AI convoys (e.g., halt, follow, change formation) and request air support (escorts, scouts, bombers, airships with special abilities).</li>
-                            <li><strong>AI Voice Lines/Notifications:</strong> AI units provide status updates and react to events (e.g., "Target detected!", "Torpedo fired!", "Fire on board!").</li>
-                            <li><strong>Map & Markers:</strong> A dynamic map displays waypoints, detected contacts (temporary markers), and strategic events.</li>
-                            <li><strong>Player Commands:</strong> A suite of chat commands for spawning units, managing teams, teleporting, and utility functions. (See <a href="commands.html" class="underline hover:text-white">Commands page</a>).</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="feature-card">
-                    <h3 class="feature-title">Logistics & Support Systems</h3>
-                    <div class="feature-description">
-                        <p>Managing resources and calling for support are part of the challenge.</p>
-                        <ul>
-                            <li><strong>Resupply System:</strong> Players can request AI supply ships to replenish ammunition (depth charges, hedgehogs, torpedoes) for their vessel.</li>
-                            <li><strong>Fast Travel System:</strong> Allows players in vehicles to quickly traverse long distances on the map to pre-set or custom coordinates, with considerations for safe arrival points.</li>
-                            <li><strong>Scoring & Statistics:</strong> Tracks player performance (hits, sinkings) and team scores, potentially integrated with a Discord bot.</li>
-                        </ul>
-                    </div>
-                </div>
-                <p class="mt-12 text-center italic">
-                    This overview highlights the major features of Convoy 1943. Dive in and discover the full depth of the simulation!
-                </p>
-            </div>
-        </section>
-    </main>
-    <footer class="bg-[#2E302A] text-[#CFC5B8] py-8 text-center">
-        <p class="mb-2">© <span id="currentYear"></span> [Your Name/Modding Group Name]. All Rights Reserved.</p>
-        <p class="text-sm">Convoy 1943 is a fan-made addon for Stormworks: Build and Rescue.</p>
-        <p class="text-sm mt-1">Inspired by historical events. Lest we forget.</p>
-        <p class="text-xs mt-4 opacity-75">Website design adapted to a 1940s dark wartime feel. Placeholder content used.</p>
-    </footer>
-    <script>
-        document.getElementById('currentYear').textContent = new Date().getFullYear();
-    </script>
 </body>
 </html>

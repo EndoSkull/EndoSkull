@@ -1,36 +1,35 @@
 --[[
 Aircraft Autoland System - MCU 1: Core Controller
-Version 2.2 (Split Architecture) - Shortened variable and constant names.
-                                  Focused debug on data sent to MCU2 for IAF calculation.
-                                  Implements IAF handshake.
-                                  Ensured channel compliance (max 32 in/out).
-                                  Uses IO Aliases.
-                                  Includes tilt sensor "turns" to "degrees" conversion.
+Version 2.4 (Split Architecture) - Corrected logic for debug outputs SENT_C_X/Y_TO_MCU2 and SENT_IAF_DIST_TO_MCU2.
+                                  Added numerical abort reason code for debugging.
+                                  Implements IAF handshake. Shortened names. IO Aliases. Tilt conversion.
 ]]
 
 ---------------------------------------------------------------------
 -- MCU 1 - INPUT CHANNEL MAPPING (32 Total Inputs)
 ---------------------------------------------------------------------
-C_X = 1; C_Y = 2; C_ALT_IN = 3; C_HDG_N = 4; C_SPD = 5; -- Carrier Data
-AC_X = 6; AC_Y = 7; AC_BARO_A = 8; AC_HDG = 9; AC_SPD_MPS = 10; -- Aircraft Sensors
+C_X = 1; C_Y = 2; C_ALT_IN = 3; C_HDG_N = 4; C_SPD = 5; 
+AC_X = 6; AC_Y = 7; AC_BARO_A = 8; AC_HDG = 9; AC_SPD_MPS = 10; 
 AC_PIT_T = 11; AC_ROL_T = 12; AC_RADAR_A = 13; AC_WIND_DIR = 14;
-AC_WIND_SPD = 15; AC_HOOK = 16; ENGAGE_AL = 17; RECALC_IAF = 18; -- Aircraft Sensors & User Controls
-TGT_AP_SPD = 19; TGT_GS_DEG_IN = 20; IAF_DIST_A = 21; IAF_ALT_OFF = 22; -- User Properties
-FLARE_H = 23; MAX_BANK = 24; TGT_TD_PIT_IN = 25; RADAR_INV = 26; -- User Properties
-M2_THR = 27; M2_PIT = 28; M2_ROL = 29; M2_YAW = 30; -- From MCU2
-M2_DBG_WPX = 31; M2_DBG_WPY = 32; -- From MCU2
+AC_WIND_SPD = 15; AC_HOOK = 16; ENGAGE_AL = 17; RECALC_IAF = 18; 
+TGT_AP_SPD = 19; TGT_GS_DEG_IN = 20; IAF_DIST_A = 21; IAF_ALT_OFF = 22; 
+FLARE_H = 23; MAX_BANK = 24; TGT_TD_PIT_IN = 25; RADAR_INV = 26; 
+M2_THR = 27; M2_PIT = 28; M2_ROL = 29; M2_YAW = 30; 
+M2_DBG_WPX = 31; M2_DBG_WPY = 32; 
 ---------------------------------------------------------------------
 -- MCU 1 - OUTPUT CHANNEL MAPPING (32 Total Outputs)
 ---------------------------------------------------------------------
-OUT_THR = 1; OUT_PIT = 2; OUT_ROL = 3; OUT_YAW = 4; -- To Aircraft Controls
-OUT_WPX = 5; OUT_WPY = 6; OUT_WPALT = 7; OUT_HOOK = 8; OUT_LIGHT = 9; -- To Aircraft Displays/Actuators
-M1_STATE = 10; M1_AC_X = 11; M1_AC_Y = 12; M1_AC_ALT_REL = 13; -- To MCU2
-M1_AC_HDG = 14; M1_AC_SPD = 15; M1_AC_PIT = 16; M1_AC_ROL = 17; -- To MCU2
-M1_C_X = 18; M1_C_Y = 19; M1_C_ALT = 20; M1_C_HDG = 21; -- To MCU2
-M1_C_SPD = 22; M1_TGT_P1 = 23; M1_TGT_P2 = 24; M1_TGT_P3 = 25; -- To MCU2
-M1_TGT_P4 = 26; M1_IAF_TRIG = 27; M1_DIST_C = 28; -- To MCU2
-DBG_M1_STATE = 29; DBG_M1_ENGAGE = 30; DBG_M1_LAST_ENG = 31; -- MCU1 Debug
-DBG_M1_IAF_DIST = 32; -- MCU1 Debug
+OUT_THR = 1; OUT_PIT = 2; OUT_ROL = 3; OUT_YAW = 4; 
+OUT_WPX = 5; OUT_WPY = 6; OUT_WPALT = 7; OUT_HOOK = 8; OUT_LIGHT = 9; 
+M1_STATE = 10; M1_AC_X = 11; M1_AC_Y = 12; M1_AC_ALT_REL = 13; 
+M1_AC_HDG = 14; M1_AC_SPD = 15; M1_AC_PIT = 16; M1_AC_ROL = 17; 
+M1_C_X = 18; M1_C_Y = 19; M1_C_ALT = 20; M1_C_HDG = 21; 
+M1_C_SPD = 22; M1_TGT_P1 = 23; M1_TGT_P2 = 24; M1_TGT_P3 = 25; 
+M1_TGT_P4 = 26; M1_IAF_TRIG = 27; M1_DIST_C = 28; 
+DBG_M1_STATE = 29; 
+DBG_ABORT_CODE = 30; 
+DBG_AWAIT_TMR = 31;  
+DBG_TD_TMR = 32;         
 ---------------------------------------------------------------------
 
 local igN = input.getNumber; local igB = input.getBool; local pgN = property.getNumber; 
@@ -38,53 +37,62 @@ local isN = output.setNumber; local isB = output.setBool;
 
 STATE_IDLE=0;ST_REQ_IAF=1;ST_NAV_IAF=2;ST_ALIGN=3;ST_GS_ESTAB=4;ST_ON_GS=5;ST_FLARE=6;ST_TD_AWAIT=7;ST_LANDED=8;ST_ABORT=9;ST_WAIT_IAF=10;
 cur_state=STATE_IDLE;iafX=0;iafY=0;iafAlt=0;deckDetect=false;recalcBtnPrev=false;lastEngage=false;abortRsn="";tdTimer=0;deckLossTmr=0;awaitIAFTmr=0;
+local dbgAbortCodeNum = 0; 
+
+ABORT_CODE_NONE=0;ABORT_CODE_IAF_TIMEOUT=1;ABORT_CODE_TOO_CLOSE_ALIGN=2;ABORT_CODE_NO_RADAR_GS=3;ABORT_CODE_LOST_RADAR_GS=4;ABORT_CODE_MISSED_FLARE=5;ABORT_CODE_LOST_RADAR_FLARE=6;ABORT_CODE_BALLOONED=7;ABORT_CODE_LOST_DECK_BOUNCE=8;ABORT_CODE_BOLTER_TIMEOUT=9;
+
 function d2r(d) return d*(math.pi/180) end
 function dist2d(x1,y1,x2,y2) return math.sqrt((x2-x1)^2+(y2-y1)^2) end
+function setAbort(rsnTxt, rsnCode) cur_state=ST_ABORT;abortRsn=rsnTxt;dbgAbortCodeNum=rsnCode;end
 
 function onTick()
-    local cX=igN(C_X);local cY=igN(C_Y);local cAlt=igN(C_ALT_IN);local cHdgN=igN(C_HDG_N);local cSpd=igN(C_SPD);local cHdg=cHdgN*360;
-    local acX=igN(AC_X);local acY=igN(AC_Y);local acBaroA=igN(AC_BARO_A);local acHdg=igN(AC_HDG);local acSpd=igN(AC_SPD_MPS);
-    local acPitT=igN(AC_PIT_T);local acRolT=igN(AC_ROL_T);local acPit=acPitT*360;local acRol=acRolT*360;
-    local acRadarA=igN(AC_RADAR_ALT);local hooked=igB(AC_HOOK);
-    local engage=igB(ENGAGE_AL);local recalcBtn=igB(RECALC_IAF);
-    local tgtApSpd=igN(TGT_AP_SPD);local tgtGsDeg=igN(TGT_GS_DEG_IN);local iafDistA=igN(IAF_DIST_A);local iafAltOff=igN(IAF_ALT_OFF);
-    local flareH=igN(FLARE_H);local maxBank=igN(MAX_BANK);local tgtTdPit=igN(TGT_TD_PIT_IN);local radarInv=igN(RADAR_INV);
-    local m2Thr=igN(M2_THR);local m2Pit=igN(M2_PIT);local m2Rol=igN(M2_ROL);local m2Yaw=igN(M2_YAW);
-    local m2WpX=igN(M2_DBG_WPX);local m2WpY=igN(M2_DBG_WPY);
+    local cXVal=igN(C_X);local cYVal=igN(C_Y);local cAltVal=igN(C_ALT_IN);local cHdgNVal=igN(C_HDG_N);local cSpdVal=igN(C_SPD);local cHdgVal=cHdgNVal*360;
+    local acXVal=igN(AC_X);local acYVal=igN(AC_Y);local acBaroAVal=igN(AC_BARO_A);local acHdgVal=igN(AC_HDG);local acSpdVal=igN(AC_SPD_MPS);
+    local acPitTVal=igN(AC_PIT_T);local acRolTVal=igN(AC_ROL_T);local acPitVal=acPitTVal*360;local acRolVal=acRolTVal*360;
+    local acRadarAVal=igN(AC_RADAR_A);local hookedVal=igB(AC_HOOK);
+    local engageVal=igB(ENGAGE_AL);local recalcBtnVal=igB(RECALC_IAF);
+    local tgtApSpdVal=igN(TGT_AP_SPD);local tgtGsDegVal=igN(TGT_GS_DEG_IN);local iafDistAVal=igN(IAF_DIST_A);local iafAltOffVal=igN(IAF_ALT_OFF);
+    local flareHVal=igN(FLARE_H);local maxBankVal=igN(MAX_BANK);local tgtTdPitVal=igN(TGT_TD_PIT_IN);local radarInvVal=igN(RADAR_INV);
+    local m2ThrVal=igN(M2_THR);local m2PitVal=igN(M2_PIT);local m2RolVal=igN(M2_ROL);local m2YawVal=igN(M2_YAW);
+    local m2WpXVal=igN(M2_DBG_WPX);local m2WpYVal=igN(M2_DBG_WPY);
 
-    local recalcEdge=false; if recalcBtn and not recalcBtnPrev then recalcEdge=true end; recalcBtnPrev=recalcBtn;
-    if engage and not lastEngage then if cur_state==STATE_IDLE then cur_state=ST_REQ_IAF;recalcEdge=true;abortRsn="Eng" else cur_state=STATE_IDLE;abortRsn="Diseng" end end; lastEngage=engage;
-    if recalcEdge and cur_state~=STATE_IDLE and cur_state~=ST_REQ_IAF then cur_state=ST_REQ_IAF;abortRsn="Recalc";end
-    local plausibleMaxRadarH=iafAltOff+cAlt+50; if acRadarA~=radarInv and acRadarA>0.1 and acRadarA<plausibleMaxRadarH then if math.abs(acBaroA-(cAlt+acRadarA))<75 then deckDetect=true;deckLossTmr=0 else deckDetect=false end else deckDetect=false end;
+    local recalcEdgeFlag=false; if recalcBtnVal and not recalcBtnPrev then recalcEdgeFlag=true end; recalcBtnPrev=recalcBtnVal;
+    if engageVal and not lastEngage then if cur_state==STATE_IDLE then cur_state=ST_REQ_IAF;recalcEdgeFlag=true;abortRsn="Eng";dbgAbortCodeNum=ABORT_CODE_NONE;else cur_state=STATE_IDLE;abortRsn="Diseng";dbgAbortCodeNum=ABORT_CODE_NONE;end end; lastEngage=engageVal;
+    if recalcEdgeFlag and cur_state~=STATE_IDLE and cur_state~=ST_REQ_IAF then cur_state=ST_REQ_IAF;abortRsn="Recalc";dbgAbortCodeNum=ABORT_CODE_NONE;end
+    local plausibleMaxRadarHVal=iafAltOffVal+cAltVal+50; if acRadarAVal~=radarInvVal and acRadarAVal>0.1 and acRadarAVal<plausibleMaxRadarHVal then if math.abs(acBaroAVal-(cAltVal+acRadarAVal))<75 then deckDetect=true;deckLossTmr=0 else deckDetect=false end else deckDetect=false end;
     if not deckDetect and(cur_state==ST_ON_GS or cur_state==ST_FLARE or cur_state==ST_TD_AWAIT)then deckLossTmr=deckLossTmr+(1/60) else deckLossTmr=0 end;
-    local cmdThr=0;local cmdPit=0;local cmdRol=0;local cmdYaw=0;local cmdHook=false;local cmdLight=false;
-    local distToC=dist2d(acX,acY,cX,cY);
-    local m2AcAltRel=acBaroA;local m2TgtP1=0;local m2TgtP2=0;local m2TgtP3=0;local m2TgtP4=0;local m2IafTrig=0.0;
-    local sentCXDbg=0;local sentCYDbg=0;local sentIafDistDbg=0;
+    local cmdThrVal=0;local cmdPitVal=0;local cmdRolVal=0;local cmdYawVal=0;local cmdHookFlag=false;local cmdLightFlag=false;
+    local distToCVal=dist2d(acXVal,acYVal,cXVal,cYVal);
+    local m2AcAltRelVal=acBaroAVal;local m2TgtP1Val=0;local m2TgtP2Val=0;local m2TgtP3Val=0;local m2TgtP4Val=0;local m2IafTrigVal=0.0;
 
-    if cur_state==STATE_IDLE then cmdLight=false;cmdHook=false;tdTimer=0;deckLossTmr=0;awaitIAFTmr=0;
-    elseif cur_state==ST_REQ_IAF then cmdLight=true;m2IafTrig=1.0;m2TgtP1=iafDistA;m2TgtP2=iafAltOff;iafAlt=cAlt+iafAltOff;cur_state=ST_WAIT_IAF;abortRsn="IAF Req";awaitIAFTmr=0;recalcEdge=false;sentCXDbg=cX;sentCYDbg=cY;sentIafDistDbg=iafDistA;
-    elseif cur_state==ST_WAIT_IAF then cmdLight=true;awaitIAFTmr=awaitIAFTmr+(1/60);sentCXDbg=cX;sentCYDbg=cY;sentIafDistDbg=iafDistA;if m2WpX~=0 or m2WpY~=0 then iafX=m2WpX;iafY=m2WpY;cur_state=ST_NAV_IAF;abortRsn="IAF Rcvd";elseif awaitIAFTmr>2.0 then cur_state=ST_ABORT;abortRsn="IAF Timeout";else m2_request_state_signal=ST_REQ_IAF;m2IafTrig=0.0;m2TgtP1=iafDistA;m2TgtP2=iafAltOff;end
-    elseif cur_state==ST_NAV_IAF then cmdLight=true;m2TgtP1=iafX;m2TgtP2=iafY;m2TgtP3=iafAlt;m2TgtP4=tgtApSpd+15;if dist2d(acX,acY,iafX,iafY)<500 and(iafX~=0 or iafY~=0)then cur_state=ST_ALIGN;abortRsn="IAF Ok"end;
-    elseif cur_state==ST_ALIGN then cmdLight=true;cmdHook=true;m2AcAltRel=acBaroA;m2TgtP1=tgtApSpd;m2TgtP2=cAlt+iafAltOff;m2TgtP3=maxBank;local angDiff=math.abs(acHdg-cHdg);if angDiff>180 then angDiff=360-angDiff end;if angDiff<15 and distToC<(iafDistA*0.8)and distToC>2000 then cur_state=ST_GS_ESTAB;abortRsn="Align Ok"end;if distToC<1500 then cur_state=ST_ABORT;abortRsn="Close Align";end
-    elseif cur_state==ST_GS_ESTAB then cmdLight=true;cmdHook=true;if deckDetect then m2AcAltRel=acRadarA else m2AcAltRel=acBaroA end;m2TgtP1=tgtApSpd;m2TgtP2=tgtGsDeg;m2TgtP3=maxBank;if deckDetect and deckLossTmr==0 then cur_state=ST_ON_GS;abortRsn="GS Ok (R)"end;if not deckDetect and distToC<1500 and deckLossTmr>3.0 then cur_state=ST_ABORT;abortRsn="No Radar GS"end
-    elseif cur_state==ST_ON_GS then cmdLight=true;cmdHook=true;if not deckDetect then if deckLossTmr>1.0 then cur_state=ST_ABORT;abortRsn="Lost GS";end else m2AcAltRel=acRadarA end;m2TgtP1=tgtApSpd;m2TgtP2=tgtGsDeg;m2TgtP3=flareH;m2TgtP4=maxBank;if acRadarA<=flareH and deckDetect then cur_state=ST_FLARE;abortRsn="Flare H"end;if distToC<50 and acRadarA>flareH then cur_state=ST_ABORT;abortRsn="Miss Flare"end
-    elseif cur_state==ST_FLARE then cmdLight=true;cmdHook=true;if not deckDetect then if deckLossTmr>0.5 then cur_state=ST_ABORT;abortRsn="Lost Flare";end else m2AcAltRel=acRadarA end;m2TgtP1=tgtApSpd-5;m2TgtP2=tgtTdPit;m2TgtP3=maxBank;m2TgtP4=flareH;if acRadarA<1.0 and deckDetect then cur_state=ST_TD_AWAIT;abortRsn="Await TD";tdTimer=0;end;if acRadarA>flareH*1.5 then cur_state=ST_ABORT;abortRsn="Balloon";end
-    elseif cur_state==ST_TD_AWAIT then cmdLight=true;cmdHook=true;tdTimer=tdTimer+(1/60);if not deckDetect and acRadarA>2.0 then if deckLossTmr>0.5 then cur_state=ST_ABORT;abortRsn="Lost TD/Bounce";end else m2AcAltRel=acRadarA end;m2TgtP1=-1.0;m2TgtP2=tgtTdPit;if hooked then cur_state=ST_LANDED;abortRsn="Hooked!";end;if tdTimer>4.0 then cur_state=ST_ABORT;abortRsn="Bolter";end
-    elseif cur_state==ST_LANDED then cmdLight=false;cmdHook=true;m2TgtP1=-1.0;tdTimer=0;deckLossTmr=0;
-    elseif cur_state==ST_ABORT then cmdLight=true;cmdHook=false;m2TgtP1=1.0;m2TgtP2=acPit+10;m2AcAltRel=acBaroA+200;tdTimer=0;deckLossTmr=0;if acBaroA>(cAlt+iafAltOff+100)then end
+    if cur_state==STATE_IDLE then cmdLightFlag=false;cmdHookFlag=false;tdTimer=0;deckLossTmr=0;awaitIAFTmr=0;dbgAbortCodeNum=ABORT_CODE_NONE;
+    elseif cur_state==ST_REQ_IAF then cmdLightFlag=true;m2IafTrigVal=1.0;m2TgtP1Val=iafDistAVal;m2TgtP2Val=iafAltOffVal;iafAlt=cAltVal+iafAltOffVal;cur_state=ST_WAIT_IAF;abortRsn="IAF Req";awaitIAFTmr=0;recalcEdgeFlag=false;
+    elseif cur_state==ST_WAIT_IAF then cmdLightFlag=true;awaitIAFTmr=awaitIAFTmr+(1/60);m2TgtP1Val=iafDistAVal;m2TgtP2Val=iafAltOffVal; if m2WpXVal~=0 or m2WpYVal~=0 then iafX=m2WpXVal;iafY=m2WpYVal;cur_state=ST_NAV_IAF;abortRsn="IAF Rcvd";dbgAbortCodeNum=ABORT_CODE_NONE;elseif awaitIAFTmr>2.0 then setAbort("IAF Timeout",ABORT_CODE_IAF_TIMEOUT);else m1StateToSend=ST_REQ_IAF;m2IafTrigVal=0.0;end
+    elseif cur_state==ST_NAV_IAF then cmdLightFlag=true;m2TgtP1Val=iafX;m2TgtP2Val=iafY;m2TgtP3Val=iafAlt;m2TgtP4Val=tgtApSpdVal+15;if dist2d(acXVal,acYVal,iafX,iafY)<500 and(iafX~=0 or iafY~=0)then cur_state=ST_ALIGN;abortRsn="IAF Ok"end;
+    elseif cur_state==ST_ALIGN then cmdLightFlag=true;cmdHookFlag=true;m2AcAltRelVal=acBaroAVal;m2TgtP1Val=tgtApSpdVal;m2TgtP2Val=cAltVal+iafAltOffVal;m2TgtP3Val=maxBankVal;local angDiff=math.abs(acHdgVal-cHdgVal);if angDiff>180 then angDiff=360-angDiff end;if angDiff<15 and distToCVal<(iafDistAVal*0.8)and distToCVal>2000 then cur_state=ST_GS_ESTAB;abortRsn="Align Ok"else if distToCVal<1500 then setAbort("Close Align",ABORT_CODE_TOO_CLOSE_ALIGN);end end
+    elseif cur_state==ST_GS_ESTAB then cmdLightFlag=true;cmdHookFlag=true;if deckDetect then m2AcAltRelVal=acRadarAVal else m2AcAltRelVal=acBaroAVal end;m2TgtP1Val=tgtApSpdVal;m2TgtP2Val=tgtGsDegVal;m2TgtP3Val=maxBankVal;if deckDetect and deckLossTmr==0 then cur_state=ST_ON_GS;abortRsn="GS Ok(R)"else if not deckDetect and distToCVal<1500 and deckLossTmr>3.0 then setAbort("No Radar GS",ABORT_CODE_NO_RADAR_GS);end end
+    elseif cur_state==ST_ON_GS then cmdLightFlag=true;cmdHookFlag=true;if not deckDetect then if deckLossTmr>1.0 then setAbort("Lost GS",ABORT_CODE_LOST_RADAR_GS);end else m2AcAltRelVal=acRadarAVal end;m2TgtP1Val=tgtApSpdVal;m2TgtP2Val=tgtGsDegVal;m2TgtP3Val=flareHVal;m2TgtP4Val=maxBankVal;if acRadarAVal<=flareHVal and deckDetect then cur_state=ST_FLARE;abortRsn="Flare H"else if distToCVal<50 and acRadarAVal>flareHVal then setAbort("Miss Flare",ABORT_CODE_MISSED_FLARE);end end
+    elseif cur_state==ST_FLARE then cmdLightFlag=true;cmdHookFlag=true;if not deckDetect then if deckLossTmr>0.5 then setAbort("Lost Flare",ABORT_CODE_LOST_RADAR_FLARE);end else m2AcAltRelVal=acRadarAVal end;m2TgtP1Val=tgtApSpdVal-5;m2TgtP2Val=tgtTdPitVal;m2TgtP3Val=maxBankVal;m2TgtP4Val=flareHVal;if acRadarAVal<1.0 and deckDetect then cur_state=ST_TD_AWAIT;abortRsn="Await TD";tdTimer=0;else if acRadarAVal>flareHVal*1.5 then setAbort("Balloon",ABORT_CODE_BALLOONED);end end
+    elseif cur_state==ST_TD_AWAIT then cmdLightFlag=true;cmdHookFlag=true;tdTimer=tdTimer+(1/60);if not deckDetect and acRadarAVal>2.0 then if deckLossTmr>0.5 then setAbort("Lost TD/Bounce",ABORT_CODE_LOST_DECK_BOUNCE);end else m2AcAltRelVal=acRadarAVal end;m2TgtP1Val=-1.0;m2TgtP2Val=tgtTdPitVal;if hookedVal then cur_state=ST_LANDED;abortRsn="Hooked!";dbgAbortCodeNum=ABORT_CODE_NONE;else if tdTimer>4.0 then setAbort("Bolter",ABORT_CODE_BOLTER_TIMEOUT);end end
+    elseif cur_state==ST_LANDED then cmdLightFlag=false;cmdHookFlag=true;m2TgtP1Val=-1.0;tdTimer=0;deckLossTmr=0;dbgAbortCodeNum=ABORT_CODE_NONE;
+    elseif cur_state==ST_ABORT then cmdLightFlag=true;cmdHookFlag=false;m2TgtP1Val=1.0;m2TgtP2Val=acPitVal+10;m2AcAltRelVal=acBaroAVal+200;tdTimer=0;deckLossTmr=0;if acBaroAVal>(cAltVal+iafAltOffVal+100)then end
     end
 
-    if cur_state~=STATE_IDLE then cmdThr=m2Thr;cmdPit=m2Pit;cmdRol=m2Rol;cmdYaw=m2Yaw;end;
-    isN(OUT_THR,cmdThr);isN(OUT_PIT,cmdPit);isN(OUT_ROL,cmdRol);isN(OUT_YAW,cmdYaw);
-    isN(OUT_WPX,m2WpX);isN(OUT_WPY,m2WpY);isN(OUT_WPALT,iafAlt);
-    isB(OUT_HOOK,cmdHook);isB(OUT_LIGHT,cmdLight);
-    local m1StateToSend=cur_state;if cur_state==ST_WAIT_IAF then m1StateToSend=ST_REQ_IAF end;isN(M1_STATE,m1StateToSend);
-    isN(M1_AC_X,acX);isN(M1_AC_Y,acY);isN(M1_AC_ALT_REL,m2AcAltRel);isN(M1_AC_HDG,acHdg);isN(M1_AC_SPD,acSpd);isN(M1_AC_PIT,acPit);isN(M1_AC_ROL,acRol);
-    isN(M1_C_X,cX);isN(M1_C_Y,cY);isN(M1_C_ALT,cAlt);isN(M1_C_HDG,cHdg);isN(M1_C_SPD,cSpd);
-    isN(M1_TGT_P1,m2TgtP1);isN(M1_TGT_P2,m2TgtP2);isN(M1_TGT_P3,m2TgtP3);isN(M1_TGT_P4,m2TgtP4);
-    isN(M1_IAF_TRIG,m2IafTrig);isN(M1_DIST_C,distToC);
+    if cur_state~=STATE_IDLE and cur_state~=ST_ABORT and cur_state~=ST_LANDED then cmdThrVal=m2ThrVal;cmdPitVal=m2PitVal;cmdRolVal=m2RolVal;cmdYawVal=m2YawVal;
+    elseif cur_state==ST_ABORT then cmdThrVal=1.0;cmdPitVal=pidUpd(pidAlt,acPitVal+10,acPitVal,DT);cmdRolVal=0;cmdYawVal=0; -- Make sure pidUpd is defined or this will error
+    elseif cur_state==ST_LANDED then cmdThrVal=-1.0;cmdPitVal=0;cmdRolVal=0;cmdYawVal=0;
+    end;
+    
+    isN(OUT_THR,cmdThrVal);isN(OUT_PIT,cmdPitVal);isN(OUT_ROL,cmdRolVal);isN(OUT_YAW,cmdYawVal);
+    isN(OUT_WPX,m2WpXVal);isN(OUT_WPY,m2WpYVal);isN(OUT_WPALT,iafAlt);
+    isB(OUT_HOOK,cmdHookFlag);isB(OUT_LIGHT,cmdLightFlag);
+    local m1StateToSendVal=cur_state;if cur_state==ST_WAIT_IAF then m1StateToSendVal=ST_REQ_IAF end;isN(M1_STATE,m1StateToSendVal);
+    isN(M1_AC_X,acXVal);isN(M1_AC_Y,acYVal);isN(M1_AC_ALT_REL,m2AcAltRelVal);isN(M1_AC_HDG,acHdgVal);isN(M1_AC_SPD,acSpdVal);isN(M1_AC_PIT,acPitVal);isN(M1_AC_ROL,acRolVal);
+    isN(M1_C_X,cXVal);isN(M1_C_Y,cYVal);isN(M1_C_ALT,cAltVal);isN(M1_C_HDG,cHdgVal);isN(M1_C_SPD,cSpdVal);
+    isN(M1_TGT_P1,m2TgtP1Val);isN(M1_TGT_P2,m2TgtP2Val);isN(M1_TGT_P3,m2TgtP3Val);isN(M1_TGT_P4,m2TgtP4Val);
+    isN(M1_IAF_TRIG,m2IafTrigVal);isN(M1_DIST_C,distToCVal);
     isN(DBG_M1_STATE,cur_state);
-    if cur_state==ST_REQ_IAF or cur_state==ST_WAIT_IAF then isN(SENT_C_X_TO_MCU2,cX);isN(SENT_C_Y_TO_MCU2,cY);isN(SENT_IAF_DIST_TO_MCU2,iafDistA);
-    else isN(SENT_C_X_TO_MCU2,0);isN(SENT_C_Y_TO_MCU2,0);isN(SENT_IAF_DIST_TO_MCU2,0);end
+    isN(DBG_ABORT_CODE,dbgAbortCodeNum); 
+    isN(DBG_AWAIT_TMR,awaitIAFTmr); 
+    isN(DBG_TD_TMR,tdTimer);
 end
