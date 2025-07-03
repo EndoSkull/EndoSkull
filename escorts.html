@@ -23,12 +23,12 @@
             color: #EAE0D5;
         }
         .nav-link {
-            @apply px-2 py-2 text-sm rounded-md transition-colors duration-300; 
+            @apply px-1.5 py-2 text-xs rounded-md transition-colors duration-300; 
             color: #EAE0D5;
         }
         @media (min-width: 1024px) { 
             .nav-link {
-                @apply px-2 text-sm; 
+                @apply px-2 text-sm;
             }
         }
         .nav-link:hover, .nav-link.active {
@@ -66,18 +66,21 @@
         .escort-features-list li {
             margin-bottom: 0.5rem; 
         }
-        .placeholder-img-escort {
-            border: 2px dashed #3A3D36;
-            background-color: #4B5046; 
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: #CFC5B8; 
-            font-style: italic;
+        .image-container {
+            position: relative;
             width: 100%;
-            min-height: 200px; 
-            border-radius: 0.25rem; 
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+            overflow: hidden;
+            border-radius: 0.375rem;
+            background-color: #4B5046;
+        }
+        .escort-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
          /* Skip link styling */
          .skip-link {
@@ -102,11 +105,12 @@
         <div class="container mx-auto px-6 flex flex-col sm:flex-row justify-between items-center">
             <a href="index.html" class="header-font text-3xl font-bold mb-2 sm:mb-0 hover:text-white transition-colors">Convoy 1943</a>
             <nav role="navigation" aria-label="Main Navigation">
-                <ul class="flex flex-wrap space-x-1 md:space-x-1.5 lg:space-x-2 justify-center"> 
+                <ul class="flex flex-wrap space-x-1 sm:space-x-1 justify-center"> 
                     <li><a href="index.html#about" class="nav-link header-font">About</a></li>
                     <li><a href="features.html" class="nav-link header-font">Features</a></li> 
                     <li><a href="world_history.html" class="nav-link header-font">Lore</a></li>
                     <li><a href="escorts.html" class="nav-link header-font active">Escorts</a></li> 
+                    <li><a href="submarines.html" class="nav-link header-font">Submarines</a></li>
                     <li><a href="ai.html" class="nav-link header-font">AI Units</a></li> 
                     <li><a href="missions.html" class="nav-link header-font">Missions</a></li>
                     <li><a href="index.html#gallery" class="nav-link header-font">Gallery</a></li>
@@ -139,10 +143,9 @@
                         </ul>
                     </div>
                     <div class="mt-6 md:mt-0">
-                        <div class="placeholder-img-escort" role="img" aria-label="Placeholder image of a Flower Corvette">
-                            <span>Placeholder for Flower Corvette Image (e.g., 600x400)</span>
+                        <div class="image-container">
+                           <img src="https://convoy1943.com/images/flower.png" alt="A Flower-class corvette at sea." class="escort-image" onerror="this.onerror=null;this.src='https://placehold.co/600x338/4B5046/CFC5B8?text=Image+not+found';">
                         </div>
-                        <p class="text-sm text-center mt-2 italic text-gray-400">Image of the Flower Corvette in action.</p>
                     </div>
                 </article>
 
@@ -160,10 +163,9 @@
                         </ul>
                     </div>
                     <div class="mt-6 md:mt-0">
-                        <div class="placeholder-img-escort" role="img" aria-label="Placeholder image of a SC-497 Submarine Chaser">
-                            <span>Placeholder for SC-497 Image (e.g., 600x400)</span>
+                         <div class="image-container">
+                           <img src="https://convoy1943.com/images/sc497.png" alt="A SC-497 class submarine chaser at speed." class="escort-image" onerror="this.onerror=null;this.src='https://placehold.co/600x338/4B5046/CFC5B8?text=Image+not+found';">
                         </div>
-                        <p class="text-sm text-center mt-2 italic text-gray-400">Image of the SC-497 Submarine Chaser in action.</p>
                     </div>
                 </article>
             </div>
