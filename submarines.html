@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convoy 1943 - Submarines</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto Slab', serif;
+            background-color: #60665A; 
+            color: #EAE0D5; 
+        }
+        .header-font {
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+        }
+        .section-title { 
+            border-bottom: 2px solid #3A3D36; 
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            color: #EAE0D5;
+        }
+        .nav-link {
+            @apply px-1.5 py-2 text-xs rounded-md transition-colors duration-300; 
+            color: #EAE0D5;
+        }
+        @media (min-width: 1024px) { 
+            .nav-link {
+                @apply px-2 text-sm;
+            }
+        }
+        .nav-link:hover, .nav-link.active {
+            background-color: #4B5046; 
+            color: #FFFFFF;
+        }
+        .content-container {
+            border: 2px dashed #3A3D36;
+            background-color: #555A50;
+            padding: 1.5rem;
+            color: #EAE0D5;
+            border-radius: 0.5rem;
+        }
+        .submarine-card {
+            background-color: #555A50; 
+            border: 1px solid #3A3D36;
+            border-radius: 0.375rem; 
+            padding: 1.5rem; 
+            margin-bottom: 2rem; 
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); 
+        }
+        .submarine-title {
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+            font-size: 2.25rem; 
+            font-weight: 700; 
+            margin-bottom: 1rem; 
+            color: #EAE0D5;
+        }
+        .submarine-features-list {
+            list-style-type: disc;
+            padding-left: 1.5rem; 
+            margin-top: 1rem; 
+        }
+        .submarine-features-list li {
+            margin-bottom: 0.5rem; 
+        }
+        .placeholder-img-sub {
+            border: 2px dashed #3A3D36;
+            background-color: #4B5046; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #CFC5B8; 
+            font-style: italic;
+            width: 100%;
+            min-height: 200px; 
+            border-radius: 0.25rem; 
+        }
+         /* Skip link styling */
+         .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: #A03C35; 
+            color: white;
+            padding: 8px;
+            z-index: 100;
+            transition: top 0.3s;
+        }
+        .skip-link:focus {
+            top: 0;
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <a href="#main-content" class="skip-link header-font">Skip to main content</a>
+
+    <header role="banner" class="bg-[#3A3D36] text-[#EAE0D5] py-4 shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-6 flex flex-col sm:flex-row justify-between items-center">
+            <a href="index.html" class="header-font text-3xl font-bold mb-2 sm:mb-0 hover:text-white transition-colors">Convoy 1943</a>
+            <nav role="navigation" aria-label="Main Navigation">
+                <ul class="flex flex-wrap space-x-1 sm:space-x-1 justify-center"> 
+                    <li><a href="index.html#about" class="nav-link header-font">About</a></li>
+                    <li><a href="features.html" class="nav-link header-font">Features</a></li> 
+                    <li><a href="world_history.html" class="nav-link header-font">Lore</a></li>
+                    <li><a href="escorts.html" class="nav-link header-font">Escorts</a></li> 
+                    <li><a href="submarines.html" class="nav-link header-font active">Submarines</a></li> 
+                    <li><a href="ai.html" class="nav-link header-font">AI Units</a></li> 
+                    <li><a href="missions.html" class="nav-link header-font">Missions</a></li>
+                    <li><a href="index.html#gallery" class="nav-link header-font">Gallery</a></li>
+                    <li><a href="youtube.html" class="nav-link header-font">YouTube</a></li>
+                    <li><a href="commands.html" class="nav-link header-font">Commands</a></li>
+                    <li><a href="faq.html" class="nav-link header-font">FAQ</a></li>
+                    <li><a href="index.html#download" class="nav-link header-font">Download</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main role="main" id="main-content" class="container mx-auto px-6 py-12">
+        <section id="submarines-section" aria-labelledby="submarines-heading" class="mb-16 scroll-mt-20">
+            <h1 id="submarines-heading" class="header-font text-5xl md:text-6xl font-bold section-title text-center mb-12">Player Controllable Submarines</h1>
+            <div class="max-w-4xl mx-auto">
+                <p class="text-lg text-center mb-8">Details on player-controllable submarines for the Meier Isles faction will be declassified here. (Content is placeholder).</p>
+                
+                <article class="submarine-card grid md:grid-cols-2 gap-8 items-start" aria-labelledby="type-viic-heading">
+                    <div>
+                        <h2 id="type-viic-heading" class="submarine-title">Type VIIC U-boat</h2>
+                        <p class="mb-4 text-lg">The workhorse of the German U-boat fleet, the Type VIIC was a formidable predator of the Atlantic. Balanced in range, armament, and maneuverability, it was a constant threat to Allied convoys.</p>
+                        <h3 class="header-font text-xl font-semibold mt-6 mb-2 text-[#EAE0D5]">Key Features:</h3>
+                        <ul class="submarine-features-list">
+                            <li>4 Bow Torpedo Tubes</li>
+                            <li>1 Stern Torpedo Tube</li>
+                            <li>Deck Gun</li>
+                            <li>Anti-Aircraft Gun</li>
+                            <li>Hydrophone System</li>
+                        </ul>
+                    </div>
+                    <div class="mt-6 md:mt-0">
+                        <div class="placeholder-img-sub" role="img" aria-label="Placeholder image of a Type VIIC U-boat">
+                            <span>Placeholder for Type VIIC Image</span>
+                        </div>
+                        <p class="text-sm text-center mt-2 italic text-gray-400">Image of the Type VIIC U-boat on patrol.</p>
+                    </div>
+                </article>
+
+                <article class="submarine-card grid md:grid-cols-2 gap-8 items-start" aria-labelledby="type-ix-heading">
+                    <div>
+                        <h2 id="type-ix-heading" class="submarine-title">Type IX U-boat</h2>
+                        <p class="mb-4 text-lg">A long-range U-boat designed for sustained operations far from home, including the American coast and South Atlantic. Larger and with more torpedoes than the Type VII, it sacrificed some maneuverability for endurance and firepower.</p>
+                        <h3 class="header-font text-xl font-semibold mt-6 mb-2 text-[#EAE0D5]">Key Features:</h3>
+                        <ul class="submarine-features-list">
+                            <li>4 Bow Torpedo Tubes</li>
+                            <li>2 Stern Torpedo Tubes</li>
+                            <li>Increased Torpedo Capacity</li>
+                            <li>Deck Gun</li>
+                            <li>Extended Range</li>
+                        </ul>
+                    </div>
+                    <div class="mt-6 md:mt-0">
+                        <div class="placeholder-img-sub" role="img" aria-label="Placeholder image of a Type IX U-boat">
+                            <span>Placeholder for Type IX Image</span>
+                        </div>
+                        <p class="text-sm text-center mt-2 italic text-gray-400">Image of the Type IX U-boat at sea.</p>
+                    </div>
+                </article>
+
+                <article class="submarine-card grid md:grid-cols-2 gap-8 items-start" aria-labelledby="type-xvii-heading">
+                    <div>
+                        <h2 id="type-xvii-heading" class="submarine-title">Type XVII U-boat</h2>
+                        <p class="mb-4 text-lg">A small, experimental U-boat known for its revolutionary Walter hydrogen peroxide turbine propulsion system. This allowed for very high underwater speeds for short bursts, making it an incredibly difficult target to intercept if it could get into attack position.</p>
+                        <h3 class="header-font text-xl font-semibold mt-6 mb-2 text-[#EAE0D5]">Key Features:</h3>
+                        <ul class="submarine-features-list">
+                            <li>Walter Turbine for High-Speed Underwater Sprints</li>
+                            <li>2 Bow Torpedo Tubes</li>
+                            <li>Designed for Coastal Operations</li>
+                            <li>Extremely Fast Submerged</li>
+                        </ul>
+                    </div>
+                    <div class="mt-6 md:mt-0">
+                        <div class="placeholder-img-sub" role="img" aria-label="Placeholder image of a Type XVII U-boat">
+                            <span>Placeholder for Type XVII Image</span>
+                        </div>
+                        <p class="text-sm text-center mt-2 italic text-gray-400">Image of the Type XVII U-boat.</p>
+                    </div>
+                </article>
+
+                <article class="submarine-card grid md:grid-cols-2 gap-8 items-start" aria-labelledby="type-xxi-heading">
+                    <div>
+                        <h2 id="type-xxi-heading" class="submarine-title">Type XXI "Elektroboot"</h2>
+                        <p class="mb-4 text-lg">A revolutionary design that arrived too late to affect the war. The Type XXI was the first submarine designed to operate primarily submerged. Its streamlined hull, high battery capacity, and snorkel allowed for high underwater speed and endurance, making it a true underwater hunter.</p>
+                        <h3 class="header-font text-xl font-semibold mt-6 mb-2 text-[#EAE0D5]">Key Features:</h3>
+                        <ul class="submarine-features-list">
+                            <li>6 Bow Torpedo Tubes with Hydraulic Reload System</li>
+                            <li>High Submerged Speed</li>
+                            <li>Greatly Increased Battery Capacity</li>
+                            <li>Snorkel for Underwater Diesel Operation</li>
+                            <li>Advanced Passive Sonar</li>
+                        </ul>
+                    </div>
+                    <div class="mt-6 md:mt-0">
+                        <div class="placeholder-img-sub" role="img" aria-label="Placeholder image of a Type XXI U-boat">
+                            <span>Placeholder for Type XXI Image</span>
+                        </div>
+                        <p class="text-sm text-center mt-2 italic text-gray-400">Image of the Type XXI "Elektroboot".</p>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+    </main>
+
+    <footer role="contentinfo" class="bg-[#2E302A] text-[#CFC5B8] py-8 text-center">
+        <p class="text-sm">Convoy 1943 is a fan-made addon for Stormworks: Build and Rescue.</p>
+        <p class="text-sm mt-1">Inspired by historical events. Lest we forget.</p>
+    </footer>
+    <script>
+        // Script content if any
+    </script>
+</body>
+</html>

@@ -26,6 +26,11 @@
             @apply px-2 py-2 text-sm rounded-md transition-colors duration-300; 
             color: #EAE0D5;
         }
+        @media (min-width: 1024px) { 
+            .nav-link {
+                @apply px-2 text-sm; 
+            }
+        }
         .nav-link:hover, .nav-link.active {
             background-color: #4B5046; 
             color: #FFFFFF;
@@ -74,15 +79,30 @@
             min-height: 200px; 
             border-radius: 0.25rem; 
         }
+         /* Skip link styling */
+         .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: #A03C35; 
+            color: white;
+            padding: 8px;
+            z-index: 100;
+            transition: top 0.3s;
+        }
+        .skip-link:focus {
+            top: 0;
+        }
     </style>
 </head>
 <body class="antialiased">
+    <a href="#main-content" class="skip-link header-font">Skip to main content</a>
 
-    <header class="bg-[#3A3D36] text-[#EAE0D5] py-4 shadow-lg sticky top-0 z-50">
+    <header role="banner" class="bg-[#3A3D36] text-[#EAE0D5] py-4 shadow-lg sticky top-0 z-50">
         <div class="container mx-auto px-6 flex flex-col sm:flex-row justify-between items-center">
             <a href="index.html" class="header-font text-3xl font-bold mb-2 sm:mb-0 hover:text-white transition-colors">Convoy 1943</a>
-            <nav>
-                <ul class="flex flex-wrap space-x-1 sm:space-x-0.5 justify-center"> 
+            <nav role="navigation" aria-label="Main Navigation">
+                <ul class="flex flex-wrap space-x-1 md:space-x-1.5 lg:space-x-2 justify-center"> 
                     <li><a href="index.html#about" class="nav-link header-font">About</a></li>
                     <li><a href="features.html" class="nav-link header-font">Features</a></li> 
                     <li><a href="world_history.html" class="nav-link header-font">Lore</a></li>
@@ -92,21 +112,22 @@
                     <li><a href="index.html#gallery" class="nav-link header-font">Gallery</a></li>
                     <li><a href="youtube.html" class="nav-link header-font">YouTube</a></li>
                     <li><a href="commands.html" class="nav-link header-font">Commands</a></li>
+                    <li><a href="faq.html" class="nav-link header-font">FAQ</a></li>
                     <li><a href="index.html#download" class="nav-link header-font">Download</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
-    <main class="container mx-auto px-6 py-12">
-        <section id="escorts-section" class="mb-16 scroll-mt-20">
-            <h2 class="header-font text-5xl md:text-6xl font-bold section-title text-center mb-12">Player Controllable Escorts</h2>
+    <main role="main" id="main-content" class="container mx-auto px-6 py-12">
+        <section id="escorts-section" aria-labelledby="escorts-heading" class="mb-16 scroll-mt-20">
+            <h1 id="escorts-heading" class="header-font text-5xl md:text-6xl font-bold section-title text-center mb-12">Player Controllable Escorts</h1>
             <div class="max-w-4xl mx-auto">
-                <div class="escort-card grid md:grid-cols-2 gap-8 items-start">
+                <article class="escort-card grid md:grid-cols-2 gap-8 items-start" aria-labelledby="flower-corvette-heading">
                     <div>
-                        <h3 class="escort-title">Flower Corvette (Fully Upgraded)</h3>
+                        <h2 id="flower-corvette-heading" class="escort-title">Flower Corvette (Fully Upgraded)</h2>
                         <p class="mb-4 text-lg">A versatile and reliable escort vessel, the Flower-class corvette was a mainstay in the Battle of the Atlantic. This upgraded version is equipped for serious anti-submarine warfare.</p>
-                        <h4 class="header-font text-xl font-semibold mt-6 mb-2 text-[#EAE0D5]">Key Features:</h4>
+                        <h3 class="header-font text-xl font-semibold mt-6 mb-2 text-[#EAE0D5]">Key Features:</h3>
                         <ul class="escort-features-list">
                             <li>Hydrophone</li>
                             <li>Active Sonar</li>
@@ -118,17 +139,38 @@
                         </ul>
                     </div>
                     <div class="mt-6 md:mt-0">
-                        <div class="placeholder-img-escort">
+                        <div class="placeholder-img-escort" role="img" aria-label="Placeholder image of a Flower Corvette">
                             <span>Placeholder for Flower Corvette Image (e.g., 600x400)</span>
                         </div>
                         <p class="text-sm text-center mt-2 italic text-gray-400">Image of the Flower Corvette in action.</p>
                     </div>
-                </div>
+                </article>
+
+                <article class="escort-card grid md:grid-cols-2 gap-8 items-start" aria-labelledby="sc-497-heading">
+                    <div>
+                        <h2 id="sc-497-heading" class="escort-title">SC-497 Class Submarine Chaser</h2>
+                        <p class="mb-4 text-lg">A quick and agile wooden-hulled submarine chaser, the SC-497 class was designed for coastal anti-submarine patrols. Its speed and maneuverability make it a nimble hunter.</p>
+                        <h3 class="header-font text-xl font-semibold mt-6 mb-2 text-[#EAE0D5]">Key Features:</h3>
+                        <ul class="escort-features-list">
+                            <li>Hydrophone</li>
+                            <li>Six Single Holder Depth Charge Racks</li>
+                            <li>One Port Depth Charge Thrower</li>
+                            <li>One Starboard Depth Charge Thrower</li>
+                            <li>Base Max Speed 15.5 kts or 21 kts depending on Engine Configuration.</li>
+                        </ul>
+                    </div>
+                    <div class="mt-6 md:mt-0">
+                        <div class="placeholder-img-escort" role="img" aria-label="Placeholder image of a SC-497 Submarine Chaser">
+                            <span>Placeholder for SC-497 Image (e.g., 600x400)</span>
+                        </div>
+                        <p class="text-sm text-center mt-2 italic text-gray-400">Image of the SC-497 Submarine Chaser in action.</p>
+                    </div>
+                </article>
             </div>
         </section>
     </main>
 
-    <footer class="bg-[#2E302A] text-[#CFC5B8] py-8 text-center">
+    <footer role="contentinfo" class="bg-[#2E302A] text-[#CFC5B8] py-8 text-center">
         <p class="text-sm">Convoy 1943 is a fan-made addon for Stormworks: Build and Rescue.</p>
         <p class="text-sm mt-1">Inspired by historical events. Lest we forget.</p>
     </footer>
