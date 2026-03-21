@@ -1,336 +1,948 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Convoy 1943 - Stormworks Addon</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Roboto Slab', serif;
-            background-color: #60665A; 
-            color: #EAE0D5; 
-        }
-        .header-font {
-            font-family: 'Oswald', sans-serif;
-            text-transform: uppercase;
-        }
-        .top-secret-stamp {
-            border: 3px double #993333; 
-            color: #993333; 
-            font-size: 1.5rem;
-            padding: 0.5rem 1rem;
-            transform: rotate(-10deg);
-            display: inline-block;
-            font-weight: bold;
-            margin-bottom: 1rem;
-            text-align: center;
-            background-color: rgba(234, 224, 213, 0.1); 
-        }
-        .section-title {
-            border-bottom: 2px solid #3A3D36; 
-            padding-bottom: 0.5rem;
-            margin-bottom: 1.5rem;
-            color: #EAE0D5; 
-        }
-        .section-title a { 
-            color: inherit; 
-            text-decoration: none;
-        }
-        .section-title a:hover {
-            color: #FFFFFF; 
-            text-decoration: underline;
-        }
-        .nav-link {
-            @apply px-2 py-2 text-sm rounded-md transition-colors duration-300; 
-            color: #EAE0D5; 
-        }
-        @media (min-width: 1024px) { /* lg breakpoint */
-            .nav-link {
-                @apply px-2 text-sm; 
-            }
-        }
-        .nav-link:hover, .nav-link.active {
-            background-color: #4B5046; 
-            color: #FFFFFF;
-        }
-        .btn-primary {
-            background-color: #993333; 
-            color: #FFFFFF; 
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.25rem;
-            font-weight: bold;
-            text-transform: uppercase;
-            transition: background-color 0.3s ease;
-            border: 1px solid #7A2828; 
-            display: inline-block;
-            text-align: center;
-        }
-        .btn-primary:hover {
-            background-color: #7A2828; 
-            color: #F0EBE0;
-        }
-        .btn-discord {
-            background-color: #5865F2; 
-            color: #FFFFFF;
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.25rem;
-            font-weight: bold;
-            text-transform: uppercase;
-            transition: background-color 0.3s ease;
-            border: 1px solid #404EED;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .btn-discord:hover {
-            background-color: #404EED; 
-        }
-        .btn-discord svg {
-            width: 1.5em;
-            height: 1.5em;
-            margin-right: 0.5em;
-        }
-        
-        .gallery-item-container {
-            position: relative;
-            width: 100%;
-            padding-top: 56.25%; 
-            overflow: hidden;
-            border-radius: 0.375rem; 
-            background-color: #555A50; 
-        }
-
-        .gallery-image { 
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover; 
-            border-radius: 0.375rem; 
-        }
-
-        .placeholder-img-gallery { 
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 2px dashed #3A3D36;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: #EAE0D5;
-            font-style: italic;
-            border-radius: 0.375rem; 
-        }
-         .placeholder-img { 
-            border: 2px dashed #3A3D36;
-            background-color: #555A50;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: #EAE0D5;
-            font-style: italic;
-        }
-
-        .dotted-divider {
-            border-top: 2px dotted #3A3D36;
-            margin: 2rem 0;
-        }
-        .card { 
-            background-color: #555A50;
-            border: 1px solid #3A3D36;
-            border-radius: 0.25rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-        }
-        .card h4 { 
-            color: #EAE0D5;
-        }
-        .card h4 a { 
-            color: #EAE0D5; 
-            text-decoration: none; 
-        }
-        .card h4 a:hover {
-            color: #FFFFFF; 
-            text-decoration: underline; 
-        }
-        .video-container {
-            position: relative;
-            overflow: hidden;
-            width: 100%;
-            padding-top: 56.25%; 
-            border-radius: 0.375rem; 
-            border: 2px dashed #3A3D36; 
-            background-color: #000; 
-        }
-        .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            right: 0;
-            width: 100%;
-            height: 100%;
-        }
-        .skip-link {
-            position: absolute;
-            top: -40px;
-            left: 0;
-            background: #A03C35; 
-            color: white;
-            padding: 8px;
-            z-index: 100;
-            transition: top 0.3s;
-        }
-        .skip-link:focus {
-            top: 0;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CONVOY 1943 — Atlantic Naval Warfare</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Special+Elite&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
 </head>
-<body class="antialiased">
-    <a href="#main-content" class="skip-link header-font">Skip to main content</a>
+<body>
 
-    <header role="banner" class="bg-[#3A3D36] text-[#EAE0D5] py-4 shadow-lg sticky top-0 z-50">
-        <div class="container mx-auto px-6 flex flex-col sm:flex-row justify-between items-center">
-            <a href="index.html" class="header-font text-3xl font-bold mb-2 sm:mb-0 hover:text-white transition-colors">Convoy 1943</a>
-            <nav role="navigation" aria-label="Main Navigation">
-                <ul class="flex flex-wrap space-x-1 sm:space-x-1.5 lg:space-x-2 justify-center"> 
-                    <li><a href="#about" class="nav-link header-font">About</a></li>
-                    <li><a href="features.html" class="nav-link header-font">Features</a></li>
-                    <li><a href="world_history.html" class="nav-link header-font">Lore</a></li>
-                    <li><a href="escorts.html" class="nav-link header-font">Escorts</a></li>
-                    <li><a href="ai.html" class="nav-link header-font">AI Units</a></li> 
-                    <li><a href="missions.html" class="nav-link header-font">Missions</a></li>
-                    <li><a href="#gallery" class="nav-link header-font">Gallery</a></li>
-                    <li><a href="youtube.html" class="nav-link header-font">YouTube</a></li>
-                    <li><a href="commands.html" class="nav-link header-font">Commands</a></li>
-                    <li><a href="faq.html" class="nav-link header-font">FAQ</a></li>
-                    <li><a href="#download" class="nav-link header-font">Download</a></li>
-                </ul>
-            </nav>
+<!-- ═══════ NAV ═══════ -->
+<nav id="navbar">
+  <a class="nav-logo" data-page="home">CONVOY <span>1943</span></a>
+  <ul class="nav-links">
+    <li><a data-page="home">Home</a></li>
+    <li><a data-page="about">About</a></li>
+    <li><a data-page="play">Play</a></li>
+    <li><a data-page="players">Players</a></li>
+    <li><a data-page="allies">Allies</a></li>
+    <li><a data-page="axis">Axis</a></li>
+    <li><a data-page="systems">Systems</a></li>
+    <li><a data-page="downloads">Downloads</a></li>
+    <li><a data-page="tools">Tools</a></li>
+  </ul>
+</nav>
+
+<!-- ═══════ PAGE CONTENT ═══════ -->
+<div id="page-content"></div>
+
+<!-- ═══════ FOOTER ═══════ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">CONVOY <span>1943</span></div>
+    <div class="footer-note">
+      A Stormworks: Build and Rescue Mod<br>
+      <a href="https://steamcommunity.com/id/Convoy1943/myworkshopfiles/?appid=573090" target="_blank">Steam Workshop</a> &nbsp;·&nbsp; <a href="https://discord.gg/EndoSkull" target="_blank">Discord</a> &nbsp;·&nbsp; <a href="https://www.youtube.com/@EndoSkull" target="_blank">Youtube</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ═══════ SECTION CONTENT (inlined — works with file://) ═══════
+const pages = {
+
+home: `
+<section id="home">
+  <div class="hero-bg"></div>
+  <video class="hero-video" autoplay muted loop playsinline>
+    <source src="video/ocean_loop.mp4" type="video/mp4">
+  </video>
+  <div class="hero-video-overlay"></div>
+  <div class="ocean-layer">
+    <div class="wave"></div>
+    <div class="wave"></div>
+    <div class="wave"></div>
+  </div>
+  <div class="fog-layer"></div>
+  <div class="hero-content">
+    <div class="hero-subtitle-top">Stormworks: Build and Rescue</div>
+    <h1 class="hero-title">
+      CONVOY
+      <em>1943</em>
+    </h1>
+    <div class="hero-divider"></div>
+    <p class="hero-tagline">Battle of the Atlantic. Command escort destroyers. Hunt wolfpacks. Protect the convoy at all costs.</p>
+    <a class="hero-cta" data-page="play">
+      Begin Your Tour of Duty
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M3 8h10M9 4l4 4-4 4"/>
+      </svg>
+    </a>
+  </div>
+  <div class="scroll-indicator">
+    <div class="scroll-line"></div>
+  </div>
+</section>`,
+
+about: `
+<div class="section-divider"></div>
+<section id="about" class="section">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div>
+        <div class="section-label reveal">About the Mission</div>
+        <h2 class="section-title reveal reveal-delay-1">THE NORTH <span class="accent">ATLANTIC</span> AWAITS</h2>
+        <div class="section-body reveal reveal-delay-2">
+          <p>Convoy 1943 is a comprehensive naval warfare simulation built within Stormworks: Build and Rescue. Set during the pivotal year of the Battle of the Atlantic, it places you at the helm of escort vessels tasked with shepherding convoys through U-boat infested waters.</p>
+          <p>Every system is hand-crafted for authenticity — from the ASDIC sonar pings echoing through your hull, to the weather-beaten seas of the North Atlantic rendered through custom shaders. This is submarine warfare as it was: tense, unforgiving, and utterly immersive.</p>
         </div>
-    </header>
-
-    <section id="hero" class="py-16 md:py-24 bg-cover bg-center" style="background-image: url('images/banner.jpg');" aria-labelledby="hero-heading">
-        <div class="container mx-auto px-6 text-center bg-black bg-opacity-25 py-12 rounded-lg"> 
-            <div class="top-secret-stamp" aria-hidden="true">CLASSIFIED</div>
-            <h1 id="hero-heading" class="header-font text-5xl md:text-7xl font-bold text-white mb-4">Convoy 1943</h1>
-            <p class="text-xl md:text-2xl text-gray-100 mb-8 max-w-3xl mx-auto"> 
-                Experience the intensity of World War II naval escort missions. Protect your convoy, engage enemy U-boats, and survive the treacherous waters of the Atlantic. Your ultimate Stormworks naval challenge awaits!
-            </p>
-            <a href="#download" class="btn-primary text-lg">Download Now</a>
+      </div>
+      <div class="reveal reveal-delay-2">
+        <div class="about-visual">
+          <div class="about-visual-inner">
+            <div class="about-visual-text">North Atlantic Theatre</div>
+            <div class="about-visual-coords">58°N 24°W</div>
+            <div class="about-visual-sub">Convoy Route HX-229</div>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="team" class="section">
+  <div class="section-inner">
+    <div class="section-label reveal">The Crew</div>
+    <h2 class="section-title reveal reveal-delay-1">BEHIND THE <span class="accent">BRIDGE</span></h2>
+    <p class="section-body reveal reveal-delay-2">The people who spend endless hours building, tweaking and testing. From the addon code to the ships and systems every element is a labor of love (and obsession)</p>
+    <div class="team-grid">
+      <div class="team-card reveal reveal-delay-1">
+        <div class="team-card-rank">Project Developer</div>
+        <div class="team-card-name">ENDO</div>
+        <div class="team-card-role">Creative Director</div>
+        <p class="team-card-bio">Responsible for bringing the team together and helping to guide the experience of the gameplay loop. As well as suggesting wacky ideas for Charlizard to tackle. :)</p>
+      </div>
+      <div class="team-card reveal reveal-delay-2">
+        <div class="team-card-rank">Project Developer</div>
+        <div class="team-card-name">CHARLIZARD</div>
+        <div class="team-card-role">Code Development &amp; Design</div>
+        <p class="team-card-bio">Char has built the Stormworks addon from the ground up. The addon manages and simulates realistic hydrophone and ASDIC systems, as well as managing vehicles players and ordnance and so much more — all in Stormworks.</p>
+      </div>
+      <div class="team-card reveal reveal-delay-3">
+        <div class="team-card-rank">Crew Member</div>
+        <div class="team-card-name">VMAN</div>
+        <div class="team-card-role">Contributor</div>
+        <p class="team-card-bio">Responsible for most of the Stormworks In Game Models. Contributor of vehicle system simulations.</p>
+      </div>
+      <div class="team-card reveal reveal-delay-1">
+        <div class="team-card-rank">Crew Member</div>
+        <div class="team-card-name">ELITE</div>
+        <div class="team-card-role">Contributor</div>
+        <p class="team-card-bio">Another vehicle builder that has brought additional player vehicles to life as well as additional Convoy ships.</p>
+      </div>
+      <div class="team-card reveal reveal-delay-2">
+        <div class="team-card-rank">Crew Member</div>
+        <div class="team-card-name">BUCKET</div>
+        <div class="team-card-role">Contributor</div>
+        <p class="team-card-bio">Builder of the PC461 patrol boat along with Elite.</p>
+        <a href="https://www.youtube.com/@MrBucket_Gaming/streams" target="_blank" class="team-card-link">Youtube Channel →</a>
+      </div>
+      <div class="team-card reveal reveal-delay-3">
+        <div class="team-card-rank">Crew Member</div>
+        <div class="team-card-name">ALISTAIR</div>
+        <div class="team-card-role">Contributor</div>
+        <p class="team-card-bio">Builder of the SC497 patrol boat.</p>
+        <a href="https://www.youtube.com/@Alistair_Lair" target="_blank" class="team-card-link">Youtube Channel →</a>
+      </div>
+    </div>
+  </div>
+</section>`,
 
-    <main role="main" id="main-content" class="container mx-auto px-6 py-12">
-        <section id="about" aria-labelledby="about-heading" class="mb-16 scroll-mt-20">
-            <h2 id="about-heading" class="header-font text-4xl font-bold section-title">Mission Briefing: About Convoy 1943</h2>
-            <div class="grid md:grid-cols-2 gap-8 items-center">
-                <div>
-                    <p class="mb-4 text-lg leading-relaxed">
-                        <strong>Convoy 1943</strong> is a meticulously crafted Stormworks: Build and Rescue addon that thrusts you into the heart of World War II's Battle of the Atlantic. Take command of escort vessels, manage resources, and defend vital supply convoys against relentless enemy attacks.
-                    </p>
-                    <p class="mb-4 text-lg leading-relaxed">
-                        This addon focuses on providing an immersive and challenging experience, blending historical inspiration with Stormworks' unique physics and building capabilities. Prepare for dynamic weather, intelligent enemy AI, and missions that will test your strategic thinking and piloting skills.
-                    </p>
-                    <p class="text-lg leading-relaxed">
-                        <em>"The only thing that ever really frightened me during the war was the U-boat peril." - Winston Churchill</em>
-                    </p>
-                </div>
-                <div class="video-container shadow-xl" aria-label="Embedded YouTube Video Player">
-                    <iframe 
-                        src="https://www.youtube.com/embed/1eCTKHL-Q0c?si=jwJeJ8Ey-3rAWm9G" 
-                        title="YouTube video player for Convoy 1943" 
-                        frameborder="0" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                        referrerpolicy="strict-origin-when-cross-origin" 
-                        allowfullscreen>
-                    </iframe>
-                </div>
-                </div>
-        </section>
+play: `
+<div class="section-divider"></div>
+<section id="play" class="section">
+  <div class="section-inner">
+    <div class="section-label reveal">Deployment Orders</div>
+    <h2 class="section-title reveal reveal-delay-1">HOW TO <span class="accent">PLAY</span></h2>
+    <p class="section-body reveal reveal-delay-2">Getting underway with Convoy 1943 takes just a few steps. Follow these orders to report for duty on the North Atlantic.</p>
+    <div class="play-steps">
+      <div class="play-step reveal reveal-delay-1">
+        <div class="play-step-num">01</div>
+        <h3>INSTALL STORMWORKS</h3>
+        <p>You'll need <a href="https://store.steampowered.com/app/573090/Stormworks_Build_and_Rescue/" target="_blank" class="play-link">Stormworks: Build and Rescue</a> and the <a href="https://store.steampowered.com/app/1542360/Stormworks_Search_and_Destroy/" target="_blank" class="play-link">Search and Destroy DLC</a> on Steam.</p>
+      </div>
+      <div class="play-step reveal reveal-delay-2">
+        <div class="play-step-num">02</div>
+        <h3>JOIN THE DISCORD</h3>
+        <p>Events are scheduled in Discord and voice chat is used for team communication during battle. <a href="https://discord.gg/EndoSkull" target="_blank" class="play-link">Join the Convoy 1943 Discord →</a></p>
+      </div>
+      <div class="play-step reveal reveal-delay-3">
+        <div class="play-step-num">03</div>
+        <h3>SIGN UP FOR AN EVENT</h3>
+        <p>Once you're in Discord, head to the event channel and sign up for a scheduled operation. Slots fill fast — don't miss your deployment window.</p>
+      </div>
+      <div class="play-step reveal reveal-delay-4">
+        <div class="play-step-num">04</div>
+        <h3>JOIN THE SERVER</h3>
+        <p>On game day, join the voice channel, fire up Stormworks, and report for duty. All hands to battle stations.</p>
+      </div>
+    </div>
+    <div class="play-requirements reveal reveal-delay-4">
+      <h3>GAMEPLAY REQUIREMENTS</h3>
+      <div class="req-grid">
+        <div class="req-item">
+          <div class="req-label">01</div>
+          <div class="req-value">STORMWORKS INSTALLED</div>
+        </div>
+        <div class="req-item">
+          <div class="req-label">02</div>
+          <div class="req-value">SEARCH &amp; DESTROY DLC</div>
+        </div>
+        <div class="req-item">
+          <div class="req-label">03</div>
+          <div class="req-value">DISCORD MEMBER</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>`,
 
-        <div class="dotted-divider"></div> 
+downloads: `
+<div class="section-divider"></div>
+<section id="downloads" class="section">
+  <div class="section-inner">
+    <div class="section-label reveal">Steam Workshop</div>
+    <h2 class="section-title reveal reveal-delay-1">WORKSHOP <span class="accent">DOWNLOADS</span></h2>
+    <p class="section-body reveal reveal-delay-2">Custom component mods built for Convoy 1943 — free to subscribe and use in your own Stormworks creations. Each mod is designed to fit the period aesthetic of the project.</p>
 
-        <section id="gallery" aria-labelledby="gallery-heading" class="mb-16 scroll-mt-20">
-            <h2 id="gallery-heading" class="header-font text-4xl font-bold section-title">Visual Reconnaissance: Gallery</h2>
-            <p class="mb-8 text-lg text-center">Take a look at these declassified images from the front lines. (Placeholder: Replace with actual screenshots and videos of your addon in action).</p>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                <div class="gallery-item-container">
-                    <img 
-                        src="images/index_flower_corvette.jpg" 
-                        alt="Flower Corvette escort ship in Convoy 1943 addon" 
-                        class="gallery-image"
-                        onerror="this.onerror=null; this.src='https://placehold.co/600x338/555A50/EAE0D5?text=Image+Not+Available'; this.alt='Image not available';"
-                    >
-                </div>
-                <div class="gallery-item-container">
-                    <div class="placeholder-img-gallery" role="img" aria-label="Placeholder image for U-boat">Image 2: U-boat (Placeholder)</div>
-                </div>
-                <div class="gallery-item-container">
-                    <div class="placeholder-img-gallery" role="img" aria-label="Placeholder image for Convoy">Image 3: Convoy (Placeholder)</div>
-                </div>
-                <div class="gallery-item-container">
-                    <div class="placeholder-img-gallery" role="img" aria-label="Placeholder image for Night operations">Image 4: Night ops (Placeholder)</div>
-                </div>
-                <div class="gallery-item-container">
-                    <div class="placeholder-img-gallery" role="img" aria-label="Placeholder image for Damage effects">Image 5: Damage (Placeholder)</div>
-                </div>
-                <div class="gallery-item-container">
-                    <div class="placeholder-img-gallery" role="img" aria-label="Placeholder for Video Thumbnail">Video Thumbnail (Placeholder)</div>
-                </div>
-            </div>
-            <p class="mt-6 text-center italic text-gray-400">More visual intel coming soon. Check back for updates!</p>
-        </section>
+    <div class="ws-grid">
 
-        <div class="dotted-divider"></div>
+      <a class="ws-card reveal reveal-delay-1" href="https://steamcommunity.com/sharedfiles/filedetails/?id=3490457733" target="_blank">
+        <div class="ws-thumb">
+          <img src="images/downloads/local_mod_pack.jpg" alt="LOCAL MOD PACK Convoy 1943">
+        </div>
+        <div class="ws-body">
+          <div class="ws-tag">Mod Pack</div>
+          <div class="ws-title">LOCAL MOD PACK</div>
+          <p class="ws-desc">The core local mod pack for Convoy 1943. Contains custom audio, invisible bricks, and all base local modifications required for the full experience. Keep this updated — newer versions may break older builds.</p>
+          <div class="ws-footer">
+            <span class="ws-platform">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.37l3.05-6.32a3.5 3.5 0 1 1 4.47-4.47l6.32-3.05A12 12 0 0 0 12 0z"/></svg>
+              Steam Workshop
+            </span>
+            <span class="ws-arrow">Subscribe →</span>
+          </div>
+        </div>
+      </a>
 
-        <section id="download" aria-labelledby="download-heading" class="mb-16 scroll-mt-20 text-center">
-            <h2 id="download-heading" class="header-font text-4xl font-bold section-title inline-block">Join the Front Lines!</h2>
-            <div class="mt-8 p-8 card max-w-2xl mx-auto">
-                <p class="text-xl mb-6">
-                    The <strong>Convoy 1943</strong> addon is currently available exclusively during our live Stormworks events. No public code release is available at this time.
-                </p>
-                <p class="text-lg mb-8">
-                    To participate in the next event and experience Convoy 1943, join the Endo Events Discord server for announcements and details:
-                </p>
-                <a href="https://discord.gg/KJTXUyQMT2" target="_blank" rel="noopener noreferrer" class="btn-discord text-xl">
-                    <svg aria-hidden="true" role="img" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M20.222 0H3.778C1.691 0 0 1.732 0 3.86v16.28C0 22.268 1.691 24 3.778 24h12.667l1.187-1.152 1.618-1.584 2.972-2.912V3.86C24 1.732 22.309 0 20.222 0zM8.167 14.6c-.883 0-1.6-.744-1.6-1.656s.717-1.656 1.6-1.656c.882 0 1.6.744 1.6 1.656s-.718 1.656-1.6 1.656zm4.028.033c-.883 0-1.6-.744-1.6-1.656s.717-1.656 1.6-1.656c.882 0 1.6.744 1.6 1.656s-.718 1.656-1.6 1.656zm3.805-3.312c.883 0 1.6.744 1.6 1.656s-.717-1.656 1.6-1.656c-.882 0-1.6-.744-1.6-1.656s.718-1.656 1.6-1.656z"></path></svg>
-                    Join Endo Events Discord
-                </a>
-                <p class="mt-6 text-sm">
-                    Follow announcements there for upcoming Convoy 1943 live events and how to participate!
-                </p>
-                </div>
-        </section>
+      <a class="ws-card reveal reveal-delay-2" href="https://steamcommunity.com/sharedfiles/filedetails/?id=3674016135" target="_blank">
+        <div class="ws-thumb">
+          <img src="images/downloads/sea_lanes_shader.jpg" alt="Sea Lanes Shader">
+        </div>
+        <div class="ws-body">
+          <div class="ws-tag">Mod · Shader</div>
+          <div class="ws-title">SEA LANES SHADER</div>
+          <p class="ws-desc">A mixed shader pack assembled for the Convoy 1943 project. Includes an in-directory editor and several combined shader effects. Created by Dheix, Ananax, Echoless &amp; Endo.</p>
+          <div class="ws-footer">
+            <span class="ws-platform">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.37l3.05-6.32a3.5 3.5 0 1 1 4.47-4.47l6.32-3.05A12 12 0 0 0 12 0z"/></svg>
+              Steam Workshop
+            </span>
+            <span class="ws-arrow">Subscribe →</span>
+          </div>
+        </div>
+      </a>
 
-    </main>
+      <a class="ws-card reveal reveal-delay-3" href="https://steamcommunity.com/sharedfiles/filedetails/?id=3679980778" target="_blank">
+        <div class="ws-thumb">
+          <img src="images/downloads/compass.jpg" alt="Convoy 1943 Compass">
+        </div>
+        <div class="ws-body">
+          <div class="ws-tag">Mod · Component</div>
+          <div class="ws-title">COMPASS MOD</div>
+          <p class="ws-desc">A composite compass mod for Stormworks. Adds a period-accurate compass instrument to your vessel. Does not currently support lighting or glowing dials. See the Example for setup guidance.</p>
+          <div class="ws-footer">
+            <span class="ws-platform">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.37l3.05-6.32a3.5 3.5 0 1 1 4.47-4.47l6.32-3.05A12 12 0 0 0 12 0z"/></svg>
+              Steam Workshop
+            </span>
+            <span class="ws-arrow">Subscribe →</span>
+          </div>
+        </div>
+      </a>
 
-    <footer role="contentinfo" class="bg-[#2E302A] text-[#CFC5B8] py-8 text-center">
-        <p class="text-sm">Convoy 1943 is a fan-made addon for Stormworks: Build and Rescue.</p>
-        <p class="text-sm mt-1">Inspired by historical events. Lest we forget.</p>
-    </footer>
+      <a class="ws-card reveal reveal-delay-4" href="https://steamcommunity.com/sharedfiles/filedetails/?id=3679982203" target="_blank">
+        <div class="ws-thumb">
+          <img src="images/downloads/compass_example.jpg" alt="Convoy 1943 Compass Example">
+        </div>
+        <div class="ws-body">
+          <div class="ws-tag">Vehicle · Example</div>
+          <div class="ws-title">COMPASS EXAMPLE</div>
+          <p class="ws-desc">An example vehicle showing the Compass component set up and wired correctly. Use this as a reference if you're having trouble getting the compass to work on your own build.</p>
+          <div class="ws-footer">
+            <span class="ws-platform">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.37l3.05-6.32a3.5 3.5 0 1 1 4.47-4.47l6.32-3.05A12 12 0 0 0 12 0z"/></svg>
+              Steam Workshop
+            </span>
+            <span class="ws-arrow">Subscribe →</span>
+          </div>
+        </div>
+      </a>
 
-    <script>
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                if (targetId.startsWith('#')) {
-                    document.querySelector(targetId).scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                } else {
-                    window.location.href = targetId;
-                }
-            });
-        });
-    </script>
+      <a class="ws-card reveal reveal-delay-1" href="https://steamcommunity.com/sharedfiles/filedetails/?id=3647120934" target="_blank">
+        <div class="ws-thumb">
+          <img src="images/downloads/battery_dial.jpg" alt="Convoy 1943 Battery Dial Mod">
+        </div>
+        <div class="ws-body">
+          <div class="ws-tag">Mod · Instrument</div>
+          <div class="ws-title">BATTERY DIAL MOD</div>
+          <p class="ws-desc">A modded battery level dial for Stormworks. Displays submarine or vessel battery charge on a clean analogue gauge — essential for U-boat operators managing their battery reserves under depth charge attack.</p>
+          <div class="ws-footer">
+            <span class="ws-platform">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.37l3.05-6.32a3.5 3.5 0 1 1 4.47-4.47l6.32-3.05A12 12 0 0 0 12 0z"/></svg>
+              Steam Workshop
+            </span>
+            <span class="ws-arrow">Subscribe →</span>
+          </div>
+        </div>
+      </a>
 
+      <a class="ws-card reveal reveal-delay-2" href="https://steamcommunity.com/sharedfiles/filedetails/?id=3640394449" target="_blank">
+        <div class="ws-thumb">
+          <img src="images/downloads/rudder_dial_mod.jpg" alt="Convoy 1943 Rudder Dial Mod">
+        </div>
+        <div class="ws-body">
+          <div class="ws-tag">Mod · Instrument</div>
+          <div class="ws-title">RUDDER DIAL MOD</div>
+          <p class="ws-desc">A modded rudder position indicator. Shows rudder angle on a colour-coded dial — port deflection in red, starboard in green. At a glance you always know which way the helm is sitting.</p>
+          <div class="ws-footer">
+            <span class="ws-platform">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.37l3.05-6.32a3.5 3.5 0 1 1 4.47-4.47l6.32-3.05A12 12 0 0 0 12 0z"/></svg>
+              Steam Workshop
+            </span>
+            <span class="ws-arrow">Subscribe →</span>
+          </div>
+        </div>
+      </a>
+
+      <a class="ws-card reveal reveal-delay-3" href="https://steamcommunity.com/sharedfiles/filedetails/?id=3640394315" target="_blank">
+        <div class="ws-thumb">
+          <img src="images/downloads/rudder_dial_component.jpg" alt="Convoy 1943 Rudder Dial Component">
+        </div>
+        <div class="ws-body">
+          <div class="ws-tag">Component · Instrument</div>
+          <div class="ws-title">RUDDER DIAL COMPONENT</div>
+          <p class="ws-desc">The component version of the Rudder Dial — designed to be placed directly on a vehicle as a subassembly. Same colour-coded port/starboard readout, packaged as a standalone droppable component for easy integration.</p>
+          <div class="ws-footer">
+            <span class="ws-platform">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.37l3.05-6.32a3.5 3.5 0 1 1 4.47-4.47l6.32-3.05A12 12 0 0 0 12 0z"/></svg>
+              Steam Workshop
+            </span>
+            <span class="ws-arrow">Subscribe →</span>
+          </div>
+        </div>
+      </a>
+
+    </div>
+
+    <div class="ws-browse reveal reveal-delay-4">
+      <p>Browse the complete collection on Steam Workshop.</p>
+      <a href="https://steamcommunity.com/id/Convoy1943/myworkshopfiles/?appid=573090" target="_blank" class="ws-browse-btn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.37l3.05-6.32a3.5 3.5 0 1 1 4.47-4.47l6.32-3.05A12 12 0 0 0 12 0z"/></svg>
+        View All on Steam Workshop
+      </a>
+    </div>
+
+  </div>
+</section>`,
+
+tools: `
+<div class="section-divider"></div>
+<section id="tools" class="section">
+  <div class="section-inner">
+    <div class="section-label reveal">Armoury &amp; Workshop</div>
+    <h2 class="section-title reveal reveal-delay-1">MODDING <span class="accent">TOOLS</span></h2>
+    <p class="section-body reveal reveal-delay-2">Resources for contributors and modders who want to extend or customize the Convoy 1943 experience.</p>
+    <div class="tools-grid">
+      <div class="tool-card reveal reveal-delay-1">
+        <div class="tool-icon">&gt;_</div>
+        <h3>LUA REFERENCE</h3>
+        <p>API documentation for all Convoy 1943 Lua functions, including convoy spawning, damage systems, and radio protocols.</p>
+        <a href="#" class="tool-link">Documentation →</a>
+      </div>
+      <div class="tool-card reveal reveal-delay-2">
+        <div class="tool-icon">◈</div>
+        <h3>SHADER EDITOR</h3>
+        <p>Guide to modifying and creating custom GLSL shaders. Covers the Atlantic water system, fog zones, and lighting pipeline.</p>
+        <a href="#" class="tool-link">Get Started →</a>
+      </div>
+      <div class="tool-card reveal reveal-delay-3">
+        <div class="tool-icon">⚓</div>
+        <h3>VEHICLE TEMPLATES</h3>
+        <p>Base templates for building Convoy 1943-compatible vessels. Pre-wired with telegraph, radar, and weapon systems.</p>
+        <a href="#" class="tool-link">Browse Templates →</a>
+      </div>
+      <div class="tool-card reveal reveal-delay-1">
+        <div class="tool-icon">◉</div>
+        <h3>RADAR DISPLAY SDK</h3>
+        <p>Build custom radar and sonar displays using the Convoy 1943 component framework. PPI scope, B-scope, and more.</p>
+        <a href="#" class="tool-link">View SDK →</a>
+      </div>
+      <div class="tool-card reveal reveal-delay-2">
+        <div class="tool-icon">♦</div>
+        <h3>SOUND PACK CREATOR</h3>
+        <p>Tools for creating and integrating custom audio — engine sounds, ASDIC pings, depth charge detonations, and ambience.</p>
+        <a href="#" class="tool-link">Audio Guide →</a>
+      </div>
+      <div class="tool-card reveal reveal-delay-3">
+        <div class="tool-icon">⬡</div>
+        <h3>MISSION BUILDER</h3>
+        <p>Create custom convoy scenarios with configurable routes, weather conditions, wolfpack compositions, and objectives.</p>
+        <a href="#" class="tool-link">Build Missions →</a>
+      </div>
+    </div>
+  </div>
+</section>`,
+
+players: `
+<div class="section-divider"></div>
+<section id="players" class="section">
+  <div class="section-inner">
+    <div class="section-label reveal">Active Roster</div>
+    <h2 class="section-title reveal reveal-delay-1">THE <span class="accent">PLAYERS</span></h2>
+    <p class="section-body reveal reveal-delay-2">The crew who take to the North Atlantic. Each player brings their own style to the battle — from seasoned escort commanders to sharp-eyed sonar operators.</p>
+
+    <div class="player-grid">
+
+      <div class="player-card reveal reveal-delay-1">
+        <div class="player-portrait"><div class="player-portrait-inner">
+          <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" class="player-silhouette">
+            <circle cx="40" cy="28" r="14" fill="rgba(58,74,92,0.6)"/>
+            <path d="M12 72c0-15.464 12.536-28 28-28s28 12.536 28 28" fill="rgba(58,74,92,0.6)"/>
+          </svg>
+        </div></div>
+        <div class="player-callsign">ENDO</div>
+        <div class="player-role">Escort Commander</div>
+        <p class="player-bio">A flexible player most often found on escort duty — training and welcoming new recruits to the battle.</p>
+      </div>
+
+      <div class="player-card reveal reveal-delay-2">
+        <div class="player-portrait"><div class="player-portrait-inner">
+          <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" class="player-silhouette">
+            <circle cx="40" cy="28" r="14" fill="rgba(58,74,92,0.6)"/>
+            <path d="M12 72c0-15.464 12.536-28 28-28s28 12.536 28 28" fill="rgba(58,74,92,0.6)"/>
+          </svg>
+        </div></div>
+        <div class="player-callsign">VMAN</div>
+        <div class="player-role">Sonar Operator</div>
+        <p class="player-bio">"Bearing. Range." — the two words you'll hear most crewed up with Vman. Discipline first, questions later.</p>
+      </div>
+
+      <div class="player-card reveal reveal-delay-3">
+        <div class="player-portrait"><div class="player-portrait-inner">
+          <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" class="player-silhouette">
+            <circle cx="40" cy="28" r="14" fill="rgba(58,74,92,0.6)"/>
+            <path d="M12 72c0-15.464 12.536-28 28-28s28 12.536 28 28" fill="rgba(58,74,92,0.6)"/>
+          </svg>
+        </div></div>
+        <div class="player-callsign">WOLF</div>
+        <div class="player-role">U-Boat Commander</div>
+        <p class="player-bio">Patient, methodical, and lethal. Wolf stalks the convoy lanes from below, waiting for the perfect attack angle.</p>
+      </div>
+
+      <div class="player-card reveal reveal-delay-4">
+        <div class="player-portrait"><div class="player-portrait-inner">
+          <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" class="player-silhouette">
+            <circle cx="40" cy="28" r="14" fill="rgba(58,74,92,0.6)"/>
+            <path d="M12 72c0-15.464 12.536-28 28-28s28 12.536 28 28" fill="rgba(58,74,92,0.6)"/>
+          </svg>
+        </div></div>
+        <div class="player-callsign">SPECTER</div>
+        <div class="player-role">Torpedo Officer</div>
+        <p class="player-bio">Cold under pressure and precise with a firing solution. Specter rarely misses — the convoy always knows when he's in the water.</p>
+      </div>
+
+      <div class="player-card reveal reveal-delay-1">
+        <div class="player-portrait"><div class="player-portrait-inner">
+          <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" class="player-silhouette">
+            <circle cx="40" cy="28" r="14" fill="rgba(58,74,92,0.6)"/>
+            <path d="M12 72c0-15.464 12.536-28 28-28s28 12.536 28 28" fill="rgba(58,74,92,0.6)"/>
+          </svg>
+        </div></div>
+        <div class="player-callsign">IRONSIDE</div>
+        <div class="player-role">Convoy Escort</div>
+        <p class="player-bio">A dependable hand at the helm of an escort destroyer. Ironside holds the line when wolfpacks close in, steady in any sea state.</p>
+      </div>
+
+      <div class="player-card reveal reveal-delay-2">
+        <div class="player-portrait"><div class="player-portrait-inner">
+          <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" class="player-silhouette">
+            <circle cx="40" cy="28" r="14" fill="rgba(58,74,92,0.6)"/>
+            <path d="M12 72c0-15.464 12.536-28 28-28s28 12.536 28 28" fill="rgba(58,74,92,0.6)"/>
+          </svg>
+        </div></div>
+        <div class="player-callsign">RAZOR</div>
+        <div class="player-role">Watch Officer</div>
+        <p class="player-bio">Sharp eyes and sharper instincts. Razor spots contacts before the ASDIC does and never hesitates to call general quarters.</p>
+      </div>
+
+      <div class="player-card reveal reveal-delay-3">
+        <div class="player-portrait"><div class="player-portrait-inner">
+          <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" class="player-silhouette">
+            <circle cx="40" cy="28" r="14" fill="rgba(58,74,92,0.6)"/>
+            <path d="M12 72c0-15.464 12.536-28 28-28s28 12.536 28 28" fill="rgba(58,74,92,0.6)"/>
+          </svg>
+        </div></div>
+        <div class="player-callsign">DRIFTER</div>
+        <div class="player-role">Merchant Skipper</div>
+        <p class="player-bio">Keeps the cargo moving no matter the conditions. Drifter knows every trick for staying alive when the escorts are stretched thin.</p>
+      </div>
+
+      <div class="player-card reveal reveal-delay-4">
+        <div class="player-portrait"><div class="player-portrait-inner">
+          <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" class="player-silhouette">
+            <circle cx="40" cy="28" r="14" fill="rgba(58,74,92,0.6)"/>
+            <path d="M12 72c0-15.464 12.536-28 28-28s28 12.536 28 28" fill="rgba(58,74,92,0.6)"/>
+          </svg>
+        </div></div>
+        <div class="player-callsign">BUCKET</div>
+        <div class="player-role">Patrol Boat Skipper</div>
+        <p class="player-bio">Fast and aggressive in the PC461. Bucket harasses U-boats on the surface and patrols the flanks so the big ships can focus on the kill.</p>
+      </div>
+
+    </div>
+  </div>
+</section>`,
+
+// ═══════ ALLIES ═══════
+allies: `
+<div class="section-divider"></div>
+<section id="allies" class="section">
+  <div class="section-inner">
+    <div class="section-label reveal">Allied Fleet</div>
+    <h2 class="section-title reveal reveal-delay-1">ALLIED <span class="accent">VESSELS</span></h2>
+    <p class="section-body reveal reveal-delay-2">The escort warships of the Allied convoy force. Each hull has been faithfully recreated with working systems, period-accurate armament, and crew stations.</p>
+
+    <div class="vehicle-grid">
+
+      <div class="vehicle-card reveal reveal-delay-1">
+        <div class="vehicle-image">
+          <img src="images/allies/flower_1943.jpg" alt="Flower 1943" onerror="this.parentNode.innerHTML='<div class=\'vehicle-image-placeholder\'><span class=\'vehicle-image-label\'>IMAGE PENDING</span></div>'">
+        </div>
+        <div class="vehicle-details">
+          <div class="vehicle-class">Flower-Class Corvette · Endo</div>
+          <div class="vehicle-name">FLOWER 1943</div>
+          <div class="vehicle-stats">
+            <div class="vehicle-stat"><span class="stat-label">Type</span><span class="stat-value">Escort Corvette</span></div>
+            <div class="vehicle-stat"><span class="stat-label">Speed</span><span class="stat-value">16 kts</span></div>
+            <div class="vehicle-stat"><span class="stat-label">Armament</span><span class="stat-value">4in Gun · Depth Charges · Hedgehog</span></div>
+            <div class="vehicle-stat"><span class="stat-label">Role</span><span class="stat-value">ASW Escort</span></div>
+          </div>
+          <p class="vehicle-desc">The workhorse of the North Atlantic escort groups. Tough, reliable, and built in numbers — the Flower-class corvette hunted U-boats from Iceland to the Caribbean. Not fast, but with a nose for submarines and a crew who never quit.</p>
+        </div>
+      </div>
+
+      <div class="vehicle-card reveal reveal-delay-2">
+        <div class="vehicle-image">
+          <img src="images/allies/sc497.jpg" alt="SC-497" onerror="this.parentNode.innerHTML='<div class=\'vehicle-image-placeholder\'><span class=\'vehicle-image-label\'>IMAGE PENDING</span></div>'">
+        </div>
+        <div class="vehicle-details">
+          <div class="vehicle-class">SC-497 Class Subchaser · Alistair</div>
+          <div class="vehicle-name">SC-497</div>
+          <div class="vehicle-stats">
+            <div class="vehicle-stat"><span class="stat-label">Type</span><span class="stat-value">Submarine Chaser</span></div>
+            <div class="vehicle-stat"><span class="stat-label">Speed</span><span class="stat-value">21 kts</span></div>
+            <div class="vehicle-stat"><span class="stat-label">Armament</span><span class="stat-value">40mm Bofors · Depth Charges</span></div>
+            <div class="vehicle-stat"><span class="stat-label">Role</span><span class="stat-value">ASW · Harbour Defence</span></div>
+          </div>
+          <p class="vehicle-desc">A small but capable submarine chaser optimised for close-range ASW. Fitted with sonar and depth charges, the SC-497 was most effective in shallow coastal waters where U-boats had nowhere to hide.</p>
+        </div>
+      </div>
+
+      <div class="vehicle-card reveal reveal-delay-3">
+        <div class="vehicle-image">
+          <img src="images/allies/pce882.jpg" alt="PCE-882" onerror="this.parentNode.innerHTML='<div class=\'vehicle-image-placeholder\'><span class=\'vehicle-image-label\'>IMAGE PENDING</span></div>'">
+        </div>
+        <div class="vehicle-details">
+          <div class="vehicle-class">PCE-882 Class Escort · Elite</div>
+          <div class="vehicle-name">PCE-882</div>
+          <div class="vehicle-stats">
+            <div class="vehicle-stat"><span class="stat-label">Type</span><span class="stat-value">Patrol Craft Escort</span></div>
+            <div class="vehicle-stat"><span class="stat-label">Speed</span><span class="stat-value">15.7 kts</span></div>
+            <div class="vehicle-stat"><span class="stat-label">Armament</span><span class="stat-value">3in Gun · Depth Charges · Hedgehog</span></div>
+            <div class="vehicle-stat"><span class="stat-label">Role</span><span class="stat-value">Coastal Escort · ASW Patrol</span></div>
+          </div>
+          <p class="vehicle-desc">A mid-war escort design combining seakeeping with strong anti-submarine capability. The PCE carried both depth charges and a Hedgehog mortar, making it effective at prosecuting submerged contacts without losing sonar lock.</p>
+        </div>
+      </div>
+
+      <div class="vehicle-card reveal reveal-delay-4">
+        <div class="vehicle-image">
+          <img src="images/allies/loch_class.jpg" alt="Loch Class" onerror="this.parentNode.innerHTML='<div class=\'vehicle-image-placeholder\'><span class=\'vehicle-image-label\'>IMAGE PENDING</span></div>'">
+        </div>
+        <div class="vehicle-details">
+          <div class="vehicle-class">Loch-Class Frigate · Vman</div>
+          <div class="vehicle-name">LOCH CLASS</div>
+          <div class="vehicle-stats">
+            <div class="vehicle-stat"><span class="stat-label">Type</span><span class="stat-value">ASW Frigate</span></div>
+            <div class="vehicle-stat"><span class="stat-label">Speed</span><span class="stat-value">19.5 kts</span></div>
+            <div class="vehicle-stat"><span class="stat-label">Armament</span><span class="stat-value">4in Guns · Squid Mortar · Depth Charges</span></div>
+            <div class="vehicle-stat"><span class="stat-label">Role</span><span class="stat-value">Escort · Hunter-Killer</span></div>
+          </div>
+          <p class="vehicle-desc">One of the most capable ASW platforms of the late war period. The Loch-class carried the triple-barrelled Squid anti-submarine mortar — a weapon that could saturate a U-boat's position with devastating accuracy.</p>
+        </div>
+      </div>
+
+      <div class="vehicle-card reveal reveal-delay-1">
+        <div class="vehicle-image">
+          <img src="images/allies/castle_class.jpg" alt="Castle Class" onerror="this.parentNode.innerHTML='<div class=\'vehicle-image-placeholder\'><span class=\'vehicle-image-label\'>IMAGE PENDING</span></div>'">
+        </div>
+        <div class="vehicle-details">
+          <div class="vehicle-class">Castle-Class Corvette · Vman</div>
+          <div class="vehicle-name">CASTLE CLASS</div>
+          <div class="vehicle-stats">
+            <div class="vehicle-stat"><span class="stat-label">Type</span><span class="stat-value">Convoy Escort Corvette</span></div>
+            <div class="vehicle-stat"><span class="stat-label">Speed</span><span class="stat-value">16.5 kts</span></div>
+            <div class="vehicle-stat"><span class="stat-label">Armament</span><span class="stat-value">4in Gun · Squid Mortar · Depth Charges</span></div>
+            <div class="vehicle-stat"><span class="stat-label">Role</span><span class="stat-value">ASW Escort · Convoy Protection</span></div>
+          </div>
+          <p class="vehicle-desc">An improved successor to the Flower-class, the Castle corvette was larger, more seaworthy, and better armed. Fitted with the Squid ahead-throwing mortar, it could engage submerged contacts while maintaining continuous sonar tracking.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>`,
+
+// ═══════ AXIS ═══════
+axis: `
+<div class="section-divider"></div>
+<section id="axis" class="section">
+  <div class="section-inner">
+    <div class="section-label reveal">Kriegsmarine</div>
+    <h2 class="section-title reveal reveal-delay-1">AXIS <span class="accent">VESSELS</span></h2>
+    <p class="section-body reveal reveal-delay-2">The submarines of the Kriegsmarine. Silent, patient, and deadly — the U-boat wolfpacks that stalked the North Atlantic convoys and brought the war to Allied shipping lanes.</p>
+
+    <div class="vehicle-grid">
+
+      <div class="vehicle-card reveal reveal-delay-1">
+        <div class="vehicle-image">
+          <img src="images/axis/type_viia.jpg" alt="Type VIIA" onerror="this.parentNode.innerHTML='<div class=\'vehicle-image-placeholder\'><span class=\'vehicle-image-label\'>IMAGE PENDING</span></div>'">
+        </div>
+        <div class="vehicle-details">
+          <div class="vehicle-class">Type VIIA U-Boat · Vman</div>
+          <div class="vehicle-name">TYPE VIIA</div>
+          <div class="vehicle-stats">
+            <div class="vehicle-stat"><span class="stat-label">Type</span><span class="stat-value">Attack Submarine</span></div>
+            <div class="vehicle-stat"><span class="stat-label">Speed</span><span class="stat-value">17 kts surface · 8 kts submerged</span></div>
+            <div class="vehicle-stat"><span class="stat-label">Armament</span><span class="stat-value">5× Torpedo Tubes · 88mm Deck Gun</span></div>
+            <div class="vehicle-stat"><span class="stat-label">Role</span><span class="stat-value">Wolfpack Attack · Commerce Raiding</span></div>
+          </div>
+          <p class="vehicle-desc">The backbone of the Kriegsmarine's U-boat fleet. Compact, reliable, and lethal — built in greater numbers than any other submarine in history. The primary weapon of the Atlantic wolfpack campaign and the terror of the convoy lanes.</p>
+        </div>
+      </div>
+
+      <div class="vehicle-card reveal reveal-delay-2">
+        <div class="vehicle-image">
+          <img src="images/axis/type_ix.jpg" alt="Type IX" onerror="this.parentNode.innerHTML='<div class=\'vehicle-image-placeholder\'><span class=\'vehicle-image-label\'>IMAGE PENDING</span></div>'">
+        </div>
+        <div class="vehicle-details">
+          <div class="vehicle-class">Type IX U-Boat · Vman</div>
+          <div class="vehicle-name">TYPE IX</div>
+          <div class="vehicle-stats">
+            <div class="vehicle-stat"><span class="stat-label">Type</span><span class="stat-value">Long-Range Submarine</span></div>
+            <div class="vehicle-stat"><span class="stat-label">Speed</span><span class="stat-value">18.3 kts surface · 7.7 kts submerged</span></div>
+            <div class="vehicle-stat"><span class="stat-label">Armament</span><span class="stat-value">6× Torpedo Tubes · 105mm Deck Gun</span></div>
+            <div class="vehicle-stat"><span class="stat-label">Role</span><span class="stat-value">Independent Patrol · Distant Operations</span></div>
+          </div>
+          <p class="vehicle-desc">Larger and with far greater range than the Type VII, the Type IX operated independently across the wider Atlantic and beyond. Carrying more torpedoes and a heavier deck gun, it was a formidable threat to any convoy beyond the escort screen.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>`,
+
+// ═══════ SYSTEMS ═══════
+systems: `
+<div class="section-divider"></div>
+<section id="systems" class="section">
+  <div class="section-inner">
+    <div class="section-label reveal">Onboard Technology</div>
+    <h2 class="section-title reveal reveal-delay-1">SHIP <span class="accent">SYSTEMS</span></h2>
+    <p class="section-body reveal reveal-delay-2">Every vessel in Convoy 1943 is equipped with simulated onboard systems — each modelled for period accuracy and driven by the custom Stormworks addon. Understanding your systems is the difference between a kill and a coffin.</p>
+
+    <div class="system-list">
+
+      <div class="system-card reveal reveal-delay-1">
+        <div class="system-image">
+          <div class="system-image-placeholder">
+            <span class="system-image-label">IMAGE PENDING</span>
+          </div>
+        </div>
+        <div class="system-info">
+          <div class="system-designation">DETECTION · ALLIED</div>
+          <div class="system-name">ASDIC SONAR</div>
+          <p class="system-desc">Anti-Submarine Detection Investigation Committee — the Allied sonar system that swept the depths with sound. The ASDIC operator transmits an acoustic pulse and listens for the returning echo off a submarine's hull. Range, bearing, and depth can all be estimated from the return. In Convoy 1943, ASDIC is fully simulated: a submarine's noise signature and physical size directly affect its detectability. A silent, deep-running U-boat is far harder to pin down than one running at speed on the surface. Master your ASDIC and you control the depth.</p>
+        </div>
+      </div>
+
+      <div class="system-card reveal reveal-delay-2">
+        <div class="system-image">
+          <div class="system-image-placeholder">
+            <span class="system-image-label">IMAGE PENDING</span>
+          </div>
+        </div>
+        <div class="system-info">
+          <div class="system-designation">DETECTION · AXIS</div>
+          <div class="system-name">HYDROPHONE ARRAY</div>
+          <p class="system-desc">The U-boat's primary passive detection tool. Where ASDIC is active — send a ping, hear the echo — the hydrophone is passive, listening without betraying its own position. A skilled hydrophone operator could detect a convoy's propeller noise from kilometres away, feeding bearing data to the captain long before the escorts knew anything was out there. In Convoy 1943, every vessel generates a noise signature based on speed, engine load, and hull size. Run quiet and you might stay invisible. Run hard and the hydrophone will find you.</p>
+        </div>
+      </div>
+
+      <div class="system-card reveal reveal-delay-3">
+        <div class="system-image">
+          <div class="system-image-placeholder">
+            <span class="system-image-label">IMAGE PENDING</span>
+          </div>
+        </div>
+        <div class="system-info">
+          <div class="system-designation">COMMUNICATIONS · ALL VESSELS</div>
+          <div class="system-name">RADIO &amp; MORSE</div>
+          <p class="system-desc">Voice radio and morse code are the arteries of the convoy battle. Escort commanders coordinate search patterns, merchant masters report contacts, and U-boat captains call in their wolfpack. In Convoy 1943, in-game radio channels and morse code are live — teams use them for tactical coordination during engagements. Learn the brevity codes. Keep transmissions short. The enemy is listening.</p>
+        </div>
+      </div>
+
+      <div class="system-card reveal reveal-delay-4">
+        <div class="system-image">
+          <div class="system-image-placeholder">
+            <span class="system-image-label">IMAGE PENDING</span>
+          </div>
+        </div>
+        <div class="system-info">
+          <div class="system-designation">NAVIGATION · ALL VESSELS</div>
+          <div class="system-name">DEAD RECKONING &amp; CHARTS</div>
+          <p class="system-desc">No GPS. No satellites. Position is calculated from last known fix, compass heading, speed, and elapsed time. In the North Atlantic — where overcast skies could deny star sights for days — dead reckoning was the only option. Officers plot on paper charts, accounting for current and leeway. Get it wrong and the convoy misses its rendezvous. Get it very wrong and you find a minefield instead of a harbour.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+<div class="section-divider"></div>
+<section id="weapons" class="section">
+  <div class="section-inner">
+    <div class="section-label reveal">Ordnance Manifest</div>
+    <h2 class="section-title reveal reveal-delay-1">WEAPONS &amp; <span class="accent">ORDNANCE</span></h2>
+    <p class="section-body reveal reveal-delay-2">The full arsenal available in Convoy 1943 — from acoustic-homing torpedoes to forward-thrown anti-submarine mortars. Know your weapons, know their limits.</p>
+
+    <div class="weapon-grid">
+
+      <div class="weapon-card reveal reveal-delay-1">
+        <div class="weapon-image">
+          <div class="weapon-image-placeholder">
+            <span class="weapon-image-label">IMAGE PENDING</span>
+          </div>
+        </div>
+        <div class="weapon-info">
+          <div class="weapon-side weapon-side--allied">ALLIED</div>
+          <div class="weapon-name">STANDARD TORPEDO</div>
+          <div class="weapon-stats">
+            <div class="weapon-stat"><span class="stat-label">Speed</span><span class="stat-value">30 kts</span></div>
+            <div class="weapon-stat"><span class="stat-label">Guidance</span><span class="stat-value">LUT Pattern Running</span></div>
+            <div class="weapon-stat"><span class="stat-label">Role</span><span class="stat-value">Surface &amp; Submerged Targets</span></div>
+          </div>
+          <p class="weapon-desc">The standard fleet torpedo running at 30 knots with LUT (Lageunabhängiger Torpedo) functionality — allowing it to run pre-set search patterns after the initial straight run. Reliable and proven, the backbone of Allied torpedo armament.</p>
+        </div>
+      </div>
+
+      <div class="weapon-card reveal reveal-delay-2">
+        <div class="weapon-image">
+          <div class="weapon-image-placeholder">
+            <span class="weapon-image-label">IMAGE PENDING</span>
+          </div>
+        </div>
+        <div class="weapon-info">
+          <div class="weapon-side weapon-side--axis">AXIS</div>
+          <div class="weapon-name">ADVANCED TORPEDO</div>
+          <div class="weapon-stats">
+            <div class="weapon-stat"><span class="stat-label">Speed</span><span class="stat-value">24 kts</span></div>
+            <div class="weapon-stat"><span class="stat-label">Guidance</span><span class="stat-value">Acoustic Homing</span></div>
+            <div class="weapon-stat"><span class="stat-label">Role</span><span class="stat-value">Anti-Escort · Homing Attack</span></div>
+          </div>
+          <p class="weapon-desc">Slower than the standard torpedo at 24 knots, but equipped with acoustic homing guidance — it follows the propeller noise of its target. Devastating against fast-moving escort vessels. Countermeasures and speed management are your only defence.</p>
+        </div>
+      </div>
+
+      <div class="weapon-card reveal reveal-delay-3">
+        <div class="weapon-image">
+          <div class="weapon-image-placeholder">
+            <span class="weapon-image-label">IMAGE PENDING</span>
+          </div>
+        </div>
+        <div class="weapon-info">
+          <div class="weapon-side weapon-side--axis">AXIS</div>
+          <div class="weapon-name">PROGRAMMABLE TORPEDO</div>
+          <div class="weapon-stats">
+            <div class="weapon-stat"><span class="stat-label">Speed</span><span class="stat-value">30 kts</span></div>
+            <div class="weapon-stat"><span class="stat-label">Guidance</span><span class="stat-value">LUT + FAT Pattern Running</span></div>
+            <div class="weapon-stat"><span class="stat-label">Role</span><span class="stat-value">Convoy Area Attack</span></div>
+          </div>
+          <p class="weapon-desc">Running at 30 knots with both LUT and FAT (Federapparat Torpedo) functionality — able to execute complex pre-programmed search patterns through a convoy's sailing lanes. Fire once into a convoy column and let the torpedo do the hunting.</p>
+        </div>
+      </div>
+
+      <div class="weapon-card reveal reveal-delay-4">
+        <div class="weapon-image">
+          <div class="weapon-image-placeholder">
+            <span class="weapon-image-label">IMAGE PENDING</span>
+          </div>
+        </div>
+        <div class="weapon-info">
+          <div class="weapon-side weapon-side--axis">AXIS</div>
+          <div class="weapon-name">DUMB TORPEDO</div>
+          <div class="weapon-stats">
+            <div class="weapon-stat"><span class="stat-label">Speed</span><span class="stat-value">40 kts</span></div>
+            <div class="weapon-stat"><span class="stat-label">Guidance</span><span class="stat-value">Straight Runner · Unguided</span></div>
+            <div class="weapon-stat"><span class="stat-label">Role</span><span class="stat-value">Direct Attack · Close Range</span></div>
+          </div>
+          <p class="weapon-desc">No patterns, no homing — just raw speed. The fastest torpedo in the arsenal at 40 knots, running in a dead-straight line to its target. What it lacks in subtlety it makes up for in velocity. At close range, there is no time to evade. Point. Fire. Hit.</p>
+        </div>
+      </div>
+
+      <div class="weapon-card reveal reveal-delay-1">
+        <div class="weapon-image">
+          <div class="weapon-image-placeholder">
+            <span class="weapon-image-label">IMAGE PENDING</span>
+          </div>
+        </div>
+        <div class="weapon-info">
+          <div class="weapon-side weapon-side--allied">ALLIED</div>
+          <div class="weapon-name">DEPTH CHARGE</div>
+          <div class="weapon-stats">
+            <div class="weapon-stat"><span class="stat-label">Type</span><span class="stat-value">Rolled / Thrower</span></div>
+            <div class="weapon-stat"><span class="stat-label">Guidance</span><span class="stat-value">Unguided · Depth Fused</span></div>
+            <div class="weapon-stat"><span class="stat-label">Role</span><span class="stat-value">Anti-Submarine</span></div>
+          </div>
+          <p class="weapon-desc">The primary ASW weapon of the escort fleet. A cylindrical canister packed with high explosive, set to detonate at a predetermined depth. Rolled off the stern or fired from side-mounted throwers, a well-placed pattern around a submerged contact could crush a pressure hull or force a U-boat to the surface.</p>
+        </div>
+      </div>
+
+      <div class="weapon-card reveal reveal-delay-2">
+        <div class="weapon-image">
+          <div class="weapon-image-placeholder">
+            <span class="weapon-image-label">IMAGE PENDING</span>
+          </div>
+        </div>
+        <div class="weapon-info">
+          <div class="weapon-side weapon-side--allied">ALLIED</div>
+          <div class="weapon-name">HEDGEHOG</div>
+          <div class="weapon-stats">
+            <div class="weapon-stat"><span class="stat-label">Type</span><span class="stat-value">Forward-Throwing Mortar</span></div>
+            <div class="weapon-stat"><span class="stat-label">Guidance</span><span class="stat-value">Unguided · Contact Fused</span></div>
+            <div class="weapon-stat"><span class="stat-label">Role</span><span class="stat-value">Anti-Submarine · Forward Attack</span></div>
+          </div>
+          <p class="weapon-desc">A salvo of 24 contact-fused bombs thrown ahead of the ship — allowing the escort to attack without losing ASDIC contact. Unlike the depth charge, which detonates at depth regardless, the Hedgehog only explodes on direct contact with the hull. No explosion means a miss. An explosion means a kill.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>`
+
+}; // end pages
+
+// ═══════ ROUTER ═══════
+const pageContent = document.getElementById('page-content');
+const navbar = document.getElementById('navbar');
+let currentPage = null;
+
+const pageTitles = {
+  home:      'CONVOY 1943 — Atlantic Naval Warfare',
+  about:     'About — CONVOY 1943',
+  play:      'How to Play — CONVOY 1943',
+  players:   'Players — CONVOY 1943',
+  allies:    'Allied Vessels — CONVOY 1943',
+  axis:      'Axis Vessels — CONVOY 1943',
+  systems:   'Systems &amp; Weapons — CONVOY 1943',
+  downloads: 'Downloads — CONVOY 1943',
+  tools:     'Modding Tools — CONVOY 1943',
+};
+
+function navigateTo(page, pushState = true) {
+  if (!pages[page]) page = 'home';
+  if (page === currentPage) return;
+
+  // Fade out
+  pageContent.classList.add('transitioning');
+
+  setTimeout(() => {
+    // Inject content
+    pageContent.innerHTML = pages[page];
+    currentPage = page;
+
+    // Update URL hash
+    if (pushState) {
+      history.pushState({ page }, '', '#' + page);
+    }
+
+    // Update nav active state
+    document.querySelectorAll('.nav-links a').forEach(a => {
+      a.classList.toggle('active', a.dataset.page === page);
+    });
+
+    // Bind data-page links inside the new content
+    pageContent.querySelectorAll('[data-page]').forEach(el => {
+      el.addEventListener('click', e => {
+        e.preventDefault();
+        navigateTo(el.dataset.page);
+      });
+    });
+
+    // Scroll to top
+    window.scrollTo({ top: 0 });
+
+    // Fade in
+    pageContent.classList.remove('transitioning');
+
+    // Init scroll reveal
+    const reveals = pageContent.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+    reveals.forEach(el => observer.observe(el));
+
+    // Nav background: always show on non-home pages
+    navbar.classList.toggle('scrolled', page !== 'home' || window.scrollY > 80);
+
+    // Page title
+    document.title = pageTitles[page] || 'CONVOY 1943';
+
+  }, currentPage === null ? 0 : 280);
+}
+
+// ═══════ NAV SCROLL STATE ═══════
+window.addEventListener('scroll', () => {
+  if (currentPage === 'home') {
+    navbar.classList.toggle('scrolled', window.scrollY > 80);
+  }
+});
+
+// ═══════ BACK / FORWARD ═══════
+window.addEventListener('popstate', e => {
+  const page = e.state?.page || getPageFromHash();
+  navigateTo(page, false);
+});
+
+function getPageFromHash() {
+  const hash = window.location.hash.replace('#', '');
+  return pages[hash] ? hash : 'home';
+}
+
+// ═══════ BIND STATIC NAV ═══════
+document.querySelectorAll('[data-page]').forEach(el => {
+  el.addEventListener('click', e => {
+    e.preventDefault();
+    navigateTo(el.dataset.page);
+  });
+});
+
+// ═══════ INIT ═══════
+navigateTo(getPageFromHash(), false);
+</script>
 </body>
 </html>
