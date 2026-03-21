@@ -278,6 +278,17 @@ nav.scrolled {
   border-color: var(--signal-amber);
   box-shadow: 0 0 30px rgba(212,162,68,0.15);
 }
+.hero-video-embed {
+  opacity: 0;
+  animation: fade-up 1s 1.5s forwards;
+  border: 1px solid rgba(212,162,68,0.2);
+  box-shadow: 0 8px 60px rgba(0,0,0,0.6);
+  line-height: 0;
+}
+.hero-video-embed iframe {
+  display: block;
+  max-width: 100%;
+}
 .scroll-indicator {
   position: absolute;
   bottom: 40px;
@@ -600,38 +611,90 @@ nav.scrolled {
 }
 .play-requirements {
   margin-top: 60px;
-  padding: 40px;
-  border: 1px solid rgba(58,74,92,0.2);
-  background: rgba(12,20,32,0.3);
 }
 .play-requirements h3 {
   font-family: 'Bebas Neue', sans-serif;
   font-size: 24px;
   letter-spacing: 4px;
   color: var(--signal-amber);
-  margin-bottom: 20px;
+  margin-bottom: 28px;
 }
 .req-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
+  gap: 16px;
 }
 .req-item {
-  text-align: center;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 32px 28px;
+  border: 1px solid rgba(58,74,92,0.25);
+  background: rgba(12,20,32,0.5);
+  text-decoration: none;
+  transition: border-color 0.3s, background 0.3s, transform 0.3s;
+  overflow: hidden;
+}
+.req-item::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--signal-amber-dim);
+  transition: background 0.3s;
+}
+.req-item:hover {
+  border-color: rgba(212,162,68,0.4);
+  background: rgba(17,30,48,0.7);
+  transform: translateY(-3px);
+}
+.req-item:hover::before {
+  background: var(--signal-amber);
 }
 .req-item .req-label {
   font-family: 'Share Tech Mono', monospace;
   font-size: 9px;
-  letter-spacing: 3px;
+  letter-spacing: 4px;
   text-transform: uppercase;
   color: var(--steel);
-  margin-bottom: 6px;
+  margin-bottom: 14px;
+}
+.req-item .req-icon {
+  font-size: 28px;
+  margin-bottom: 16px;
+  opacity: 0.85;
 }
 .req-item .req-value {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 20px;
-  letter-spacing: 2px;
+  font-size: 22px;
+  letter-spacing: 3px;
   color: var(--foam-white);
+  margin-bottom: 10px;
+  transition: color 0.3s;
+}
+.req-item:hover .req-value {
+  color: var(--signal-amber);
+}
+.req-item .req-desc {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: var(--steel);
+  line-height: 1.6;
+  margin-top: auto;
+}
+.req-item .req-cta {
+  display: inline-block;
+  margin-top: 18px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 3px;
+  color: var(--signal-amber-dim);
+  text-transform: uppercase;
+  transition: color 0.3s;
+}
+.req-item:hover .req-cta {
+  color: var(--signal-amber);
 }
 /* ═══════ DOWNLOADS ═══════ */
 #downloads {

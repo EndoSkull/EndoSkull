@@ -65,12 +65,9 @@ home: `
     </h1>
     <div class="hero-divider"></div>
     <p class="hero-tagline">Battle of the Atlantic. Command escort destroyers. Hunt wolfpacks. Protect the convoy at all costs.</p>
-    <a class="hero-cta" data-page="play">
-      Begin Your Tour of Duty
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
-        <path d="M3 8h10M9 4l4 4-4 4"/>
-      </svg>
-    </a>
+    <div class="hero-video-embed">
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/BVTCA7NXh9U?si=ojMARmwcgYT1JVR3" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
   </div>
   <div class="scroll-indicator">
     <div class="scroll-line"></div>
@@ -182,18 +179,27 @@ play: `
     <div class="play-requirements reveal reveal-delay-4">
       <h3>GAMEPLAY REQUIREMENTS</h3>
       <div class="req-grid">
-        <div class="req-item">
-          <div class="req-label">01</div>
+        <a class="req-item" href="https://store.steampowered.com/app/573090/Stormworks_Build_and_Rescue/" target="_blank">
+          <div class="req-label">REQUIREMENT 01</div>
+          <div class="req-icon">⚙</div>
           <div class="req-value">STORMWORKS INSTALLED</div>
-        </div>
-        <div class="req-item">
-          <div class="req-label">02</div>
+          <div class="req-desc">You'll need Stormworks: Build and Rescue on Steam. This is the base game that powers the entire Convoy 1943 experience.</div>
+          <span class="req-cta">Get on Steam →</span>
+        </a>
+        <a class="req-item" href="https://store.steampowered.com/app/1542360/Stormworks_Search_and_Destroy/" target="_blank">
+          <div class="req-label">REQUIREMENT 02</div>
+          <div class="req-icon">⚓</div>
           <div class="req-value">SEARCH &amp; DESTROY DLC</div>
-        </div>
-        <div class="req-item">
-          <div class="req-label">03</div>
+          <div class="req-desc">The Search and Destroy DLC unlocks naval warfare mechanics — torpedoes, submarines, and the weapons systems core to Convoy 1943.</div>
+          <span class="req-cta">Get the DLC →</span>
+        </a>
+        <a class="req-item" href="https://discord.gg/EndoSkull" target="_blank">
+          <div class="req-label">REQUIREMENT 03</div>
+          <div class="req-icon">📡</div>
           <div class="req-value">DISCORD MEMBER</div>
-        </div>
+          <div class="req-desc">Events are run through Discord. Join to see scheduled operations, sign up for a slot, and coordinate with your crew on the day.</div>
+          <span class="req-cta">Join the Discord →</span>
+        </a>
       </div>
     </div>
   </div>
@@ -883,13 +889,7 @@ function navigateTo(page, pushState = true) {
       a.classList.toggle('active', a.dataset.page === page);
     });
 
-    // Bind data-page links inside the new content
-    pageContent.querySelectorAll('[data-page]').forEach(el => {
-      el.addEventListener('click', e => {
-        e.preventDefault();
-        navigateTo(el.dataset.page);
-      });
-    });
+    // (data-page links handled by document-level delegation below)
 
     // Scroll to top
     window.scrollTo({ top: 0 });
@@ -933,12 +933,12 @@ function getPageFromHash() {
   return pages[hash] ? hash : 'home';
 }
 
-// ═══════ BIND STATIC NAV ═══════
-document.querySelectorAll('[data-page]').forEach(el => {
-  el.addEventListener('click', e => {
-    e.preventDefault();
-    navigateTo(el.dataset.page);
-  });
+// ═══════ BIND ALL DATA-PAGE LINKS (delegated) ═══════
+document.addEventListener('click', e => {
+  const el = e.target.closest('[data-page]');
+  if (!el) return;
+  e.preventDefault();
+  navigateTo(el.dataset.page);
 });
 
 // ═══════ INIT ═══════
