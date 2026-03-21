@@ -87,6 +87,7 @@ nav.scrolled {
   transition: color 0.3s;
   cursor: pointer;
 }
+.nav-links::-webkit-scrollbar { display: none; }
 .nav-links a::after {
   content: '';
   position: absolute;
@@ -112,11 +113,12 @@ nav.scrolled {
 /* ═══════ HERO / SPLASH ═══════ */
 #home {
   position: relative;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding: 80px 24px 60px;
   overflow: hidden;
 }
 .hero-bg {
@@ -284,10 +286,17 @@ nav.scrolled {
   border: 1px solid rgba(212,162,68,0.2);
   box-shadow: 0 8px 60px rgba(0,0,0,0.6);
   line-height: 0;
+  width: 100%;
+  max-width: 640px;
+  aspect-ratio: 16 / 9;
+  position: relative;
 }
 .hero-video-embed iframe {
-  display: block;
-  max-width: 100%;
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
 }
 .scroll-indicator {
   position: absolute;
@@ -1513,23 +1522,64 @@ footer {
     rgba(0,0,0,0.03) 4px
   );
 }
-/* ═══════ MOBILE ═══════ */
-@media (max-width: 900px) {
-  .about-grid { grid-template-columns: 1fr; gap: 40px; }
-  .team-grid { grid-template-columns: 1fr; }
-  .play-steps { grid-template-columns: 1fr 1fr; }
-  .downloads-grid { grid-template-columns: 1fr; }
-  .tools-grid { grid-template-columns: 1fr; }
-  .feature-list { grid-template-columns: 1fr; }
-  .req-grid { grid-template-columns: 1fr 1fr; }
-  .section { padding: 100px 24px 60px; }
-  nav { padding: 0 24px; }
+/* ═══════ RESPONSIVE ═══════ */
+
+/* ---- Tablet / small desktop ---- */
+@media (max-width: 1100px) {
   .nav-links { gap: 16px; }
   .nav-links a { font-size: 9px; letter-spacing: 2px; }
+  .play-steps { grid-template-columns: 1fr 1fr; }
+  .ws-grid { grid-template-columns: 1fr 1fr; }
+  .vehicle-grid { grid-template-columns: 1fr; }
+}
+
+/* ---- Tablet portrait / narrow ---- */
+@media (max-width: 900px) {
+  nav { padding: 0 20px; }
+  .nav-links { gap: 10px; overflow-x: auto; -webkit-overflow-scrolling: touch; flex-wrap: nowrap; scrollbar-width: none; }
+  .nav-links a { font-size: 8px; letter-spacing: 1.5px; }
+  .section { padding: 100px 24px 60px; }
+  .about-grid { grid-template-columns: 1fr; gap: 40px; }
+  .team-grid { grid-template-columns: 1fr 1fr; }
+  .play-steps { grid-template-columns: 1fr 1fr; }
+  .req-grid { grid-template-columns: 1fr; }
+  .downloads-grid { grid-template-columns: 1fr; }
+  .tools-grid { grid-template-columns: 1fr 1fr; }
+  .feature-list { grid-template-columns: 1fr; }
+  .weapon-grid { grid-template-columns: 1fr; }
+  .weapon-stats { grid-template-columns: 1fr 1fr; }
+  .system-card { grid-template-columns: 1fr; }
+  .system-image { aspect-ratio: 16 / 8; width: 100%; }
   .footer-inner { flex-direction: column; gap: 16px; align-items: flex-start; }
   .footer-note { text-align: left; }
+  .hero-video-embed { max-width: 100%; }
 }
+
+/* ---- Mobile ---- */
 @media (max-width: 600px) {
+  nav { padding: 0 16px; height: 50px; }
+  .nav-logo { font-size: 18px; letter-spacing: 4px; }
   .nav-links { display: none; }
+  .section { padding: 70px 16px 48px; }
   .hero-title { letter-spacing: 4px; }
+  .hero-tagline { font-size: 14px; padding: 0 8px; }
+  .hero-content { padding: 0 12px; }
+  .hero-video-embed { max-width: 100%; }
+  .section-title { font-size: clamp(32px, 8vw, 48px); letter-spacing: 2px; }
+  .section-body { font-size: 15px; }
+  .team-grid { grid-template-columns: 1fr; }
+  .play-steps { grid-template-columns: 1fr; }
+  .player-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .player-card { padding: 24px 16px; }
+  .player-callsign { font-size: 22px; letter-spacing: 3px; }
+  .player-portrait { width: 80px; height: 80px; }
+  .ws-grid { grid-template-columns: 1fr; }
+  .tools-grid { grid-template-columns: 1fr; }
+  .req-grid { grid-template-columns: 1fr; }
+  .req-item { padding: 24px 20px; }
+  .about-visual { display: none; }
+  .weapon-stats { grid-template-columns: 1fr; }
+  .system-card { grid-template-columns: 1fr; }
+  .system-image { aspect-ratio: 16 / 8; width: 100%; }
+  .footer-inner { padding: 24px 16px; }
 }
