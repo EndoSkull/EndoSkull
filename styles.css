@@ -3,14 +3,14 @@
   --deep-black: #0a0a0c;
   --atlantic-dark: #0c1420;
   --atlantic-mid: #11263e;
-  --steel: #3a4a5c;
-  --fog: #7a8a9a;
+  --steel: #6a7e94;
+  --fog: #a0b0c0;
   --signal-amber: #d4a244;
   --signal-amber-dim: #a07830;
   --danger-red: #8b2020;
   --foam-white: #c8d0d8;
-  --text-body: #9aa8b8;
-  --text-bright: #d0dae4;
+  --text-body: #b8c8d8;
+  --text-bright: #d8e4ee;
   --nav-height: 64px;
 }
 html {
@@ -686,10 +686,10 @@ nav.scrolled {
 }
 .req-item .req-desc {
   font-family: 'Share Tech Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 1px;
-  color: var(--steel);
-  line-height: 1.6;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  color: var(--fog);
+  line-height: 1.7;
   margin-top: auto;
 }
 .req-item .req-cta {
