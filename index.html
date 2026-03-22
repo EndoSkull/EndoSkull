@@ -18,6 +18,7 @@
     <li><a data-page="about">About</a></li>
     <li><a data-page="updates">Updates</a></li>
     <li><a data-page="play">Play</a></li>
+    <li><a data-page="players">Players</a></li>
     <li><a data-page="allies">Allies</a></li>
     <li><a data-page="axis">Axis</a></li>
     <li><a data-page="systems">Systems</a></li>
@@ -126,10 +127,10 @@ about: `
         <p class="team-card-bio">Responsible for most of the Stormworks In Game Models. Contributor of vehicle system simulations.</p>
       </div>
       <div class="team-card reveal reveal-delay-1">
-        <div class="team-card-rank">Crew Member</div>
+        <div class="team-card-rank">Contributor</div>
         <div class="team-card-name">ELITE</div>
         <div class="team-card-role">Contributor</div>
-        <p class="team-card-bio">Another vehicle builder that has brought additional player vehicles to life as well as additional Convoy ships.</p>
+        <p class="team-card-bio">Another vehicle builder that has brought additional player vehicles to life as well as additional Convoy ships. Builder of PC882 &amp; PC461.</p>
       </div>
       <div class="team-card reveal reveal-delay-2">
         <div class="team-card-rank">Crew Member</div>
@@ -369,244 +370,283 @@ updates: `
 
       <div class="update-bulletin reveal reveal-delay-1">
         <div class="bulletin-header">
-          <span class="bulletin-date">2026 · MARCH</span>
-          <span class="bulletin-tag">DISPATCH</span>
+          <span class="bulletin-date">17 MAR 2026</span>
+          <span class="bulletin-tag tag-fleet">NEW YEAR UPDATE</span>
         </div>
-        <div class="bulletin-title">WEATHER INTELLIGENCE — HISTORICAL DATABASE INTEGRATION</div>
+        <div class="bulletin-title">FULL SYSTEMS REFIT — NEW YEAR BUILD RELEASED</div>
         <div class="bulletin-body">
-          <p>Fourth and final weather simulation now active. After three prior iterations — monthly weighting, rewrite with expanded types, and data-crawl approximation — the system now pulls from a live historical weather API. Game weather now mirrors real North Atlantic conditions recorded between 1940 and today. A session run on March 17th will reflect 1943-03-17 historical readings. Forecast cycles in-game daily at midnight.</p>
-          <p>Consecutive high-wind days now include wind relief logic to prevent punishing consecutive storm sessions. In short: expect rough Atlantic winter conditions until June.</p>
+          <p>Finally shipping the new year version — this is looking good. New keybinds are in place and controls are much more accessible. Display systems heavily reworked to feel like operating advanced military vehicles with realistic instrumentation. Full sonar rework brings better detection and response times. A new asymmetric naval warfare system introduces rock/paper/scissors gameplay. UI layouts and control schemes simplified. Convoy and fleet deployment counts optimised for more varied engagements.</p>
           <ul class="bulletin-list">
-            <li>Torpedo arming distances added — no more point-blank kills</li>
-            <li>Longer torpedo wakes with bubble effects; bioluminescent wake effect in rare weather</li>
-            <li>Depth charge splash damage radius introduced</li>
-            <li>Morse code seats added to all U-boats for encrypted comms</li>
-            <li>Radio fixes courtesy of Elite</li>
-            <li>New Sword sonar system on Loch — more lethal in practice</li>
+            <li>New keybinds — controls significantly more accessible</li>
+            <li>Display systems overhauled with realistic military instrumentation</li>
+            <li>Full sonar rework — better detection and faster response</li>
+            <li>Asymmetric warfare system introduced</li>
+            <li>Simplified UI layouts and control schemes</li>
+            <li>Convoy and fleet numbers optimised for gameplay variety</li>
+            <li>Documentation updated throughout</li>
           </ul>
         </div>
       </div>
 
       <div class="update-bulletin reveal reveal-delay-2">
         <div class="bulletin-header">
-          <span class="bulletin-date">2026 · JANUARY</span>
-          <span class="bulletin-tag">STRATEGIC BRIEF</span>
+          <span class="bulletin-date">09 APR 2025</span>
+          <span class="bulletin-tag tag-fleet">FLEET</span>
         </div>
-        <div class="bulletin-title">GAMEPLAY OVERHAUL — VICTORY POINTS &amp; ASSET PROGRESSION</div>
+        <div class="bulletin-title">NEW SUBMARINE TYPES — TYPE VIIA &amp; TYPE IX CONFIGURATIONS</div>
         <div class="bulletin-body">
-          <p>Planning has begun on a full gameplay loop overhaul. Convoys will spawn and move continuously. Escorts begin with a trawler; U-boats begin with a Type II. Assets are unlocked via Victory Points earned in battle — but points are only banked upon safe return to base. Dying before returning home loses all points earned.</p>
           <ul class="bulletin-list">
-            <li>Convoy respawns continuously at route start when destroyed</li>
-            <li>Allies earn points for merchants delivered; Axis for ships sunk</li>
-            <li>No fictional assets — all vehicles must be historically accurate</li>
-            <li>Baseline spawn requirements defined per vehicle class</li>
-            <li>Sierra Fox Type IV retired permanently — too small for historical classification</li>
+            <li>Addon now supports different submarine types through new configurations</li>
+            <li>Type VIIA and Type IX submarines added with distinct attributes</li>
+            <li>Sonar improvements and adjusted detection ranges</li>
+            <li>Fixed sync issues with convoy route updates</li>
+            <li>Fixed vehicles not maintaining proper operational status</li>
           </ul>
         </div>
       </div>
 
       <div class="update-bulletin reveal reveal-delay-3">
         <div class="bulletin-header">
-          <span class="bulletin-date">2025 · DECEMBER</span>
-          <span class="bulletin-tag">FIELD REPORT</span>
+          <span class="bulletin-date">08 APR 2025</span>
+          <span class="bulletin-tag tag-critical">BUG FIXES</span>
         </div>
-        <div class="bulletin-title">CONVOY SHIPS — OPTIMISED HULLS &amp; ATLANTIC SHADER</div>
+        <div class="bulletin-title">CRITICAL CRASH FIXES — DEBRIS &amp; GUN SIGHT DISPLAY</div>
         <div class="bulletin-body">
-          <p>Convoy ships have been overhauled using new optimised build components. Liberty ship mesh reduced from 594kb to 308kb. Tanker mesh reduced from 657kb to 200kb. Code-based flotation tested — 25 ships at 60 TPS versus 40 buoyancy ships at 55-60 TPS. NPC gunners and spotlights now only activate for aerial targets or point-blank sub contacts, eliminating the underwater illumination exploit.</p>
           <ul class="bulletin-list">
-            <li>Atlantic Frankenstein Shader assembled — adjusted water colour, transparency, torpedo wakes, grain and sky</li>
-            <li>Ambient sinking audio added to convoy ships</li>
-            <li>Optimised fire shader introduced — FPS stable</li>
-            <li>Escort hydrophone and sonar updated with new dial components</li>
-            <li>Radio rebuilt — open mic now functional on Castle &amp; Type VIIA</li>
+            <li>Fixed crash in new debris spawning code introduced 02 Apr</li>
+            <li>Fixed crashes in gun sight display when drawing sprites</li>
+            <li>Fixed torpedoes not being removed properly when sinking</li>
           </ul>
         </div>
       </div>
 
       <div class="update-bulletin reveal reveal-delay-1">
         <div class="bulletin-header">
-          <span class="bulletin-date">2025 · NOVEMBER</span>
-          <span class="bulletin-tag">TECHNICAL BULLETIN</span>
+          <span class="bulletin-date">06 APR 2025</span>
+          <span class="bulletin-tag tag-critical">BUG FIXES</span>
         </div>
-        <div class="bulletin-title">TPS BENCHMARKS, AUDIO OVERHAUL &amp; TORPEDO IMPROVEMENTS</div>
+        <div class="bulletin-title">TORPEDO &amp; SONAR SYNC FIXES</div>
         <div class="bulletin-body">
-          <p>Extensive TPS benchmarking conducted across all vehicle classes. Key findings: modded components are the primary TPS killers; open ballast valves, decorative functional blocks, and unused Lua/logic blocks all contribute. Target benchmark results per class: SC497 — 12 @ 62 TPS; Castle — 10 @ 62 TPS; U-619 — 6 @ 61-62 TPS; Type VIIA — 9 @ 60-61 TPS; TBF Avenger — 18 @ 62 TPS.</p>
           <ul class="bulletin-list">
-            <li>All torpedoes now colour-coded and use optimised physics bodies</li>
-            <li>10-second arming delay added to all torpedo types</li>
-            <li>K-Gun replaced with power-adjustable launch component; default power 15</li>
-            <li>HF/DF contact messaging on End Around Maneuver</li>
-            <li>Electric motor start, loop and stop audio effects added</li>
-            <li>Bow wave crash and conning tower water-cut audio for escorts and U-boats</li>
-            <li>Torpedo elevator clamp — safe launch from 0 to 50 metres depth</li>
-            <li>Hedgehog now adjustable for direction via hh_aim</li>
-            <li>Type VIIA and Castle radios updated to open mic</li>
+            <li>Fixed torpedo seeker AI entering invalid state and being unable to find targets</li>
+            <li>Fixed active sonar pings becoming de-synced</li>
+            <li>Fixed vessels not retaining status code — fleet composition icons now persist on map</li>
           </ul>
         </div>
       </div>
 
       <div class="update-bulletin reveal reveal-delay-2">
         <div class="bulletin-header">
-          <span class="bulletin-date">2025 · OCTOBER</span>
-          <span class="bulletin-tag">DISPATCH</span>
+          <span class="bulletin-date">02 APR 2025</span>
+          <span class="bulletin-tag tag-ops">FEATURES</span>
         </div>
-        <div class="bulletin-title">CONVOY ROUTING, U-BOAT END AROUND &amp; RADIO SYSTEMS</div>
+        <div class="bulletin-title">AIM COMMANDS, GUNNERS &amp; TORPEDO SPAWNING OVERHAUL</div>
         <div class="bulletin-body">
-          <p>Major update to convoy flow and U-boat tactical options. Convoys now spawn in formation on a fixed route; when a ship is destroyed a replacement spawns further back along the route. U-boats may now execute an End Around Maneuver — routing to the front of the convoy if within 10km, deeper than 50 metres, and clear of escort threat.</p>
           <ul class="bulletin-list">
-            <li>New hydrophone component — fewer buzzer blocks, biological noise, proper audio fade</li>
-            <li>New depth charge spawn signs: depthcharge, depthcharge_port, depthcharge_starboard</li>
-            <li>New hedgehog spawn point sign block</li>
-            <li>Radio system implemented — RX/TX and RX-only sets on all vehicles</li>
-            <li>Allies: Mid (10km), Short (5km), Local (100m) bands</li>
-            <li>Axis: Long Range (20km) and Local (100m) bands — encrypted Morse only</li>
-            <li>Channel static simulated — closer to frequency, less interference</li>
-            <li>No player map icons — communication and coordination now required</li>
+            <li>New <code>?aim</code> command — auto-targets and fires at a target ship</li>
+            <li>New <code>?aims</code> command — like <code>?aim</code> but provides full firing solutions</li>
+            <li>New <code>?gunners</code> command — spawns gunners at gun positions</li>
+            <li>Torpedo spawning improved for consistency across submarine types — now deterministic and reliable</li>
+            <li>Submarine crew seats updated to use new teleport feature</li>
+            <li>Damage control AI disabled for NPC sinking ships — they no longer fight back</li>
+            <li>Removed <code>?scuttle</code> command (re-added later)</li>
+            <li>Removed all Convoy Warnings in chat for performance</li>
+            <li>Fixed crash occurring during debris spawning</li>
+            <li>Fixed crash in auto-aiming display</li>
           </ul>
         </div>
       </div>
 
       <div class="update-bulletin reveal reveal-delay-3">
         <div class="bulletin-header">
-          <span class="bulletin-date">2025 · SEPTEMBER</span>
-          <span class="bulletin-tag">FIELD REPORT</span>
+          <span class="bulletin-date">31 MAR 2025</span>
+          <span class="bulletin-tag tag-ops">FEATURES</span>
         </div>
-        <div class="bulletin-title">OPTIMISATION PUSH — 45 CONVOY SHIPS AT 62 TPS</div>
+        <div class="bulletin-title">ABORT COMMAND, DAMAGE CONTROL AI &amp; ESCORT FEATURES</div>
         <div class="bulletin-body">
-          <p>Breakthrough achieved using Jake's optimised build components. 45 convoy ships now running at 62 TPS in high physics mode. Liberty ship rebuilt at full scale. Flower Corvette optimisation moved from 4 player ships at 62 TPS to 6 player ships at 62 TPS. SC497 rebuilt by Alistair — 12 simultaneous at 62 TPS confirmed.</p>
           <ul class="bulletin-list">
-            <li>Torpedoes now spawn at speed — no more zero-momentum launch delay</li>
-            <li>Acoustic torpedo updated to 24 kts; Dumb torpedo to 40 kts</li>
-            <li>All torpedoes now have visible wakes</li>
-            <li>Trawler T142 from Eggnog converted and optimised for 2v2 play</li>
-            <li>New radio system component under development — turning dial from throttle</li>
-            <li>Memory leak in convoy prop tracked down and resolved</li>
+            <li>New <code>?abort</code> command — crew can order convoy to abort mission</li>
+            <li>New AI block tagging system — better organisation and reduced command propagation delays</li>
+            <li>New Sonar Spectrum Display — sonar as a spectrum bar</li>
+            <li>New Escort Feature set: Compass, Gun Sight, Radar, and Auto Aiming HUD displays (toggleable per player)</li>
+            <li>New Damage Control AI — detects flooding, maintains buoyancy, deploys countermeasures, self-destructs when terminal</li>
+            <li>New Debris system — damaged vessels spawn debris based on damage level</li>
+            <li>Convoy ships and AI submarines updated to use damage control AI logic</li>
+            <li>New Fleet Composition status codes on map — see cargo type per convoy ship</li>
+            <li>New Teleport Seats — sit in a "teleport" named seat to relocate within your vehicle</li>
+            <li>Fixed premature sinking detection trigger</li>
+            <li>Fixed explosions not creating on correct vessels</li>
           </ul>
         </div>
       </div>
 
       <div class="update-bulletin reveal reveal-delay-1">
         <div class="bulletin-header">
-          <span class="bulletin-date">2025 · JUNE</span>
-          <span class="bulletin-tag">STRATEGIC BRIEF</span>
+          <span class="bulletin-date">29 MAR 2025</span>
+          <span class="bulletin-tag tag-ops">FEATURES</span>
         </div>
-        <div class="bulletin-title">CARRIER OPERATIONS DECLARED — GAMES SUSPENDED PENDING REBUILD</div>
+        <div class="bulletin-title">VERSION FILE, HYDROPHONE REWORK &amp; TORPEDO AUDIO</div>
         <div class="bulletin-body">
-          <p>The path forward is carrier operations. Every block saved on escorts and submarines is being reinvested in TPS budget for carrier and aircraft gameplay. Carrier will float, sink, spawn and despawn aircraft — nothing more. All planes will be stripped to seats and flight components only, wrapped in a 3D shell.</p>
           <ul class="bulletin-list">
-            <li>No map icons — navigator stations to track contacts manually</li>
-            <li>New weapons systems in development: decoys, redesigned Hedgehog</li>
-            <li>New U-boat deployment features to reduce host setup burden</li>
-            <li>Regular midday games suspended until Charlizard available for testing</li>
-            <li>Games cancelled until further notice pending rebuild</li>
+            <li>Addon now generates a version file with build number and changelog</li>
+            <li>Two versions of basic and advanced torpedo now supported</li>
+            <li>Hydrophone completely reworked — resolves desync and effectiveness issues</li>
+            <li>New ship type -4 for sinking ships (separate SFX from type -3)</li>
+            <li>Torpedo depth set to 10 metres for all types with toggleable setting</li>
+            <li>Convoy commands now sent to all ships without AI captain — affects crew on support ships</li>
+            <li>Convoy route navigation uses game's path system between waypoints — smoother and more predictable</li>
+            <li>Reworked radio messages with radio voice audio</li>
+            <li>Spawned submarines now use game's path system if available</li>
+            <li>Convoy route tracking now only updates markers when necessary</li>
+            <li>Special marker cluster handling for convoys with many ships</li>
+            <li>New: ally ships can now be detected on sonar at very low probability (0.01%)</li>
+            <li>Fixed aft torpedoes now properly spawn at the aft of the submarine</li>
           </ul>
         </div>
       </div>
 
       <div class="update-bulletin reveal reveal-delay-2">
         <div class="bulletin-header">
-          <span class="bulletin-date">2025 · MAY</span>
-          <span class="bulletin-tag">TECHNICAL BULLETIN</span>
+          <span class="bulletin-date">25 MAR 2025</span>
+          <span class="bulletin-tag tag-ops">FEATURES</span>
         </div>
-        <div class="bulletin-title">FOUR TORPEDO TYPES — MAJOR OVERHAUL</div>
+        <div class="bulletin-title">SCUTTLE COMMAND, TANKER ADDED &amp; CRASH FIXES</div>
         <div class="bulletin-body">
-          <p>Complete torpedo system rework. Four distinct types now operational, each with specific tactical application. Crews advised to study loadouts before deployment — manual not included for Friday's test.</p>
           <ul class="bulletin-list">
-            <li>G7e(TII) — Basic: LUT steering, 30 kts, 7.5km range</li>
-            <li>G7e(TIV) — Acoustic: straight run then tracks target audio, 20 kts, requires sub noise below 10</li>
-            <li>G7e(TIII) — Programmable: LUT + FAT zigzag and circle patterns, 30 kts</li>
-            <li>G7e(TI) — Dumb: straight runner, 30 kts, 5km range</li>
-            <li>Reworked torpedo damage — 50/50 fire chance on hit; 2 hits disables, 3 guarantees sinking</li>
-            <li>New stats system — torpedo hits, disables, and sinkings tracked per crew</li>
-            <li>New score system displayed on map screen</li>
-            <li>BV-140 Torpedo Bomber added for testing — ?control BV-140</li>
+            <li>New <code>?scuttle</code> command — sink your own vehicle on demand</li>
+            <li>Hidden 6th Liberty Ship replaced with a Tanker that spawns further behind the convoy</li>
+            <li>Liberty Ships now spawn without a status</li>
+            <li>Fixed game crash when summon features collide with convoys</li>
+            <li>Spawned submarines and ships now respect the destroy vehicles function</li>
           </ul>
         </div>
       </div>
 
       <div class="update-bulletin reveal reveal-delay-3">
         <div class="bulletin-header">
-          <span class="bulletin-date">2025 · MAY</span>
-          <span class="bulletin-tag">WEATHER REPORT</span>
+          <span class="bulletin-date">21 MAR 2025</span>
+          <span class="bulletin-tag tag-fleet">FLEET</span>
         </div>
-        <div class="bulletin-title">WEATHER SIMULATION REVISED — FOG EVENTS NOW RARE</div>
+        <div class="bulletin-title">TWO NEW TORPEDO TYPES — BASIC &amp; ADVANCED INTRODUCED</div>
         <div class="bulletin-body">
-          <p>Weather system tuned following reports of visibility conditions making gameplay unplayable. Fog events reduced from 15% chance per forecast period to 1%. All weather types capped at 10% fog. Stormfronts shortened from 2 hours to 1 hour.</p>
           <ul class="bulletin-list">
-            <li>Fog only exceeds 10% at dawn (05:00-07:00), dusk (17:00-19:00), or special admin events</li>
-            <li>Hydrophone cone corrected — less noise saturation with multiple contacts</li>
-            <li>New periscope with optical range finder on U-15, created by Vman</li>
-            <li>Flower Corvette — new radar with A-Scope mode, gradual speed transitions, General Quarters alarm</li>
-            <li>Convoy ship spotlights reduced from 20,000 to 1,000 brightness</li>
-            <li>Fog now clears between 09:00 and 16:00 except during negative weather fronts</li>
+            <li>New Basic Torpedo — 30 knots, straight running, surface wake visible, 200m minimum arming distance</li>
+            <li>New Advanced Torpedo — 20 knots, less damage, tracks audio of target, 200m minimum arming distance</li>
+            <li>Sub: Red &amp; Blue spotlights removed to reduce spotlight TPS impact</li>
+            <li>Sub: Increased turn radius — harder to evade depth charge runs</li>
+            <li>Sub: Flares and lifeboat spawning on damage now fixed</li>
+            <li>Custom Sawyer Isles flag added to Sunhunter; Custom Arid Isles flag added to sub</li>
+            <li>Attempted fix for Hydrophone/Active sonar de-sync</li>
+            <li>Automatic re-syncing check added to addon</li>
+            <li>Fixed missing <code>?tp base</code> teleport feature</li>
+            <li>Fixed <code>?route X Y</code> now behaves as expected</li>
+            <li>Fixed silent crash during vehicle spawning</li>
           </ul>
         </div>
       </div>
 
       <div class="update-bulletin reveal reveal-delay-1">
         <div class="bulletin-header">
-          <span class="bulletin-date">2025 · APRIL</span>
-          <span class="bulletin-tag">FIELD REPORT</span>
+          <span class="bulletin-date">15 MAR 2025</span>
+          <span class="bulletin-tag tag-ops">FEATURES</span>
         </div>
-        <div class="bulletin-title">CONVOY HULLS REWORKED — OPTIMISATION &amp; SCORE TRACKING</div>
+        <div class="bulletin-title">NEW COMMANDS — TP BASE, KILLBELOW &amp; PLACE</div>
         <div class="bulletin-body">
-          <p>Convoy ship hulls reworked and reduced by hundreds of blocks. Two new cargo ship variants added for visual variety. TPS stability improvements attempted — map draw optimised, torpedo displays converted from monitors to analogue. Score tracking now displays in map screen popups.</p>
           <ul class="bulletin-list">
-            <li>Torpedo tube spawn points reworked — must now be named bowtube:N or sterntube:N</li>
-            <li>Torpedoes now accept initial heading via torp_heading dial</li>
-            <li>Advanced torpedo less likely to dolphin-dive and more reliable on impact</li>
-            <li>Advanced torpedo field-of-view reduced — must aim more directly at target</li>
-            <li>Hydrophone effective range now modified by depth — best range at 20 metres</li>
-            <li>Submarines hear 5km further at depths greater than 20 metres</li>
+            <li>New <code>?tp base</code> — teleport to your assigned team base</li>
+            <li>New <code>?killbelow [n]</code> — remove vehicles below a specified depth</li>
+            <li>New <code>?place</code> — spawn an empty vehicle 20m in the direction you are looking</li>
+            <li>Teleport safety range extended from 4km to 10km — prevents U-boats spawning too close to convoy</li>
+            <li>Removed Convoy control buttons — convoy radio must now be used</li>
+            <li>Added Deeper Oceans Mod</li>
+            <li>Fixed error triggered when summoning air support escort</li>
+            <li>Fixed <code>?route</code> and <code>?go</code> now check both teams correctly</li>
           </ul>
         </div>
       </div>
 
       <div class="update-bulletin reveal reveal-delay-2">
         <div class="bulletin-header">
-          <span class="bulletin-date">2025 · MARCH / APRIL</span>
-          <span class="bulletin-tag">DISPATCH</span>
+          <span class="bulletin-date">18 FEB 2025</span>
+          <span class="bulletin-tag tag-ops">FEATURES</span>
         </div>
-        <div class="bulletin-title">FLOWER CORVETTE DEPLOYED — RANK SYSTEM PROPOSED</div>
+        <div class="bulletin-title">MULTI-WAYPOINT CONVOY COMMANDS &amp; LIBERTY SHIP FLOODING</div>
         <div class="bulletin-body">
-          <p>Flower Class Corvette 1:1 scale enters active testing alongside full-size Liberty Ship. A rank progression system is proposed: crews begin in basic configurations and earn access to fully-equipped vessels through live event performance. Rank applies to teams — Axis and Allies will rise and fall in asset quality together.</p>
           <ul class="bulletin-list">
-            <li>Engine intake maintenance required — dirties after 20 minutes</li>
-            <li>Steam dump boost available — costs water supply</li>
-            <li>Bilge pumps reduce speed — only run when needed</li>
-            <li>Two new torpedo types introduced: Basic (30 kts straight) and Advanced (20 kts acoustic tracking)</li>
-            <li>Deeper Oceans Mod added to world</li>
-            <li>?tp base, ?killbelow, and ?place commands added</li>
-            <li>Teleport safety range extended from 4km to 10km</li>
+            <li>New <code>?convoy [waypoint]</code> — spawn convoy that moves to waypoint from current position</li>
+            <li>New <code>?convoy [wp] [wp] [wp]</code> — spawn convoy navigating multiple specified waypoints</li>
+            <li>New ship type variable — sinking ships now set to type -3 for hydrophone SFX</li>
+            <li>Active sonar pings now increase on both surface Active Sonar and sub hulls as escort closes on contact</li>
+            <li>Liberty Ship sinking mechanics improved — more flood doors, sinks more rapidly after torpedo hit</li>
+            <li>Fixed hydrophone using wrong SFX for submarine prop sounds</li>
+            <li>Hydrophone now picks up sinking ships using custom SFX type -3</li>
           </ul>
         </div>
       </div>
 
       <div class="update-bulletin reveal reveal-delay-3">
         <div class="bulletin-header">
-          <span class="bulletin-date">2025 · FEBRUARY</span>
-          <span class="bulletin-tag">CHANGELOG</span>
+          <span class="bulletin-date">10 FEB 2025</span>
+          <span class="bulletin-tag tag-ops">FEATURES</span>
         </div>
-        <div class="bulletin-title">ADDON SCRIPT UPDATE — AI, SONAR, AND CONVOY SYSTEMS</div>
+        <div class="bulletin-title">AI PATHFINDING, ACTIVE SONAR &amp; CONVOY ALERT SYSTEM</div>
         <div class="bulletin-body">
-          <p>Comprehensive update addressing bugs and introducing new tactical systems. AI destroyers now generate return paths to convoys after disengaging from sub hunts. Active sonar pings implemented with realistic time delay based on speed of sound underwater. Pong strength is distance and angle dependent.</p>
           <ul class="bulletin-list">
-            <li>Aft torpedo fix — now spawn right-side up</li>
-            <li>K-gun firing order corrected</li>
-            <li>Depth charges no longer have 4-second spawn delay</li>
-            <li>Torpedo supply now limited (no more infinite reloads)</li>
-            <li>AI U-boats no longer auto-spawn — must be requested</li>
-            <li>Ships NO LONGER instantly despawn on heavy damage</li>
-            <li>?convoy [waypoints] command added for multi-waypoint convoy spawning</li>
-            <li>Active sonar ping range increases as escort closes with contact</li>
-            <li>Ship mass corrected — cargo ships 80,500; tankers 100,000</li>
-            <li>Flood Doors added to Liberty Ship; sinking mechanics improved</li>
+            <li>AI Destroyers now generate a return path to the convoy when disengaging from a sub hunt</li>
+            <li>Alarmed AI Destroyers now use active sonar pings in addition to passive hydrophone</li>
+            <li>Convoy Alert keypads added — set to 1 when alarmed, 0 when safe</li>
+            <li>Alert status spreads between convoy ships — simulates first contact alarm propagation</li>
+            <li>Active Sonar: ping sent out; vessels within range and within 20° hear it on hull; vessels within 10° receive pong strength based on distance and bearing error; strongest pong returned after realistic sound-speed time delay</li>
+            <li>New <code>pong_depth</code> keypad shows contact depth</li>
+            <li>AI captain chat messages no longer appear — only ships with AI captain generate ship messages</li>
+            <li>Cargo ships mass set to 80,500; Tanker mass to 100,000 for correct sonar detection</li>
+            <li>Improved convoy route mapping — no more duplicate markers</li>
+            <li>1-second cooldown added to convoy commands to prevent double-registration in multiplayer</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="update-bulletin reveal reveal-delay-1">
+        <div class="bulletin-header">
+          <span class="bulletin-date">08 FEB 2025</span>
+          <span class="bulletin-tag tag-fleet">VEHICLE UPDATES</span>
+        </div>
+        <div class="bulletin-title">LIBERTY SHIP DOORS &amp; s451o INSTRUMENT UPGRADES</div>
+        <div class="bulletin-body">
+          <ul class="bulletin-list">
+            <li>Flood Doors added to Liberty Ship</li>
+            <li>Rowan's Spotlights removed — to be replaced with a new spotlight for plane spotting</li>
+            <li>Heading Display added to s451o</li>
+            <li>Throttle Display added to s451o</li>
+            <li>Heaters added to s451o</li>
+            <li>Winter Clothes added to s451o</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="update-bulletin reveal reveal-delay-2">
+        <div class="bulletin-header">
+          <span class="bulletin-date">03 FEB 2025</span>
+          <span class="bulletin-tag tag-critical">BUG FIXES</span>
+        </div>
+        <div class="bulletin-title">ADDON SCRIPT — TORPEDO, DEPTH CHARGE &amp; AI FIXES</div>
+        <div class="bulletin-body">
+          <ul class="bulletin-list">
+            <li>Fixed: Aft torpedoes now spawn right-side up — no more plowing into the sea floor</li>
+            <li>Fixed: K-Gun firing order corrected</li>
+            <li>Fixed: Depth charges no longer have a 4-second spawn delay</li>
+            <li>Fixed: Torpedoes no longer have an endless supply</li>
+            <li>Feature: Seats named "teleport" allow players to be seated on a build — multiple teleport seats now supported</li>
+            <li>Feature: crushDepth keypad added — addon crush depth setting sent to keypad on vehicle spawn for depth SFX cues</li>
+            <li>Feature: AI U-boats no longer automatically spawn at ambush points — must now be requested</li>
+            <li>Feature: Ships NO LONGER instantly despawn when taking heavy damage</li>
           </ul>
         </div>
       </div>
 
     </div>
   </div>
+</section>
 </section>`,
 
 commands: `
