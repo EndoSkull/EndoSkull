@@ -1766,3 +1766,81 @@ a.fotch-card:hover .fotch-arrow {
   .fotch-name { font-size: 14px; letter-spacing: 1px; }
   a.fotch-card { padding: 18px 20px; gap: 14px; }
 }
+
+/* ═══════ COMMANDS PAGE ═══════ */
+.cmd-table {
+  margin-top: 48px;
+  border: 1px solid rgba(100, 130, 160, 0.2);
+  background: rgba(12, 20, 32, 0.4);
+  overflow: hidden;
+}
+.cmd-row {
+  display: grid;
+  grid-template-columns: 280px 1fr auto;
+  align-items: start;
+  gap: 0;
+  border-bottom: 1px solid rgba(100, 130, 160, 0.12);
+  transition: background 0.15s;
+}
+.cmd-row:last-child { border-bottom: none; }
+.cmd-row:hover { background: rgba(20, 35, 55, 0.6); }
+.cmd-cell {
+  padding: 18px 20px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.cmd-cell--syntax {
+  border-right: 1px solid rgba(100, 130, 160, 0.12);
+  background: rgba(8, 16, 28, 0.3);
+}
+.cmd-cell--syntax code {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 13px;
+  color: var(--signal-amber);
+  display: block;
+  line-height: 1.8;
+}
+.cmd-cell--desc {
+  color: var(--text-body);
+}
+.cmd-cell--desc code {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 12px;
+  color: var(--fog);
+  background: rgba(100, 130, 160, 0.1);
+  padding: 1px 5px;
+  border-radius: 2px;
+}
+.cmd-cell--tags {
+  padding: 18px 16px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+}
+.cmd-tag {
+  font-family: 'Oswald', sans-serif;
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  white-space: nowrap;
+}
+.cmd-tag--general  { background: rgba(50,70,90,0.6);    color: #90b0c8; border: 1px solid rgba(90,120,150,0.3); }
+.cmd-tag--admin    { background: rgba(100,50,20,0.6);   color: #e8a060; border: 1px solid rgba(180,100,40,0.3); }
+.cmd-tag--combat   { background: rgba(100,20,20,0.6);   color: #e87070; border: 1px solid rgba(160,40,40,0.3); }
+.cmd-tag--nav      { background: rgba(20,60,100,0.6);   color: #70b0e8; border: 1px solid rgba(40,90,150,0.3); }
+.cmd-tag--axis     { background: rgba(60,50,10,0.6);    color: #d4c060; border: 1px solid rgba(140,120,30,0.3); }
+@media (max-width: 900px) {
+  .cmd-row { grid-template-columns: 1fr; }
+  .cmd-cell--syntax {
+    border-right: none;
+    border-bottom: 1px solid rgba(100, 130, 160, 0.12);
+    background: rgba(8, 16, 28, 0.5);
+  }
+  .cmd-cell--tags { padding: 0 20px 16px; justify-content: flex-start; }
+}
+@media (max-width: 600px) {
+  .cmd-cell { padding: 14px 16px; }
+  .cmd-cell--syntax code { font-size: 12px; }
+  .cmd-cell--desc { font-size: 13px; }
+}
