@@ -679,6 +679,24 @@ commands: `
       </div>
 
       <div class="cmd-row">
+        <div class="cmd-cell cmd-cell--syntax"><code>?ainightpair</code></div>
+        <div class="cmd-cell cmd-cell--desc">Spawns a 2-boat AI night-stalking U-boat pair astern of the convoy — they shadow submerged by day and attack on the surface at night.</div>
+        <div class="cmd-cell cmd-cell--tags"><span class="cmd-tag cmd-tag--admin">ADMIN</span></div>
+      </div>
+
+      <div class="cmd-row">
+        <div class="cmd-cell cmd-cell--syntax"><code>?aiuboat</code></div>
+        <div class="cmd-cell cmd-cell--desc">Spawns a single AI U-boat ahead of the convoy, running full submarine attack doctrine.</div>
+        <div class="cmd-cell cmd-cell--tags"><span class="cmd-tag cmd-tag--admin">ADMIN</span></div>
+      </div>
+
+      <div class="cmd-row">
+        <div class="cmd-cell cmd-cell--syntax"><code>?aiwolfpack</code></div>
+        <div class="cmd-cell cmd-cell--desc">Spawns a 4-boat AI wolfpack fanned out ahead of the convoy, with pack-coordination behaviour active.</div>
+        <div class="cmd-cell cmd-cell--tags"><span class="cmd-tag cmd-tag--admin">ADMIN</span></div>
+      </div>
+
+      <div class="cmd-row">
         <div class="cmd-cell cmd-cell--syntax"><code>?ambush [point_id]</code><br><code>?ambush [point_id] [type]</code></div>
         <div class="cmd-cell cmd-cell--desc">Teleports your current ship to the specified ambush point (shown as orange flame markers on the map). If a vehicle type is also provided, spawns a new vessel of that type at the point and puts you in command of it. e.g. <code>?ambush 623 Type-IIA</code></div>
         <div class="cmd-cell cmd-cell--tags"><span class="cmd-tag cmd-tag--axis">AXIS</span></div>
@@ -691,6 +709,12 @@ commands: `
       </div>
 
       <div class="cmd-row">
+        <div class="cmd-cell cmd-cell--syntax"><code>?board</code></div>
+        <div class="cmd-cell cmd-cell--desc">Boards the nearest ship (within 500m) as your new home ship and switches you to its crew radio channel.</div>
+        <div class="cmd-cell cmd-cell--tags"><span class="cmd-tag cmd-tag--general">GENERAL</span></div>
+      </div>
+
+      <div class="cmd-row">
         <div class="cmd-cell cmd-cell--syntax"><code>?bubbles</code></div>
         <div class="cmd-cell cmd-cell--desc">Toggles the floating status bubble popups that appear above vehicles on screen.</div>
         <div class="cmd-cell cmd-cell--tags"><span class="cmd-tag cmd-tag--admin">ADMIN</span></div>
@@ -699,6 +723,24 @@ commands: `
       <div class="cmd-row">
         <div class="cmd-cell cmd-cell--syntax"><code>?bulk [formation_id] [amount]</code></div>
         <div class="cmd-cell cmd-cell--desc">Adds the specified number of cargo ships to an existing formation in bulk.</div>
+        <div class="cmd-cell cmd-cell--tags"><span class="cmd-tag cmd-tag--admin">ADMIN</span></div>
+      </div>
+
+      <div class="cmd-row">
+        <div class="cmd-cell cmd-cell--syntax"><code>?campaign new [date] confirm</code><br><code>?campaign end confirm</code><br><code>?campaign status</code></div>
+        <div class="cmd-cell cmd-cell--desc">Campaign lifecycle: start the next campaign (resets campaign stats, keeps lifetime), end and snapshot the current one, or show status.</div>
+        <div class="cmd-cell cmd-cell--tags"><span class="cmd-tag cmd-tag--admin">ADMIN</span></div>
+      </div>
+
+      <div class="cmd-row">
+        <div class="cmd-cell cmd-cell--syntax"><code>?carrier [plane] [dc|torp]</code><br><code>?carrier launchall [n] [plane]</code><br><code>?carrier landall</code></div>
+        <div class="cmd-cell cmd-cell--desc">Directs the nearest aircraft carrier. It turns into the wind, then launches a plane (optional <code>dc</code>/<code>torp</code> loadout), launches a flight of <code>n</code> with <code>launchall</code>, or recovers every AI plane in range one at a time with <code>landall</code>.</div>
+        <div class="cmd-cell cmd-cell--tags"><span class="cmd-tag cmd-tag--combat">COMBAT</span></div>
+      </div>
+
+      <div class="cmd-row">
+        <div class="cmd-cell cmd-cell--syntax"><code>?carrierlaunch [plane type]</code></div>
+        <div class="cmd-cell cmd-cell--desc">Instantly spawns a plane on the nearest carrier’s deck with no wind turn — a quick spawn test.</div>
         <div class="cmd-cell cmd-cell--tags"><span class="cmd-tag cmd-tag--admin">ADMIN</span></div>
       </div>
 
@@ -727,6 +769,12 @@ commands: `
       </div>
 
       <div class="cmd-row">
+        <div class="cmd-cell cmd-cell--syntax"><code>?crif [recipient 1-4] [message id]</code></div>
+        <div class="cmd-cell cmd-cell--desc">Sends a CRIF radio message from the Radio Operator seat — a manual fallback for the Send button. Recipients: 1 Friendly · 2 Enemy · 3 Convoy · 4 AI Support. e.g. <code>?crif 4 21</code> calls an AI Hunt.</div>
+        <div class="cmd-cell cmd-cell--tags"><span class="cmd-tag cmd-tag--combat">COMBAT</span></div>
+      </div>
+
+      <div class="cmd-row">
         <div class="cmd-cell cmd-cell--syntax"><code>?damage</code></div>
         <div class="cmd-cell cmd-cell--desc">Applies random structural damage to the nearest aircraft (detaches a wing or tail).</div>
         <div class="cmd-cell cmd-cell--tags"><span class="cmd-tag cmd-tag--admin">ADMIN</span></div>
@@ -739,8 +787,32 @@ commands: `
       </div>
 
       <div class="cmd-row">
+        <div class="cmd-cell cmd-cell--syntax"><code>?deckinfo</code></div>
+        <div class="cmd-cell cmd-cell--desc">Reports the nearest carrier’s deck length, heading and stern/bow deck height — used to check the deck markers are placed correctly.</div>
+        <div class="cmd-cell cmd-cell--tags"><span class="cmd-tag cmd-tag--admin">ADMIN</span></div>
+      </div>
+
+      <div class="cmd-row">
+        <div class="cmd-cell cmd-cell--syntax"><code>?decoy</code><br><code>?decoy [bold|sieglinde|siegmund]</code></div>
+        <div class="cmd-cell cmd-cell--desc">(U-boat) Releases an acoustic decoy to break an ASDIC lock. Defaults to Bold; Sieglinde and Siegmund are mobile decoy variants.</div>
+        <div class="cmd-cell cmd-cell--tags"><span class="cmd-tag cmd-tag--axis">AXIS</span></div>
+      </div>
+
+      <div class="cmd-row">
         <div class="cmd-cell cmd-cell--syntax"><code>?empty [type]</code></div>
         <div class="cmd-cell cmd-cell--desc">Spawns an uncrewed vessel of the given type at your position with no AI assigned.</div>
+        <div class="cmd-cell cmd-cell--tags"><span class="cmd-tag cmd-tag--admin">ADMIN</span></div>
+      </div>
+
+      <div class="cmd-row">
+        <div class="cmd-cell cmd-cell--syntax"><code>?escort [type]</code></div>
+        <div class="cmd-cell cmd-cell--desc">Spawns an escort (destroyer or corvette) directly onto the nearest convoy’s next free screen station.</div>
+        <div class="cmd-cell cmd-cell--tags"><span class="cmd-tag cmd-tag--general">GENERAL</span></div>
+      </div>
+
+      <div class="cmd-row">
+        <div class="cmd-cell cmd-cell--syntax"><code>?event on</code>&nbsp;·&nbsp;<code>?event off</code><br><code>?event rtb confirm</code></div>
+        <div class="cmd-cell cmd-cell--desc">Toggles combat stat recording during a campaign. <code>rtb</code> force-banks pending stats for every boat still at sea.</div>
         <div class="cmd-cell cmd-cell--tags"><span class="cmd-tag cmd-tag--admin">ADMIN</span></div>
       </div>
 
@@ -775,6 +847,12 @@ commands: `
       </div>
 
       <div class="cmd-row">
+        <div class="cmd-cell cmd-cell--syntax"><code>?land</code></div>
+        <div class="cmd-cell cmd-cell--desc">In your aircraft, requests recovery from the nearest carrier. It turns into the wind and recovers you as you fly the approach from astern.</div>
+        <div class="cmd-cell cmd-cell--tags"><span class="cmd-tag cmd-tag--combat">COMBAT</span></div>
+      </div>
+
+      <div class="cmd-row">
         <div class="cmd-cell cmd-cell--syntax"><code>?launch [route_id]</code></div>
         <div class="cmd-cell cmd-cell--desc">Launches a convoy formation along the specified route ID.</div>
         <div class="cmd-cell cmd-cell--tags"><span class="cmd-tag cmd-tag--admin">ADMIN</span></div>
@@ -799,14 +877,38 @@ commands: `
       </div>
 
       <div class="cmd-row">
+        <div class="cmd-cell cmd-cell--syntax"><code>?planedbg all</code>&nbsp;·&nbsp;<code>?planedbg [id]</code>&nbsp;·&nbsp;<code>?planedbg off</code></div>
+        <div class="cmd-cell cmd-cell--desc">Toggles AI-plane debug telemetry (streamed to the plane-log logger) for all planes or a single vehicle ID.</div>
+        <div class="cmd-cell cmd-cell--tags"><span class="cmd-tag cmd-tag--admin">ADMIN</span></div>
+      </div>
+
+      <div class="cmd-row">
         <div class="cmd-cell cmd-cell--syntax"><code>?preset [name]</code></div>
         <div class="cmd-cell cmd-cell--desc">Selects a spawn preset for formation spawning. Type <code>?preset</code> alone to list all available presets.</div>
         <div class="cmd-cell cmd-cell--tags"><span class="cmd-tag cmd-tag--admin">ADMIN</span></div>
       </div>
 
       <div class="cmd-row">
+        <div class="cmd-cell cmd-cell--syntax"><code>?recover</code></div>
+        <div class="cmd-cell cmd-cell--desc">Forces the nearest carrier to recover the nearest plane — tests the full into-wind, approach and recovery cycle.</div>
+        <div class="cmd-cell cmd-cell--tags"><span class="cmd-tag cmd-tag--admin">ADMIN</span></div>
+      </div>
+
+      <div class="cmd-row">
+        <div class="cmd-cell cmd-cell--syntax"><code>?repair</code></div>
+        <div class="cmd-cell cmd-cell--desc">Calls a repair ship to the nearest damaged vessel. Stop and stay surfaced when she comes alongside.</div>
+        <div class="cmd-cell cmd-cell--tags"><span class="cmd-tag cmd-tag--general">GENERAL</span></div>
+      </div>
+
+      <div class="cmd-row">
         <div class="cmd-cell cmd-cell--syntax"><code>?replenish</code></div>
         <div class="cmd-cell cmd-cell--desc">Triggers a resupply run for the formation attached to the nearest vehicle's route.</div>
+        <div class="cmd-cell cmd-cell--tags"><span class="cmd-tag cmd-tag--admin">ADMIN</span></div>
+      </div>
+
+      <div class="cmd-row">
+        <div class="cmd-cell cmd-cell--syntax"><code>?reserves [route_id] [amount]</code></div>
+        <div class="cmd-cell cmd-cell--desc">Manually sets the reserve ship count for the specified route. e.g. <code>?reserves 3 5</code></div>
         <div class="cmd-cell cmd-cell--tags"><span class="cmd-tag cmd-tag--admin">ADMIN</span></div>
       </div>
 
@@ -817,8 +919,8 @@ commands: `
       </div>
 
       <div class="cmd-row">
-        <div class="cmd-cell cmd-cell--syntax"><code>?reserves [route_id] [amount]</code></div>
-        <div class="cmd-cell cmd-cell--desc">Manually sets the reserve ship count for the specified route. e.g. <code>?reserves 3 5</code></div>
+        <div class="cmd-cell cmd-cell--syntax"><code>?resetstats confirm</code></div>
+        <div class="cmd-cell cmd-cell--desc">Starts a fresh campaign, zeroing campaign and banked stats for all players (lifetime stats and playtime are kept).</div>
         <div class="cmd-cell cmd-cell--tags"><span class="cmd-tag cmd-tag--admin">ADMIN</span></div>
       </div>
 
@@ -853,9 +955,21 @@ commands: `
       </div>
 
       <div class="cmd-row">
-        <div class="cmd-cell cmd-cell--syntax"><code>?tp</code><br><code>?tp [vehicle_id]</code><br><code>?tp [vehicle_name]</code><br><code>?tp base</code></div>
-        <div class="cmd-cell cmd-cell--desc">Teleports you to a vehicle by ID or name (must be on your team), or to your team's home base. Used without arguments, returns you to your last assigned ship.</div>
-        <div class="cmd-cell cmd-cell--tags"><span class="cmd-tag cmd-tag--nav">NAV</span></div>
+        <div class="cmd-cell cmd-cell--syntax"><code>?start</code></div>
+        <div class="cmd-cell cmd-cell--desc">Teleports you to the team-select spawn point to choose a side.</div>
+        <div class="cmd-cell cmd-cell--tags"><span class="cmd-tag cmd-tag--general">GENERAL</span></div>
+      </div>
+
+      <div class="cmd-row">
+        <div class="cmd-cell cmd-cell--syntax"><code>?switch</code></div>
+        <div class="cmd-cell cmd-cell--desc">Flips the nearest vehicle to the opposing team.</div>
+        <div class="cmd-cell cmd-cell--tags"><span class="cmd-tag cmd-tag--admin">ADMIN</span></div>
+      </div>
+
+      <div class="cmd-row">
+        <div class="cmd-cell cmd-cell--syntax"><code>?sync</code></div>
+        <div class="cmd-cell cmd-cell--desc">Re-syncs every player’s Discord radio channel with the Commodore bot.</div>
+        <div class="cmd-cell cmd-cell--tags"><span class="cmd-tag cmd-tag--general">GENERAL</span></div>
       </div>
 
       <div class="cmd-row">
@@ -865,9 +979,21 @@ commands: `
       </div>
 
       <div class="cmd-row">
+        <div class="cmd-cell cmd-cell--syntax"><code>?tp</code><br><code>?tp [vehicle_id]</code><br><code>?tp [vehicle_name]</code><br><code>?tp base</code></div>
+        <div class="cmd-cell cmd-cell--desc">Teleports you to a vehicle by ID or name (must be on your team), or to your team's home base. Used without arguments, returns you to your last assigned ship.</div>
+        <div class="cmd-cell cmd-cell--tags"><span class="cmd-tag cmd-tag--nav">NAV</span></div>
+      </div>
+
+      <div class="cmd-row">
         <div class="cmd-cell cmd-cell--syntax"><code>?travel [x] [y]</code></div>
         <div class="cmd-cell cmd-cell--desc">Generates a fast-travel waypoint to the specified coordinates for your current vessel.</div>
         <div class="cmd-cell cmd-cell--tags"><span class="cmd-tag cmd-tag--nav">NAV</span></div>
+      </div>
+
+      <div class="cmd-row">
+        <div class="cmd-cell cmd-cell--syntax"><code>?uboatstatus</code></div>
+        <div class="cmd-cell cmd-cell--desc">Roll call — every living AI U-boat acknowledges by morse on the U-boat net so you can count how many are still at sea.</div>
+        <div class="cmd-cell cmd-cell--tags"><span class="cmd-tag cmd-tag--admin">ADMIN</span></div>
       </div>
 
       <div class="cmd-row">
@@ -876,7 +1002,7 @@ commands: `
         <div class="cmd-cell cmd-cell--tags"><span class="cmd-tag cmd-tag--general">GENERAL</span></div>
       </div>
 
-    </div>
+        </div>
   </div>
 </section>`,
 
