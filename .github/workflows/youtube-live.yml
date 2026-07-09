@@ -1,0 +1,40 @@
+name: Refresh YouTube live status
+
+on:
+  schedule:
+    # Every 10 minutes. GitHub's scheduler is best-effort and often runs late,
+    # so treat this as "within ~10-25 minutes of going live", not a guarantee.
+    - cron: "*/10 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: youtube-live
+  cancel-in-progress: true
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Scrape live status
+        run: python scripts/update_live.py
+
+      - name: Commit live.json when it changed
+        run: |
+          if [ -z "$(git status --porcelain live.json)" ]; then
+            echo "live.json unchanged; nothing to commit"
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add live.json
+          git commit -m "chore: refresh YouTube live status"
+          git push

@@ -69,8 +69,8 @@ home: `
     </h1>
     <div class="hero-divider"></div>
     <p class="hero-tagline">Battle of the Atlantic. Command escort destroyers. Hunt wolfpacks. Protect the convoy at all costs.</p>
-    <div class="hero-video-embed">
-      <iframe width="560" height="315" src="https://www.youtube.com/embed/BVTCA7NXh9U?si=ojMARmwcgYT1JVR3" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    <div class="hero-video-embed" id="live-hero" data-fallback="VtLAJmipc20">
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/VtLAJmipc20" title="Convoy 1943" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
     </div>
   </div>
   <div class="scroll-indicator">
@@ -1088,8 +1088,8 @@ fotch: `
         <div class="fotch-arrow">→</div>
       </a>
 
-      <a class="fotch-card reveal reveal-delay-1" href="https://www.youtube.com/@MrBucket_Gaming" target="_blank" rel="noopener">
-        <div class="fotch-icon"><img src="images/fotch/MrBucket.jpg" alt="MrBucket Gaming"></div>
+      <a class="fotch-card reveal reveal-delay-1" href="https://www.youtube.com/@MrBucket_Gaming/streams" target="_blank" rel="noopener">
+        <div class="fotch-icon"><img src="images/fotch/mrbucket.jpg" alt="MrBucket Gaming"></div>
         <div class="fotch-info">
           <div class="fotch-name">MrBucket Gaming</div>
           <div class="fotch-desc">Stormworks content with a bucket-load of creativity, builds, and seafaring adventures.</div>
@@ -1813,6 +1813,82 @@ dev: `<div class="section-divider"></div>
 
 }; // end pages
 
+// ═══════ LIVE STREAMS ═══════
+// live.json is refreshed every ~10 min by .github/workflows/youtube-live.yml.
+// If it is missing or malformed we leave the fallback iframe that ships in the
+// markup, so the hero always has something playing.
+const VIDEO_ID_RE = /^[\w-]{11}$/;
+let livePromise = null;
+
+function fetchLiveStatus() {
+  if (!livePromise) {
+    livePromise = fetch('live.json', { cache: 'no-store' })
+      .then(r => (r.ok ? r.json() : null))
+      .catch(() => null);
+  }
+  return livePromise;
+}
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => (
+    { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]
+  ));
+}
+
+function streamCard(videoId, name, handle, isLive) {
+  const src = `https://www.youtube.com/embed/${videoId}`;
+  const label = isLive
+    ? `<span class="live-dot"></span>LIVE`
+    : 'Latest Stream';
+  const link = handle
+    ? `<a class="live-card-link" href="https://www.youtube.com/@${encodeURIComponent(handle)}/streams" target="_blank" rel="noopener">${escapeHtml(name)}</a>`
+    : escapeHtml(name);
+  return `
+    <div class="live-card">
+      <div class="live-card-frame">
+        <iframe src="${src}" title="${escapeHtml(name)}" frameborder="0"
+          allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      </div>
+      <div class="live-card-meta">
+        <span class="live-badge${isLive ? ' is-live' : ''}">${label}</span>
+        ${link}
+      </div>
+    </div>`;
+}
+
+async function renderLiveHero() {
+  const host = document.getElementById('live-hero');
+  if (!host) return;
+
+  const data = await fetchLiveStatus();
+  if (!data) return; // keep the markup fallback
+
+  const live = (Array.isArray(data.live) ? data.live : [])
+    .filter(s => VIDEO_ID_RE.test(s.videoId || ''));
+
+  // Re-check: the router may have navigated away while we were fetching.
+  if (!document.getElementById('live-hero')) return;
+
+  if (live.length) {
+    host.classList.add('live-host');
+    host.classList.toggle('live-grid-multi', live.length > 1);
+    host.innerHTML = live.map(s => streamCard(s.videoId, s.name, s.handle, true)).join('');
+    return;
+  }
+
+  const fallbackId = (data.fallback && data.fallback.videoId) || host.dataset.fallback;
+  if (!VIDEO_ID_RE.test(fallbackId || '')) return;
+  host.classList.add('live-host');
+  host.classList.remove('live-grid-multi');
+  host.innerHTML = streamCard(
+    fallbackId,
+    (data.fallback && data.fallback.name) || 'Convoy 1943',
+    data.fallback && data.fallback.handle,
+    false
+  );
+}
+
 // ═══════ ROUTER ═══════
 const pageContent = document.getElementById('page-content');
 const navbar = document.getElementById('navbar');
@@ -1878,6 +1954,9 @@ function navigateTo(page, pushState = true) {
 
     // Page title
     document.title = pageTitles[page] || 'CONVOY 1943';
+
+    // Swap the hero video for whoever is streaming right now
+    if (page === 'home') renderLiveHero();
 
   }, currentPage === null ? 0 : 280);
 }
