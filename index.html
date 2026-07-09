@@ -25,6 +25,7 @@
     <li><a data-page="commands">Commands</a></li>
     <li><a data-page="downloads">Downloads</a></li>
     <li><a data-page="tools">Tools</a></li>
+    <li><a data-page="dev">Dev</a></li>
     <li><a data-page="fotch">FOTCH</a></li>
   </ul>
 </nav>
@@ -961,7 +962,16 @@ fotch: `
         <div class="fotch-arrow">→</div>
       </a>
 
-      <a class="fotch-card reveal reveal-delay-3" href="https://www.youtube.com/@Neotastic_Gaming" target="_blank" rel="noopener">
+      <a class="fotch-card reveal reveal-delay-1" href="https://www.youtube.com/@MrBucket_Gaming" target="_blank" rel="noopener">
+        <div class="fotch-icon"><img src="images/fotch/MrBucket.jpg" alt="MrBucket Gaming"></div>
+        <div class="fotch-info">
+          <div class="fotch-name">MrBucket Gaming</div>
+          <div class="fotch-desc">Stormworks content with a bucket-load of creativity, builds, and seafaring adventures.</div>
+        </div>
+        <div class="fotch-arrow">→</div>
+      </a>
+
+      <a class="fotch-card reveal reveal-delay-2" href="https://www.youtube.com/@Neotastic_Gaming" target="_blank" rel="noopener">
         <div class="fotch-icon"><img src="images/fotch/Neotastic.jpg" alt="Neotastic"></div>
         <div class="fotch-info">
           <div class="fotch-name">Neotastic</div>
@@ -1550,6 +1560,129 @@ systems: `
 
     </div>
   </div>
+</section>`,
+
+dev: `<div class="section-divider"></div>
+<section id="dev" class="section">
+  <div class="section-inner">
+    <div class="section-label reveal">Developer Reference</div>
+    <h2 class="section-title reveal reveal-delay-1">AI AIRCRAFT — <span class="accent">FLIGHT &amp; COMBAT</span></h2>
+    <p class="section-body reveal reveal-delay-2">Every AI plane (component type prefixed <code>ai_plane_*</code>) is flown by the addon "brain" — it picks a target roughly once a second and pushes a nav / firing solution to the plane's fly-by-wire microcontroller ten times a second over keypads. Two levers decide behaviour: which target it picks (by class) and what <code>air_mode</code> it commands.</p>
+
+    <div class="dev-ref">
+
+      <div class="dev-block reveal">
+        <h3 class="dev-heading"><span class="num">01</span>FLIGHT MODES · <code>air_mode</code></h3>
+        <p class="dev-sub">The single number that selects how the plane flies. Some modes the addon flies itself by shaping the waypoint; the rest the microcontroller executes from the commanded number.</p>
+        <div class="dev-scroll">
+          <table class="dev-table">
+            <thead><tr><th>Mode</th><th>Name</th><th>Flown by</th><th>Used for</th></tr></thead>
+            <tbody>
+              <tr><td><span class="dev-mode n">0</span></td><td><span class="dev-mname">Hold</span></td><td><span class="dev-by">MC</span></td><td>Idle / no task.</td></tr>
+              <tr><td><span class="dev-mode n">1</span></td><td><span class="dev-mname">Nav</span></td><td><span class="dev-by addon">Addon</span></td><td>Patrol orbit, cruise, RTB, formation, committed deck-dive, and the carrier holding-stack orbit.</td></tr>
+              <tr><td><span class="dev-mode n">2</span></td><td><span class="dev-mname">Attack</span></td><td><span class="dev-by">MC</span></td><td>On a gun / weapon solution — dogfight or strafe run. No nav during combat.</td></tr>
+              <tr><td><span class="dev-mode n">3</span></td><td><span class="dev-mname">RTB</span></td><td><span class="dev-by">MC</span></td><td>Defined but unused — the addon does RTB via mode 1 + waypoint.</td></tr>
+              <tr class="dev-hot"><td><span class="dev-mode n">4</span></td><td><span class="dev-mname">Landing</span></td><td><span class="dev-by">MC</span></td><td>Carrier final approach — MC drops gear <b>down</b> and flies the low approach to the deck. (Reuses the old deprecated mode-4 slot.)</td></tr>
+              <tr><td><span class="dev-mode n">5</span></td><td><span class="dev-mname">Low-level run</span></td><td><span class="dev-by addon">Addon</span></td><td>Holds commanded altitude wings-level: torpedo run ~15 m, depth-charge run ~20 m, and the carrier entry leg (gear up).</td></tr>
+              <tr><td><span class="dev-mode n">6</span></td><td><span class="dev-mname">Break turn</span></td><td><span class="dev-by">MC</span></td><td>Defensive — hard break into the attacker.</td></tr>
+              <tr><td><span class="dev-mode n">7</span></td><td><span class="dev-mname">Scissors</span></td><td><span class="dev-by">MC</span></td><td>Defensive — rolling reversals.</td></tr>
+              <tr><td><span class="dev-mode n">8</span></td><td><span class="dev-mname">Thach weave</span></td><td><span class="dev-by">MC</span></td><td>Defensive — with a wingman.</td></tr>
+              <tr><td><span class="dev-mode n">9</span></td><td><span class="dev-mname">Split-S</span></td><td><span class="dev-by">MC</span></td><td>Defensive — dive &amp; reverse.</td></tr>
+              <tr><td><span class="dev-mode n">10</span></td><td><span class="dev-mname">Immelmann</span></td><td><span class="dev-by">MC</span></td><td>Defensive — zoom-climb &amp; reverse.</td></tr>
+              <tr><td><span class="dev-mode dash">—</span></td><td><span class="dev-mname">Spiral · R-scissors · Barrel · Jink</span></td><td><span class="dev-by addon">Addon</span></td><td>Extra evasive maneuvers, flown as mode 1 + waypoint shaping.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="dev-block reveal">
+        <h3 class="dev-heading"><span class="num">02</span>PLANE CLASSES</h3>
+        <p class="dev-sub">Split by the bomber-family predicate: the bomber family hunts ships and skips fighter offence; everyone else hunts aircraft. Ordnance is either <b>addon-dropped</b> (the addon spawns it at release) or dropped by the <b>plane's own microcontroller</b>.</p>
+
+        <div class="dev-fam bomber">
+          <div class="dev-fam-head">
+            <div class="dev-fam-tag">Bomber family</div>
+            <h4>Hunt ships</h4>
+            <p>Pick surface targets first; skip dogfight-commit, wing tactics, convoy intercept and strafe diversion. They still evade when jumped — defensive maneuvers aren't class-gated.</p>
+          </div>
+          <div class="dev-scroll">
+            <table class="dev-table">
+              <thead><tr><th>Class</th><th>Ordnance</th><th>Attack</th><th>Modes</th></tr></thead>
+              <tbody>
+                <tr><td><span class="dev-cls">torpedobomber</span></td><td>Addon-dropped torpedo (1 fish)</td><td>Scripted low run, level ~15 m</td><td class="dev-modes"><b>1</b>&rarr;<b>5</b>&rarr;<b>2</b></td></tr>
+                <tr><td><span class="dev-cls">seaplane</span></td><td>Addon-dropped depth charges</td><td>Low DC pass ~20 m</td><td class="dev-modes"><b>1</b>&rarr;<b>5</b>&rarr;<b>2</b></td></tr>
+                <tr><td><span class="dev-cls">bomber</span></td><td>Plane's own MC (bombs)</td><td>Ship run — MC releases, addon authorizes</td><td class="dev-modes"><b>1</b> / <b>2</b></td></tr>
+                <tr><td><span class="dev-cls">heavybomber</span></td><td>Plane's own MC (bombs)</td><td>Ship run — MC releases, addon authorizes</td><td class="dev-modes"><b>1</b> / <b>2</b></td></tr>
+                <tr><td><span class="dev-cls">mediumbomber</span></td><td>Plane's own MC (bombs)</td><td>Ship run — MC releases, addon authorizes</td><td class="dev-modes"><b>1</b> / <b>2</b></td></tr>
+                <tr><td><span class="dev-cls">divebomber</span></td><td>Plane's own MC (bombs)</td><td>Ship run — MC releases, addon authorizes</td><td class="dev-modes"><b>1</b> / <b>2</b></td></tr>
+                <tr><td><span class="dev-cls">fighterbomber</span></td><td>Plane's own MC (bombs)</td><td>Ground-attack primary — but turns &amp; dogfights a plane on its tail, then resumes the strike</td><td class="dev-modes"><b>1</b>/<b>2</b> + def</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="dev-fam fighter">
+          <div class="dev-fam-head">
+            <div class="dev-fam-tag">Fighters</div>
+            <h4>Hunt aircraft</h4>
+            <p>Pick air targets first (then surface). Commit to a bandit, fly wing tactics, intercept raiders over the convoy, and can divert to strafe a ship.</p>
+          </div>
+          <div class="dev-scroll">
+            <table class="dev-table">
+              <thead><tr><th>Class</th><th>Behaviour</th><th>Modes</th></tr></thead>
+              <tbody>
+                <tr><td><span class="dev-cls">fighter</span></td><td>Dogfight; strafe ships as a diversion</td><td class="dev-modes">1 · 2 · 6&ndash;10</td></tr>
+                <tr><td><span class="dev-cls">heavy_fighter</span></td><td>Dogfight (e.g. Bf-110); strafe ships</td><td class="dev-modes">1 · 2 · 6&ndash;10</td></tr>
+                <tr><td><span class="dev-cls">escort</span></td><td>Fighter behaviour — screen &amp; dogfight</td><td class="dev-modes">1 · 2 · 6&ndash;10</td></tr>
+                <tr><td><span class="dev-cls">scout</span></td><td>Fighter behaviour — patrol &amp; engage</td><td class="dev-modes">1 · 2 · 6&ndash;10</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="dev-fam special">
+          <div class="dev-fam-head">
+            <div class="dev-fam-tag">Special</div>
+            <h4>Not keypad-controlled</h4>
+            <p>Its type isn't <code>ai_plane_*</code>, so it runs on its own flight logic, outside this system.</p>
+          </div>
+          <div class="dev-scroll">
+            <table class="dev-table">
+              <thead><tr><th>Class</th><th>Behaviour</th><th>System</th></tr></thead>
+              <tbody>
+                <tr><td><span class="dev-cls">airship</span></td><td>Akron-type — separate flight logic</td><td class="dev-modes">Behaviours.airship</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="dev-block reveal">
+        <h3 class="dev-heading"><span class="num">03</span>CARRIER FLIGHT-OPS</h3>
+        <p class="dev-sub">When a plane is cleared to land it flies a fixed pattern down to the deck. Gear timing falls out of the mode: up through the outbound leg, down the instant it rolls onto final.</p>
+        <div class="dev-flow">
+          <div class="dev-stage"><span class="dev-mode n">1</span><h5>Holding stack</h5><p>Planes waiting their turn (a landall queue) orbit ~1500 m astern until called in.</p></div>
+          <div class="dev-arrow" aria-hidden="true">&rarr;</div>
+          <div class="dev-stage"><span class="dev-mode n">5</span><h5>Entry · gear up</h5><p>Low-level run out to the astern entry point, then turn onto final once lined up.</p></div>
+          <div class="dev-arrow" aria-hidden="true">&rarr;</div>
+          <div class="dev-stage"><span class="dev-mode n dev-hot-chip" style="background:var(--signal-amber);border-color:var(--signal-amber);color:#0a0a0c">4</span><h5>Final · gear down</h5><p><b>Landing.</b> MC drops the gear and flies the glideslope straight down the deck to touchdown.</p></div>
+          <div class="dev-arrow" aria-hidden="true">&rarr;</div>
+          <div class="dev-stage"><span class="dev-mode dash">&check;</span><h5>Recovered</h5><p>Detected over the deck box, low &amp; aligned — despawned / parked. Carrier rejoins the convoy.</p></div>
+        </div>
+      </div>
+
+      <div class="dev-block reveal">
+        <h3 class="dev-heading"><span class="num">04</span>WIRING &amp; GOTCHAS</h3>
+        <div class="dev-notes">
+          <div class="dev-note"><span class="k">Prefix</span><p>A plane is only addon-flown if its component type is prefixed <code>ai_plane_*</code> &rarr; <code>aiType == "plane"</code>. Anything else is inert to this system.</p></div>
+          <div class="dev-note"><span class="k">Class = tag</span><p>The class (bomber / fighter / …) comes from the mission <b>tag</b>; register it in the catalog + the bomber-family predicate to make a new type spawn &amp; fly correctly.</p></div>
+          <div class="dev-note"><span class="k">MC · mode 4</span><p>Carrier-plane microcontrollers must read <code>air_mode == 4</code> as landing — gear down + fly low to the nav waypoint. Break turn stays on mode 6; no fighter-MC change needed.</p></div>
+          <div class="dev-note"><span class="k">Fighterbomber</span><p>Ground-attack primary. Switches to the air attacker only while a threat is set (enemy under 1100 m in its rear hemisphere), then reverts to bombing.</p></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
 </section>`
 
 }; // end pages
@@ -1572,6 +1705,7 @@ const pageTitles = {
   fotch:     'Friends of the Channel — CONVOY 1943',
   downloads: 'Downloads — CONVOY 1943',
   tools:     'Modding Tools — CONVOY 1943',
+  dev:       'Dev — CONVOY 1943',
 };
 
 function navigateTo(page, pushState = true) {
