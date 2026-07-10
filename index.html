@@ -1699,7 +1699,7 @@ dev: `<div class="section-divider"></div>
 
       <div class="dev-block reveal">
         <h3 class="dev-heading"><span class="num">01</span>FLIGHT MODES · <code>air_mode</code></h3>
-        <p class="dev-sub">The single number that selects how the plane flies. Some modes the addon flies itself by shaping the waypoint; the rest the microcontroller executes from the commanded number.</p>
+        <p class="dev-sub">The single number that selects how the plane flies. The addon flies the navigation modes itself by shaping the waypoint (patrol, cruise, RTB, formation, the low-level run); every <b>combat and defensive maneuver</b> is executed by the microcontroller from the commanded number.</p>
         <div class="dev-scroll">
           <table class="dev-table">
             <thead><tr><th>Mode</th><th>Name</th><th>Flown by</th><th>Used for</th></tr></thead>
@@ -1715,7 +1715,7 @@ dev: `<div class="section-divider"></div>
               <tr><td><span class="dev-mode n">8</span></td><td><span class="dev-mname">Thach weave</span></td><td><span class="dev-by">MC</span></td><td>Defensive — with a wingman.</td></tr>
               <tr><td><span class="dev-mode n">9</span></td><td><span class="dev-mname">Split-S</span></td><td><span class="dev-by">MC</span></td><td>Defensive — dive &amp; reverse.</td></tr>
               <tr><td><span class="dev-mode n">10</span></td><td><span class="dev-mname">Immelmann</span></td><td><span class="dev-by">MC</span></td><td>Defensive — zoom-climb &amp; reverse.</td></tr>
-              <tr><td><span class="dev-mode dash">—</span></td><td><span class="dev-mname">Spiral · R-scissors · Barrel · Jink</span></td><td><span class="dev-by addon">Addon</span></td><td>Extra evasive maneuvers, flown as mode 1 + waypoint shaping.</td></tr>
+              <tr><td><span class="dev-mode dash">—</span></td><td><span class="dev-mname">Spiral · R-scissors · Barrel · Jink</span></td><td><span class="dev-by">Retired</span></td><td>Former addon-flown evasives (mode 1 + waypoint shaping). Removed — every defensive maneuver is now executed by the microcontroller.</td></tr>
             </tbody>
           </table>
         </div>
