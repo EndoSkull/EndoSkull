@@ -1830,7 +1830,7 @@ dev: `<div class="section-divider"></div>
           <table class="dev-table">
             <thead><tr><th>Keypad</th><th>Value</th><th>What it does</th></tr></thead>
             <tbody>
-              <tr><td><span class="dev-cls">air_tgt_valid</span></td><td>0 · 1 · 2 · 3</td><td>Target class, doubling as the valid flag (the MC gates on &gt; 0.5). <b>0</b> none / hold · <b>1</b> aircraft (dogfight) · <b>2</b> merchant or submarine (low torpedo / depth-charge run) · <b>3</b> warship with AA (strafe from altitude, never go low). Held at 0 for ~15 ticks on a target swap so the MC's release latch resets.</td></tr>
+              <tr><td><span class="dev-cls">air_tgt_valid</span></td><td>0 · 1 · 2 · 3</td><td>Target class, doubling as the valid flag — the MC's gate for the whole firing solution. <b>Full breakdown below.</b></td></tr>
               <tr><td><span class="dev-cls">air_tgt_wx</span></td><td>world · east</td><td>Target <b>position</b>, east coordinate — feeds the gun / lead solution.</td></tr>
               <tr><td><span class="dev-cls">air_tgt_wy</span></td><td>world · north</td><td>Target position, north coordinate.</td></tr>
               <tr><td><span class="dev-cls">air_tgt_wz</span></td><td>world · altitude</td><td>Target position, altitude.</td></tr>
@@ -1839,6 +1839,26 @@ dev: `<div class="section-divider"></div>
               <tr><td><span class="dev-cls">air_tgt_vz</span></td><td>m/s · vertical</td><td>Target velocity, vertical component (climb / dive). The three together let the MC lead its aim to where the target is going, not where it is.</td></tr>
             </tbody>
           </table>
+        </div>
+
+        <div class="dev-flow-label">air_tgt_valid in detail</div>
+        <p class="dev-sub">One keypad answers two questions at once — <b>is there a target</b>, and <b>what kind</b>. The addon writes the class code; the MC reads it as the gate for the entire target solution (the <code>air_tgt_w*</code> position and <code>air_tgt_v*</code> velocity mean nothing until this is non-zero).</p>
+        <div class="dev-scroll">
+          <table class="dev-table">
+            <thead><tr><th>Code</th><th>Target</th><th>Attack profile the MC flies</th></tr></thead>
+            <tbody>
+              <tr><td><span class="dev-mode n">0</span></td><td>None / hold</td><td>Guns cold, no firing solution — ignore the target track and fly pure nav on <code>air_mode</code>.</td></tr>
+              <tr><td><span class="dev-mode n">1</span></td><td>Aircraft</td><td>Air-to-air — lead the gun solution and dogfight.</td></tr>
+              <tr><td><span class="dev-mode n">2</span></td><td>Merchant or submarine</td><td>Soft surface contact — run in <b>low</b> for the torpedo / depth-charge drop.</td></tr>
+              <tr><td><span class="dev-mode n">3</span></td><td>Warship with AA</td><td>Defended target — strafe from <b>altitude</b>, never descend into the flak.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="dev-notes">
+          <div class="dev-note"><span class="k">How the addon picks it</span><p>Each tick the addon classifies the current target from what it already tracks: above ~20 m altitude &rarr; <b>1</b> (aircraft); a merchant, tanker, submarine or auxiliary &rarr; <b>2</b>; anything else — a defended warship &rarr; <b>3</b>. That code goes out on <code>air_tgt_valid</code> together with the target's position and velocity on the other target keypads.</p></div>
+          <div class="dev-note"><span class="k">What the MC does with it</span><p>The MC gates on <code>&gt; 0.5</code>. At <b>0</b> it ignores the target track completely and just flies the commanded <code>air_mode</code>; at <b>1 / 2 / 3</b> it builds the lead solution from <code>air_tgt_w*</code> / <code>air_tgt_v*</code> and shapes the run to the class above. Reading it as a plain &gt;0.5 flag keeps a simple MC working — any non-zero just means "target present".</p></div>
+          <div class="dev-note"><span class="k">It is not a trigger</span><p>A valid target is <b>not</b> permission to fire. <code>air_tgt_valid</code> says a target exists and what it is; <code>air_fire_auth</code> is the separate trigger. On a torpedo run the addon holds <code>air_tgt_valid = 2</code> the whole way in while keeping <code>air_fire_auth = 0</code>, and only drops the fish once the plane is genuinely low and lined up.</p></div>
+          <div class="dev-note"><span class="k">Reset on a target switch</span><p>When the plane changes targets the addon forces <code>air_tgt_valid</code> to 0 for ~15 ticks <b>before</b> the new one appears. That makes the MC's ordnance-release latch and re-attack timers reset cleanly on the old target, so a stale solution can never carry over onto the new one.</p></div>
         </div>
       </div>
 
