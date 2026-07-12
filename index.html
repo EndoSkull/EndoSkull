@@ -1807,7 +1807,37 @@ dev: `<div class="section-divider"></div>
       </div>
 
       <div class="dev-block reveal">
-        <h3 class="dev-heading"><span class="num">04</span>WIRING &amp; GOTCHAS</h3>
+        <h3 class="dev-heading"><span class="num">04</span>KEYPAD INTERFACE</h3>
+        <p class="dev-sub">The link is <b>one-way</b>: the addon writes these keypads to the plane's fly-by-wire microcontroller ten times a second, and the MC does the flying. Planes report <b>no dials back</b> — the addon tracks them from the world, not from the airframe. Every position / velocity triple uses one convention: <code>x</code> = east, <code>y</code> = north, <code>z</code> = altitude (vertical).</p>
+
+        <div class="dev-flow-label">Command</div>
+        <div class="dev-scroll">
+          <table class="dev-table">
+            <thead><tr><th>Keypad</th><th>Value</th><th>What it does</th></tr></thead>
+            <tbody>
+              <tr><td><span class="dev-cls">air_mode</span></td><td>0&ndash;12</td><td>Flight-mode selector — the number from section 01. Everything below is interpreted relative to it (nav vs. attack vs. defensive vs. carrier).</td></tr>
+              <tr><td><span class="dev-cls">air_throttle</span></td><td>0&ndash;1</td><td>Commanded throttle. ~0.7 on cruise and the approach legs, 1.0 in combat and on takeoff, cut to 0 to flare over the deck.</td></tr>
+              <tr><td><span class="dev-cls">air_fire_auth</span></td><td>0 / 1</td><td>Weapon-release clearance. The plane owns its own trigger and ordnance; the addon only says <b>cleared</b> (1) or <b>hold</b> (0). Forced to 0 during nav, takeoff, landing and the moment after a target switch.</td></tr>
+              <tr><td><span class="dev-cls">air_nav_x · _y · _z</span></td><td>world</td><td>The waypoint the plane steers toward. In every nav-type mode the addon slides this point to shape the patrol orbit, the takeoff deck-run and each landing-pattern leg. <code>_z</code> is the commanded altitude.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="dev-flow-label">Target solution</div>
+        <div class="dev-scroll">
+          <table class="dev-table">
+            <thead><tr><th>Keypad</th><th>Value</th><th>What it does</th></tr></thead>
+            <tbody>
+              <tr><td><span class="dev-cls">air_tgt_valid</span></td><td>0 · 1 · 2 · 3</td><td>Target class, doubling as the valid flag (the MC gates on &gt; 0.5). <b>0</b> none / hold · <b>1</b> aircraft (dogfight) · <b>2</b> merchant or submarine (low torpedo / depth-charge run) · <b>3</b> warship with AA (strafe from altitude, never go low). Held at 0 for ~15 ticks on a target swap so the MC's release latch resets.</td></tr>
+              <tr><td><span class="dev-cls">air_tgt_wx · _wy · _wz</span></td><td>world</td><td>Target <b>position</b> for the gun / lead solution.</td></tr>
+              <tr><td><span class="dev-cls">air_tgt_vx · _vy · _vz</span></td><td>m/s</td><td>Target <b>velocity</b> — differenced from successive sightings, low-pass smoothed and clamped &plusmn;200 m/s, so the MC leads its aim to where the target is going, not where it is.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="dev-block reveal">
+        <h3 class="dev-heading"><span class="num">05</span>WIRING &amp; GOTCHAS</h3>
         <div class="dev-notes">
           <div class="dev-note"><span class="k">Prefix</span><p>A plane is addon-flown (<code>aiType == "plane"</code>) if its component type is prefixed <code>ai_plane_*</code>, <b>or</b> is a short <code>ai_*</code> name whose <b>class tag</b> resolves to an aircraft-domain class (<code>fighter</code>, <code>escort</code>, <code>bomber</code>, <code>torpedobomber</code>, <code>seaplane</code>, …). Likewise <code>ai_ship_*</code> / <code>ai_sub_*</code> or a short <code>ai_*</code> tagged with a ship / <code>submarine</code> class. An <code>ai_*</code> name with no recognised class tag — or any type without the <code>ai_</code> prefix — is inert to this system.</p></div>
           <div class="dev-note"><span class="k">Class = tag</span><p>The class (bomber / fighter / …) comes from the mission <b>tag</b>; register it in the catalog + the bomber-family predicate to make a new type spawn &amp; fly correctly.</p></div>
