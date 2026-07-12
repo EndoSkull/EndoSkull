@@ -1705,16 +1705,18 @@ dev: `<div class="section-divider"></div>
             <thead><tr><th>Mode</th><th>Name</th><th>Flown by</th><th>Used for</th></tr></thead>
             <tbody>
               <tr><td><span class="dev-mode n">0</span></td><td><span class="dev-mname">Hold</span></td><td><span class="dev-by">MC</span></td><td>Idle / no task.</td></tr>
-              <tr><td><span class="dev-mode n">1</span></td><td><span class="dev-mname">Nav</span></td><td><span class="dev-by addon">Addon</span></td><td>Patrol orbit, cruise, RTB, formation, committed deck-dive, and the carrier holding-stack orbit.</td></tr>
+              <tr><td><span class="dev-mode n">1</span></td><td><span class="dev-mname">Nav</span></td><td><span class="dev-by addon">Addon</span></td><td>Patrol orbit, cruise, RTB, formation, and the carrier holding-stack orbit.</td></tr>
               <tr><td><span class="dev-mode n">2</span></td><td><span class="dev-mname">Attack</span></td><td><span class="dev-by">MC</span></td><td>On a gun / weapon solution — dogfight or strafe run. No nav during combat.</td></tr>
               <tr><td><span class="dev-mode n">3</span></td><td><span class="dev-mname">RTB</span></td><td><span class="dev-by">MC</span></td><td>Defined but unused — the addon does RTB via mode 1 + waypoint.</td></tr>
-              <tr class="dev-hot"><td><span class="dev-mode n">4</span></td><td><span class="dev-mname">Landing</span></td><td><span class="dev-by">MC</span></td><td>Carrier final approach — MC drops gear <b>down</b> and flies the low approach to the deck. (Reuses the old deprecated mode-4 slot.)</td></tr>
-              <tr><td><span class="dev-mode n">5</span></td><td><span class="dev-mname">Low-level run</span></td><td><span class="dev-by addon">Addon</span></td><td>Holds commanded altitude wings-level: torpedo run ~15 m, depth-charge run ~20 m, and the carrier entry leg (gear up).</td></tr>
+              <tr><td><span class="dev-mode dash">4</span></td><td><span class="dev-mname">—</span></td><td><span class="dev-by">Unused</span></td><td>Free slot. Was the old scissor-break, then briefly Landing — both have moved (break turn → 6, landing → 12).</td></tr>
+              <tr><td><span class="dev-mode n">5</span></td><td><span class="dev-mname">Low-level run</span></td><td><span class="dev-by addon">Addon</span></td><td>Holds commanded altitude wings-level: torpedo run ~15 m, depth-charge run ~20 m, and the carrier landing-pattern legs — downwind, turn-in, lineup (gear up).</td></tr>
               <tr><td><span class="dev-mode n">6</span></td><td><span class="dev-mname">Break turn</span></td><td><span class="dev-by">MC</span></td><td>Defensive — hard break into the attacker.</td></tr>
               <tr><td><span class="dev-mode n">7</span></td><td><span class="dev-mname">Scissors</span></td><td><span class="dev-by">MC</span></td><td>Defensive — rolling reversals.</td></tr>
               <tr><td><span class="dev-mode n">8</span></td><td><span class="dev-mname">Thach weave</span></td><td><span class="dev-by">MC</span></td><td>Defensive — with a wingman.</td></tr>
               <tr><td><span class="dev-mode n">9</span></td><td><span class="dev-mname">Split-S</span></td><td><span class="dev-by">MC</span></td><td>Defensive — dive &amp; reverse.</td></tr>
               <tr><td><span class="dev-mode n">10</span></td><td><span class="dev-mname">Immelmann</span></td><td><span class="dev-by">MC</span></td><td>Defensive — zoom-climb &amp; reverse.</td></tr>
+              <tr class="dev-hot"><td><span class="dev-mode n">11</span></td><td><span class="dev-mname">Takeoff</span></td><td><span class="dev-by">MC</span></td><td>Carrier launch — MC runs full power straight down the deck axis and climbs away, gear <b>up</b>. Addon shapes the deck-run waypoint and releases the plane once it's clear of the bow and climbing.</td></tr>
+              <tr class="dev-hot"><td><span class="dev-mode n">12</span></td><td><span class="dev-mname">Landing</span></td><td><span class="dev-by">MC</span></td><td>Carrier final approach — MC drops gear <b>down</b> and flies the glideslope down the deck to touchdown.</td></tr>
               <tr><td><span class="dev-mode dash">—</span></td><td><span class="dev-mname">Spiral · R-scissors · Barrel · Jink</span></td><td><span class="dev-by">Retired</span></td><td>Former addon-flown evasives (mode 1 + waypoint shaping). Removed — every defensive maneuver is now executed by the microcontroller.</td></tr>
             </tbody>
           </table>
@@ -1785,13 +1787,20 @@ dev: `<div class="section-divider"></div>
 
       <div class="dev-block reveal">
         <h3 class="dev-heading"><span class="num">03</span>CARRIER FLIGHT-OPS</h3>
-        <p class="dev-sub">When a plane is cleared to land it flies a fixed pattern down to the deck. Gear timing falls out of the mode: up through the outbound leg, down the instant it rolls onto final.</p>
+        <p class="dev-sub">The carrier turns bow-into-wind (from its Wind Sensor) to launch and recover. Gear timing falls out of the mode: up through takeoff and the pattern legs, down the instant a plane rolls onto final. A finite <b>air wing of 24</b> is drawn down by every launch and returned by every safe recovery; a dawn patrol auto-launches and is recovered at dusk.</p>
+        <div class="dev-flow-label">Launch</div>
+        <div class="dev-flow">
+          <div class="dev-stage"><span class="dev-mode n dev-hot-chip" style="background:var(--signal-amber);border-color:var(--signal-amber);color:#0a0a0c">11</span><h5>Takeoff · gear up</h5><p>Spawned at the stern with the hull near-stopped; MC runs full power down the deck axis. Launches are spaced so one clears the deck before the next.</p></div>
+          <div class="dev-arrow" aria-hidden="true">&rarr;</div>
+          <div class="dev-stage"><span class="dev-mode dash">&check;</span><h5>Airborne</h5><p>Clear of the bow and climbing (held a minimum time, with a safety timeout) — released to the normal patrol / combat AI.</p></div>
+        </div>
+        <div class="dev-flow-label">Recovery</div>
         <div class="dev-flow">
           <div class="dev-stage"><span class="dev-mode n">1</span><h5>Holding stack</h5><p>Planes waiting their turn (a landall queue) orbit ~1500 m astern until called in.</p></div>
           <div class="dev-arrow" aria-hidden="true">&rarr;</div>
-          <div class="dev-stage"><span class="dev-mode n">5</span><h5>Entry · gear up</h5><p>Low-level run out to the astern entry point, then turn onto final once lined up.</p></div>
+          <div class="dev-stage"><span class="dev-mode n">5</span><h5>Pattern · gear up</h5><p>Low-level run through downwind, turn-in and lineup, every leg rebuilt from the live deck frame so it rides with the moving carrier.</p></div>
           <div class="dev-arrow" aria-hidden="true">&rarr;</div>
-          <div class="dev-stage"><span class="dev-mode n dev-hot-chip" style="background:var(--signal-amber);border-color:var(--signal-amber);color:#0a0a0c">4</span><h5>Final · gear down</h5><p><b>Landing.</b> MC drops the gear and flies the glideslope straight down the deck to touchdown.</p></div>
+          <div class="dev-stage"><span class="dev-mode n dev-hot-chip" style="background:var(--signal-amber);border-color:var(--signal-amber);color:#0a0a0c">12</span><h5>Final · gear down</h5><p><b>Landing.</b> MC drops the gear and flies the glideslope straight down the deck to touchdown.</p></div>
           <div class="dev-arrow" aria-hidden="true">&rarr;</div>
           <div class="dev-stage"><span class="dev-mode dash">&check;</span><h5>Recovered</h5><p>Detected over the deck box, low &amp; aligned — despawned / parked. Carrier rejoins the convoy.</p></div>
         </div>
@@ -1802,7 +1811,7 @@ dev: `<div class="section-divider"></div>
         <div class="dev-notes">
           <div class="dev-note"><span class="k">Prefix</span><p>A plane is addon-flown (<code>aiType == "plane"</code>) if its component type is prefixed <code>ai_plane_*</code>, <b>or</b> is a short <code>ai_*</code> name whose <b>class tag</b> resolves to an aircraft-domain class (<code>fighter</code>, <code>escort</code>, <code>bomber</code>, <code>torpedobomber</code>, <code>seaplane</code>, …). Likewise <code>ai_ship_*</code> / <code>ai_sub_*</code> or a short <code>ai_*</code> tagged with a ship / <code>submarine</code> class. An <code>ai_*</code> name with no recognised class tag — or any type without the <code>ai_</code> prefix — is inert to this system.</p></div>
           <div class="dev-note"><span class="k">Class = tag</span><p>The class (bomber / fighter / …) comes from the mission <b>tag</b>; register it in the catalog + the bomber-family predicate to make a new type spawn &amp; fly correctly.</p></div>
-          <div class="dev-note"><span class="k">MC · mode 4</span><p>Carrier-plane microcontrollers must read <code>air_mode == 4</code> as landing — gear down + fly low to the nav waypoint. Break turn stays on mode 6; no fighter-MC change needed.</p></div>
+          <div class="dev-note"><span class="k">MC · carrier modes</span><p>Carrier-plane microcontrollers must read <code>air_mode == 11</code> as takeoff (gear up, full power down the deck to the nav waypoint) and <code>air_mode == 12</code> as landing (gear down + fly the low approach). Break turn stays on mode 6; non-carrier fighter MCs need neither.</p></div>
           <div class="dev-note"><span class="k">Fighterbomber</span><p>Ground-attack primary. Switches to the air attacker only while a threat is set (enemy under 1100 m in its rear hemisphere), then reverts to bombing.</p></div>
         </div>
       </div>

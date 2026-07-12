@@ -1980,6 +1980,8 @@ a.fotch-card:hover .fotch-arrow {
 .dev-modes{ font-family:'Share Tech Mono',monospace; color:var(--fog); white-space:nowrap; font-size:.85rem; font-variant-numeric:tabular-nums; }
 .dev-modes b{ color:var(--signal-amber); font-weight:400; }
 
+.dev-flow-label{ font-family:'Share Tech Mono',monospace; font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:var(--signal-amber); margin:18px 0 8px; }
+.dev-flow-label:first-of-type{ margin-top:4px; }
 .dev-flow{ display:flex; flex-wrap:wrap; gap:12px; align-items:stretch; }
 .dev-stage{ flex:1 1 180px; border:1px solid rgba(106,126,148,.28); border-radius:6px; background:rgba(12,20,32,.5); padding:16px; display:flex; flex-direction:column; gap:9px; }
 .dev-stage h5{ font-family:'Share Tech Mono',monospace; font-size:.82rem; letter-spacing:.05em; text-transform:uppercase; color:var(--text-bright); margin:0; }
