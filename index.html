@@ -1818,7 +1818,9 @@ dev: `<div class="section-divider"></div>
               <tr><td><span class="dev-cls">air_mode</span></td><td>0&ndash;12</td><td>Flight-mode selector — the number from section 01. Everything below is interpreted relative to it (nav vs. attack vs. defensive vs. carrier).</td></tr>
               <tr><td><span class="dev-cls">air_throttle</span></td><td>0&ndash;1</td><td>Commanded throttle. ~0.7 on cruise and the approach legs, 1.0 in combat and on takeoff, cut to 0 to flare over the deck.</td></tr>
               <tr><td><span class="dev-cls">air_fire_auth</span></td><td>0 / 1</td><td>Weapon-release clearance. The plane owns its own trigger and ordnance; the addon only says <b>cleared</b> (1) or <b>hold</b> (0). Forced to 0 during nav, takeoff, landing and the moment after a target switch.</td></tr>
-              <tr><td><span class="dev-cls">air_nav_x · _y · _z</span></td><td>world</td><td>The waypoint the plane steers toward. In every nav-type mode the addon slides this point to shape the patrol orbit, the takeoff deck-run and each landing-pattern leg. <code>_z</code> is the commanded altitude.</td></tr>
+              <tr><td><span class="dev-cls">air_nav_x</span></td><td>world · east</td><td>East coordinate of the waypoint the plane steers toward.</td></tr>
+              <tr><td><span class="dev-cls">air_nav_y</span></td><td>world · north</td><td>North coordinate of that waypoint (this keypad carries the world Z axis).</td></tr>
+              <tr><td><span class="dev-cls">air_nav_z</span></td><td>world · altitude</td><td>Commanded altitude the plane holds / climbs to. In every nav-type mode the addon slides all three together to shape the patrol orbit, the takeoff deck-run and each landing-pattern leg.</td></tr>
             </tbody>
           </table>
         </div>
@@ -1829,8 +1831,12 @@ dev: `<div class="section-divider"></div>
             <thead><tr><th>Keypad</th><th>Value</th><th>What it does</th></tr></thead>
             <tbody>
               <tr><td><span class="dev-cls">air_tgt_valid</span></td><td>0 · 1 · 2 · 3</td><td>Target class, doubling as the valid flag (the MC gates on &gt; 0.5). <b>0</b> none / hold · <b>1</b> aircraft (dogfight) · <b>2</b> merchant or submarine (low torpedo / depth-charge run) · <b>3</b> warship with AA (strafe from altitude, never go low). Held at 0 for ~15 ticks on a target swap so the MC's release latch resets.</td></tr>
-              <tr><td><span class="dev-cls">air_tgt_wx · _wy · _wz</span></td><td>world</td><td>Target <b>position</b> for the gun / lead solution.</td></tr>
-              <tr><td><span class="dev-cls">air_tgt_vx · _vy · _vz</span></td><td>m/s</td><td>Target <b>velocity</b> — differenced from successive sightings, low-pass smoothed and clamped &plusmn;200 m/s, so the MC leads its aim to where the target is going, not where it is.</td></tr>
+              <tr><td><span class="dev-cls">air_tgt_wx</span></td><td>world · east</td><td>Target <b>position</b>, east coordinate — feeds the gun / lead solution.</td></tr>
+              <tr><td><span class="dev-cls">air_tgt_wy</span></td><td>world · north</td><td>Target position, north coordinate.</td></tr>
+              <tr><td><span class="dev-cls">air_tgt_wz</span></td><td>world · altitude</td><td>Target position, altitude.</td></tr>
+              <tr><td><span class="dev-cls">air_tgt_vx</span></td><td>m/s · east</td><td>Target <b>velocity</b>, east component — differenced from successive sightings, low-pass smoothed and clamped &plusmn;200 m/s.</td></tr>
+              <tr><td><span class="dev-cls">air_tgt_vy</span></td><td>m/s · north</td><td>Target velocity, north component (same smoothing and &plusmn;200 clamp).</td></tr>
+              <tr><td><span class="dev-cls">air_tgt_vz</span></td><td>m/s · vertical</td><td>Target velocity, vertical component (climb / dive). The three together let the MC lead its aim to where the target is going, not where it is.</td></tr>
             </tbody>
           </table>
         </div>
