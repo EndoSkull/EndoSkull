@@ -740,19 +740,19 @@ commands: `
 
       <div class="cmd-row">
         <div class="cmd-cell cmd-cell--syntax"><code>?carrier [plane] [dc|torp]</code><br><code>?carrier launchall [n] [plane]</code><br><code>?carrier landall</code></div>
-        <div class="cmd-cell cmd-cell--desc">Directs the nearest aircraft carrier. It turns into the wind, then launches a plane (optional <code>dc</code>/<code>torp</code> loadout), launches a flight of <code>n</code> with <code>launchall</code>, or recovers every AI plane in range one at a time with <code>landall</code>.</div>
+        <div class="cmd-cell cmd-cell--desc">Directs the nearest aircraft carrier. It turns into the wind, then launches a plane (optional <code>dc</code>/<code>torp</code> loadout), launches a flight of <code>n</code> with <code>launchall</code>, or recovers its eligible AI planes one at a time with <code>landall</code>. Seaplanes are refused: carrier modes 11 and 12 are both disabled for them.</div>
         <div class="cmd-cell cmd-cell--tags"><span class="cmd-tag cmd-tag--combat">COMBAT</span></div>
       </div>
 
       <div class="cmd-row">
         <div class="cmd-cell cmd-cell--syntax"><code>?carrierlaunch [plane type]</code></div>
-        <div class="cmd-cell cmd-cell--desc">Instantly spawns a plane on the nearest carrier’s deck with no wind turn — a quick spawn test.</div>
+        <div class="cmd-cell cmd-cell--desc">Instantly spawns an eligible non-seaplane on the nearest carrier’s deck with no wind turn — a quick spawn test. Seaplanes cannot use carrier takeoff mode 11.</div>
         <div class="cmd-cell cmd-cell--tags"><span class="cmd-tag cmd-tag--admin">ADMIN</span></div>
       </div>
 
       <div class="cmd-row">
         <div class="cmd-cell cmd-cell--syntax"><code>?clear</code><br><code>?clear all</code></div>
-        <div class="cmd-cell cmd-cell--desc">Resets all route reserves to zero and removes all active formations. Adding <code>all</code> also despawns every vehicle and lifeboat on the map.</div>
+        <div class="cmd-cell cmd-cell--desc">Resets route reserves to zero and removes active formations. Adding <code>all</code> also hard-despawns registered addon vehicles, lifeboats and survivor characters. <b>It is not a full addon reset:</b> it does not rebuild <code>g_savedata</code> or clear campaign, configuration, route, player or virtual-world state.</div>
         <div class="cmd-cell cmd-cell--tags"><span class="cmd-tag cmd-tag--admin">ADMIN</span></div>
       </div>
 
@@ -854,7 +854,7 @@ commands: `
 
       <div class="cmd-row">
         <div class="cmd-cell cmd-cell--syntax"><code>?land</code></div>
-        <div class="cmd-cell cmd-cell--desc">In your aircraft, requests recovery from the nearest carrier. It turns into the wind and recovers you as you fly the approach from astern.</div>
+        <div class="cmd-cell cmd-cell--desc">In an eligible non-seaplane aircraft, requests recovery from the nearest carrier. It turns into the wind and recovers you as you fly the approach from astern. Seaplanes are refused because mode 12 is disabled for them.</div>
         <div class="cmd-cell cmd-cell--tags"><span class="cmd-tag cmd-tag--combat">COMBAT</span></div>
       </div>
 
@@ -896,7 +896,7 @@ commands: `
 
       <div class="cmd-row">
         <div class="cmd-cell cmd-cell--syntax"><code>?recover</code></div>
-        <div class="cmd-cell cmd-cell--desc">Forces the nearest carrier to recover the nearest plane — tests the full into-wind, approach and recovery cycle.</div>
+        <div class="cmd-cell cmd-cell--desc">Forces the nearest carrier to recover the nearest eligible non-seaplane — tests the full into-wind, approach and recovery cycle.</div>
         <div class="cmd-cell cmd-cell--tags"><span class="cmd-tag cmd-tag--admin">ADMIN</span></div>
       </div>
 
@@ -956,7 +956,7 @@ commands: `
 
       <div class="cmd-row">
         <div class="cmd-cell cmd-cell--syntax"><code>?spawn [type] [additional_count]</code><br><code>?spawn ai_avenger [additional_count] [torp|dc]</code><br><code>?spawn ai_catalina|ai_sunderland [additional_count] water</code></div>
-        <div class="cmd-cell cmd-cell--desc">Spawns one persistent lead vehicle at your position; a number adds that many formation members (so <code>2</code> means three aircraft total). A canonical <code>ai_*</code> request is always addon AI, even when it matches your team. Avenger accepts <code>torp</code> or <code>dc</code>. <code>water</code> is seaplane-only, may appear before or after the count, spawns at sea level, and immediately begins the mode-1 water-takeoff run. Examples: <code>?spawn ai_spitfire</code>, <code>?spawn ai_avenger 2 dc</code>, <code>?spawn ai_catalina water</code>.</div>
+        <div class="cmd-cell cmd-cell--desc">Spawns one persistent lead vehicle at your position; a number adds that many formation members (so <code>2</code> means three aircraft total). A canonical <code>ai_*</code> request is always addon AI, even when it matches your team. Every directly spawned AI plane keeps its own exact post-offset spawn XY as its patrol and RTB anchor. While simulated, each reports once per second as <code>ID: … Throttle: … &amp; XY Nav Target: … &amp; Mode: … Ai: true</code>. Avenger accepts <code>torp</code> or <code>dc</code>. <code>water</code> is seaplane-only, may appear before or after the count, spawns at sea level, and immediately begins the mode-1 water-takeoff run. Examples: <code>?spawn ai_spitfire</code>, <code>?spawn ai_avenger 2 dc</code>, <code>?spawn ai_catalina water</code>.</div>
         <div class="cmd-cell cmd-cell--tags"><span class="cmd-tag cmd-tag--admin">ADMIN</span></div>
       </div>
 
@@ -1699,7 +1699,7 @@ dev: `<div class="section-divider"></div>
   <div class="section-inner">
     <div class="section-label reveal">Developer Reference</div>
     <h2 class="section-title reveal reveal-delay-1">AI AIRCRAFT — <span class="accent">FLIGHT &amp; COMBAT</span></h2>
-    <p class="section-body reveal reveal-delay-2">Verified against the installed addon and all six installed AI-aircraft mission packages on <time datetime="2026-07-12"><b>12 July 2026</b></time>. Every AI plane is flown by the addon "brain": it picks a target roughly once a second and pushes a nav / firing solution to the plane's fly-by-wire microcontroller ten times a second over keypads. A canonical <code>ai_*</code> component name (for example <code>ai_spitfire</code>) is classified by its mission class tag; an aircraft-domain class flies as a plane, <code>submarine</code> runs as a sub, and ship classes run as ships. An <code>ai_*</code> component with no recognised class tag remains inert. An explicit <code>?spawn ai_*</code> request is always addon AI, even when its team matches the player.</p>
+    <p class="section-body reveal reveal-delay-2">Verified against the installed addon and all six installed AI-aircraft mission packages on <time datetime="2026-07-12"><b>12 July 2026</b></time>. Every AI plane is flown by the addon "brain": it picks a target roughly once a second, announces its ID / throttle / XY nav target / mode / AI flag in chat, and pushes a nav / firing solution to the plane's fly-by-wire microcontroller ten times a second over keypads. A canonical <code>ai_*</code> component name (for example <code>ai_spitfire</code>) is classified by its mission class tag; an aircraft-domain class flies as a plane, <code>submarine</code> runs as a sub, and ship classes run as ships. An <code>ai_*</code> component with no recognised class tag remains inert. An explicit <code>?spawn ai_*</code> request is always addon AI, even when its team matches the player, and its patrol/RTB anchor remains its exact spawn XY.</p>
 
     <div class="dev-ref">
 
@@ -1721,8 +1721,8 @@ dev: `<div class="section-divider"></div>
               <tr><td><span class="dev-mode n">8</span></td><td><span class="dev-mname">Thach weave</span></td><td><span class="dev-by">MC</span></td><td>Defensive — with a wingman.</td></tr>
               <tr><td><span class="dev-mode n">9</span></td><td><span class="dev-mname">Split-S</span></td><td><span class="dev-by">MC</span></td><td>Defensive — dive &amp; reverse.</td></tr>
               <tr><td><span class="dev-mode n">10</span></td><td><span class="dev-mname">Immelmann</span></td><td><span class="dev-by">MC</span></td><td>Defensive — zoom-climb &amp; reverse.</td></tr>
-              <tr class="dev-hot"><td><span class="dev-mode n">11</span></td><td><span class="dev-mname">Carrier takeoff</span></td><td><span class="dev-by">Both</span></td><td>Addon shapes the deck-run waypoint; a compatible MC runs full power down the deck and climbs away, gear up. Implemented by Avenger, Catalina and He-111 controller builds—not Spitfire, Bf-110 or Sunderland.</td></tr>
-              <tr class="dev-hot"><td><span class="dev-mode n">12</span></td><td><span class="dev-mname">Carrier landing</span></td><td><span class="dev-by">Both</span></td><td>Addon builds the final approach; a compatible MC lowers gear and flies the glideslope. Implemented by Avenger, Catalina and He-111 controller builds—not Spitfire, Bf-110 or Sunderland.</td></tr>
+              <tr class="dev-hot"><td><span class="dev-mode n">11</span></td><td><span class="dev-mname">Carrier takeoff</span></td><td><span class="dev-by">Both</span></td><td>Addon shapes the deck-run waypoint; an eligible MC runs full power down the deck and climbs away, gear up. Addon eligibility is Avenger and He-111 only. <b>Seaplane: false</b> even if a raw controller contains a legacy branch.</td></tr>
+              <tr class="dev-hot"><td><span class="dev-mode n">12</span></td><td><span class="dev-mname">Carrier landing</span></td><td><span class="dev-by">Both</span></td><td>Addon builds the final approach; an eligible MC lowers gear and flies the glideslope. Addon eligibility is Avenger and He-111 only. <b>Seaplane: false</b> even if a raw controller contains a legacy branch.</td></tr>
               <tr><td><span class="dev-mode n">13</span></td><td><span class="dev-mname">Water rescue / taxi</span></td><td><span class="dev-by">Reserved</span></td><td>The addon sends 13 only to a seaplane tagged <code>rescue_water_mode</code>. Neither installed seaplane implements or advertises it, so Catalina and Sunderland currently use mode 5 for rescue.</td></tr>
               <tr><td><span class="dev-mode dash">—</span></td><td><span class="dev-mname">Spiral · R-scissors · Barrel · Jink</span></td><td><span class="dev-by">Retired</span></td><td>Former addon-flown evasives (mode 1 + waypoint shaping). Removed — every defensive maneuver is now executed by the microcontroller.</td></tr>
             </tbody>
@@ -1764,14 +1764,14 @@ dev: `<div class="section-divider"></div>
               <tr>
                 <td><span class="dev-cls">ai_catalina</span><br>PBY Catalina<br><time datetime="2026-07-12">2026-07-12</time></td>
                 <td>seaplane</td>
-                <td><code>1943 AI Aircraft</code> bus + <code>AI Addon Pilot Script</code> flight MC + <code>Aircarft Turrets From Addon</code> weapon MCs.<br><b>MC: 0 · 1 · 2 · 4 · 5 · 6–12</b><br>Mode 4 is legacy; no 3 or 13.</td>
-                <td>Always receives the one-pass/four-charge depth-charge loadout, then falls back to gun strafes. Survivor rescue overrides combat: mode 5, 2 m nav altitude and staged low throttle until pickup. <code>?spawn ai_catalina water</code> starts at sea level and immediately flies a full-power mode-1 takeoff until 30 m. Patrol/RTB centres on the nearest friendly surface ship when available.</td>
+                <td><code>1943 AI Aircraft</code> bus + <code>AI Addon Pilot Script</code> flight MC + <code>Aircarft Turrets From Addon</code> weapon MCs.<br><b>Raw MC branches: 0 · 1 · 2 · 4 · 5 · 6–12</b><br>Addon seaplane policy: <b>11=false · 12=false</b>; mode 4 is legacy; no 3 or 13.</td>
+                <td>Always receives the one-pass/four-charge depth-charge loadout, then falls back to gun strafes. Survivor rescue overrides combat: mode 5, 2 m nav altitude and staged low throttle until pickup. <code>?spawn ai_catalina water</code> starts at sea level and immediately flies a full-power mode-1 takeoff until 30 m. A direct <code>?spawn ai_catalina</code> patrols and RTBs to its exact spawn XY; other seaplane sources may follow their assigned patrol anchor. Carrier modes 11/12 are never sent.</td>
               </tr>
               <tr>
                 <td><span class="dev-cls">ai_sunderland</span><br>Short Sunderland<br><time datetime="2026-07-12">2026-07-12</time></td>
                 <td>seaplane</td>
-                <td><code>1943 AI Aircraft</code> bus + <code>VMAN AP AI LUA</code> flight MC, with separate turret-limiter / robotic-pivot MCs.<br><b>MC: 0 · 1 · 2 · 4 · 5 · 6–10</b><br>Mode 4 is legacy; no 3, 11, 12 or 13.</td>
-                <td>Same addon seaplane doctrine as Catalina: surface target first, one mode-5 four-charge DC pass at ~20 m, gun strafes after winchester, rescue priority and friendly-ship patrol/RTB centre. <code>?spawn ai_sunderland water</code> uses mode 1 for water takeoff because this controller has no carrier/water modes 11–13.</td>
+                <td><code>1943 AI Aircraft</code> bus + <code>VMAN AP AI LUA</code> flight MC, with separate turret-limiter / robotic-pivot MCs.<br><b>MC: 0 · 1 · 2 · 4 · 5 · 6–10</b><br>Addon seaplane policy: <b>11=false · 12=false</b>; mode 4 is legacy; no 3 or 13.</td>
+                <td>Same addon seaplane doctrine as Catalina: surface target first, one mode-5 four-charge DC pass at ~20 m, gun strafes after winchester and rescue priority. A direct <code>?spawn ai_sunderland</code> patrols and RTBs to its exact spawn XY. The <code>water</code> option uses mode 1 for water takeoff; carrier modes 11/12 are never sent.</td>
               </tr>
             </tbody>
           </table>
@@ -1839,7 +1839,7 @@ dev: `<div class="section-divider"></div>
 
       <div class="dev-block reveal">
         <h3 class="dev-heading"><span class="num">04</span>CARRIER FLIGHT-OPS</h3>
-        <p class="dev-sub">The carrier turns bow-into-wind (from its Wind Sensor) to launch and recover. Gear timing falls out of the mode: up through takeoff and the pattern legs, down the instant a plane rolls onto final. A finite <b>air wing of 24</b> is drawn down by every launch and returned by every safe recovery; a dawn patrol auto-launches and is recovered at dusk.</p>
+        <p class="dev-sub">The carrier turns bow-into-wind (from its Wind Sensor) to launch and recover eligible non-seaplanes. Gear timing falls out of the mode: up through takeoff and the pattern legs, down the instant a plane rolls onto final. A finite <b>air wing of 24</b> is drawn down by every launch and returned by every safe recovery; a dawn patrol auto-launches and is recovered at dusk. Seaplanes are refused before flight ops begin and are excluded from recovery queues.</p>
         <div class="dev-flow-label">Launch</div>
         <div class="dev-flow">
           <div class="dev-stage"><span class="dev-mode n dev-hot-chip" style="background:var(--signal-amber);border-color:var(--signal-amber);color:#0a0a0c">11</span><h5>Takeoff · gear up</h5><p>Spawned at the stern with the hull near-stopped; MC runs full power down the deck axis. Launches are spaced so one clears the deck before the next.</p></div>
@@ -1919,9 +1919,9 @@ dev: `<div class="section-divider"></div>
         <div class="dev-notes">
           <div class="dev-note"><span class="k">Canonical names</span><p>Mission components and commands use <code>ai_[aircraft]</code>: <code>ai_spitfire</code>, <code>ai_bf110</code>, <code>ai_he111</code>, <code>ai_avenger</code>, <code>ai_catalina</code> and <code>ai_sunderland</code>. The mission class tag decides that the component is an aircraft. An unrecognised or untagged <code>ai_*</code> name remains inert.</p></div>
           <div class="dev-note"><span class="k">Class = tag</span><p>The class (bomber / fighter / …) comes from the mission <b>tag</b>; register it in the catalog + the bomber-family predicate to make a new type spawn &amp; fly correctly.</p></div>
-          <div class="dev-note"><span class="k">MC · carrier modes</span><p>Only command modes that the selected airframe implements. Current Avenger, Catalina and He-111 controllers contain 11/12; Spitfire, Bf-110 and Sunderland do not. Water-spawned seaplanes deliberately use universally-supported mode 1 rather than carrier mode 11.</p></div>
+          <div class="dev-note"><span class="k">MC · carrier modes</span><p>The addon enables 11/12 only for eligible non-seaplanes. Avenger and He-111 are currently eligible. For every seaplane, <b>mode 11=false and mode 12=false</b>; launch/recovery commands refuse them and stale carrier flags from older saves are cleared.</p></div>
           <div class="dev-note"><span class="k">Fighterbomber</span><p>Ground/surface attack is primary. The Bf-110 switches to the air attacker only while a close rear-hemisphere threat is set, then returns to its mode-1/mode-2 strike cycle. The current addon supplies no generic bomb payload.</p></div>
-          <div class="dev-note"><span class="k">Seaplane RTB</span><p>“RTB” currently means a mode-1 return toward the nearest friendly surface ship (or the spawn anchor) and resumption of patrol when back inside the leash. It is not a water landing or despawn. A <code>water</code> spawn is a takeoff test, not a parked seaplane state.</p></div>
+          <div class="dev-note"><span class="k">Direct-spawn RTB</span><p>Every plane created by <code>?spawn ai_*</code> uses mode 1 to return to its own exact post-offset spawn XY and resumes patrol there; it will not switch home to a nearby ship. This is not a landing or despawn. A seaplane <code>water</code> spawn is a takeoff test, and carrier modes 11/12 remain disabled.</p></div>
         </div>
       </div>
 
