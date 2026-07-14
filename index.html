@@ -721,8 +721,8 @@ commands: `
       </div>
 
       <div class="cmd-row">
-        <div class="cmd-cell cmd-cell--syntax"><code>?carrier [plane] [dc|torp]</code><br><code>?carrier launchall [n] [plane] [dc|torp]</code><br><code>?carrier landall</code></div>
-        <div class="cmd-cell cmd-cell--desc">Directs the nearest aircraft carrier. It turns into the wind, then launches a plane (optional <code>dc</code>/<code>torp</code> loadout), launches a flight of <code>n</code> with <code>launchall</code>, or recovers its eligible AI planes one at a time with <code>landall</code>. Seaplanes are refused: carrier modes 11 and 12 are both disabled for them.</div>
+        <div class="cmd-cell cmd-cell--syntax"><code>?carrier [plane] [dc|torp]</code><br><code>?carrier launchall [n] [plane] [dc|torp]</code><br><code>?carrier landall</code><br><code>?carrier cancel</code><br><code>?carrier sched</code></div>
+        <div class="cmd-cell cmd-cell--desc">Directs the nearest aircraft carrier. It turns into the wind, then launches a plane (optional <code>dc</code>/<code>torp</code> loadout), launches a flight of <code>n</code> with <code>launchall</code>, or recovers its eligible AI planes one at a time with <code>landall</code>. <code>cancel</code> aborts the current flight operation and sends the ship back to the convoy; <code>sched</code> prints the live dawn/dusk scheduler state, onboard air-wing count and busy phase. Seaplanes are refused: carrier modes 11 and 12 are both disabled for them.</div>
         <div class="cmd-cell cmd-cell--tags"><span class="cmd-tag cmd-tag--combat">COMBAT</span></div>
       </div>
 
