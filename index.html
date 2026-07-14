@@ -371,6 +371,22 @@ updates: `
 
       <div class="update-bulletin reveal reveal-delay-1">
         <div class="bulletin-header">
+          <span class="bulletin-date">14 JUL 2026</span>
+          <span class="bulletin-tag tag-ops">VERIFIED</span>
+        </div>
+        <div class="bulletin-title">STRATEGIC VIRTUAL-CONVOY LAYER RE-CHECKED</div>
+        <div class="bulletin-body">
+          <ul class="bulletin-list">
+            <li>Website command and systems copy re-verified against <code>addon_ConvoySurvival/script.lua</code> and <code>FEATURES.md</code></li>
+            <li>Confirmed the addon can keep up to three dated convoys moving in the strategic layer while only one convoy becomes the live physical bubble</li>
+            <li>Confirmed virtual U-boats and aircraft use persisted responder queues, cadence tiers, and map modes exposed through <code>?vc</code> and <code>?vcmap intel|debug|off</code></li>
+            <li>Confirmed the strategic layer is fed by RouteBuilder schedule data rather than an isolated sandbox route list</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="update-bulletin reveal reveal-delay-1">
+        <div class="bulletin-header">
           <span class="bulletin-date">13 JUL 2026</span>
           <span class="bulletin-tag tag-ops">VERIFIED</span>
         </div>
@@ -1020,13 +1036,13 @@ commands: `
 
       <div class="cmd-row">
         <div class="cmd-cell cmd-cell--syntax"><code>?vc</code></div>
-        <div class="cmd-cell cmd-cell--desc">Prints a virtual-convoy status summary: schedule fingerprint, active convoy, hull counts, roamers, aircraft limits, contact reports and player ownership snapshots.</div>
+        <div class="cmd-cell cmd-cell--desc">Prints the strategic virtual-convoy status summary: schedule/date, active convoy, hull and aircraft caps, roamer counts, queued responders, cadence tiers, latest strategic event, contact reports, and player ownership snapshots.</div>
         <div class="cmd-cell cmd-cell--tags"><span class="cmd-tag cmd-tag--admin">ADMIN</span></div>
       </div>
 
       <div class="cmd-row">
-        <div class="cmd-cell cmd-cell--syntax"><code>?vcmap</code><br><code>?vcmap on|off</code></div>
-        <div class="cmd-cell cmd-cell--desc">Toggles live virtual-unit map icons, then immediately resynchronizes the icon state across the map.</div>
+        <div class="cmd-cell cmd-cell--syntax"><code>?vcmap</code><br><code>?vcmap intel|debug|off</code></div>
+        <div class="cmd-cell cmd-cell--desc">Sets the virtual-unit map layer to filtered intel, full debug, or off, then immediately resynchronizes icon state across the map. <code>?vcmap on</code> still works as a debug alias.</div>
         <div class="cmd-cell cmd-cell--tags"><span class="cmd-tag cmd-tag--admin">ADMIN</span> <span class="cmd-tag cmd-tag--nav">NAV</span></div>
       </div>
 
@@ -1582,6 +1598,19 @@ systems: `
           <div class="system-designation">COMMUNICATIONS · ALL VESSELS</div>
           <div class="system-name">RADIO, MORSE &amp; HF/DF</div>
           <p class="system-desc">Voice radio and Morse traffic are the arteries of the convoy battle. In the current addon, AI ships, aircraft, and U-boats report over team-scoped nets to player vessels tuned to the right channel, while Allied escorts fitted with HF/DF can turn a transmitting U-boat's signal into map bearings and, with enough cuts, a triangulated fix. Keep transmissions short: the net helps your side coordinate, but it can also betray your position.</p>
+        </div>
+      </div>
+
+      <div class="system-card reveal reveal-delay-4">
+        <div class="system-image">
+          <div class="system-image-placeholder">
+            <span class="system-image-label">IMAGE PENDING</span>
+          </div>
+        </div>
+        <div class="system-info">
+          <div class="system-designation">STRATEGIC · WORLD LAYER</div>
+          <div class="system-name">VIRTUAL CONVOY WAR</div>
+          <p class="system-desc">The live battle now sits inside a larger strategic simulation. Dated RouteBuilder schedules keep convoys, U-boats, and aircraft moving beyond the player bubble, with only one convoy promoted into a full physical encounter at a time. Reinforcements arrive through persisted response queues, and operators can inspect or filter that hidden layer through <code>?vc</code> and <code>?vcmap intel|debug|off</code>.</p>
         </div>
       </div>
 
