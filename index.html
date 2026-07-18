@@ -371,6 +371,21 @@ updates: `
 
       <div class="update-bulletin reveal reveal-delay-1">
         <div class="bulletin-header">
+          <span class="bulletin-date">18 JUL 2026</span>
+          <span class="bulletin-tag tag-ops">VERIFIED</span>
+        </div>
+        <div class="bulletin-title">SEAPLANE RESCUE CONTRACT RE-CHECKED</div>
+        <div class="bulletin-body">
+          <ul class="bulletin-list">
+            <li>Developer-reference copy re-verified against <code>addon_ConvoySurvival/script.lua</code> and <code>tests/virtual_convoy_core.test.js</code></li>
+            <li>Corrected the Dev section to reflect live mode-13 water approach, taxi, pickup, and departure handling for rescue seaplanes</li>
+            <li>Kept the carrier-flight restrictions unchanged: seaplanes still refuse carrier modes 11 and 12</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="update-bulletin reveal reveal-delay-1">
+        <div class="bulletin-header">
           <span class="bulletin-date">17 JUL 2026</span>
           <span class="bulletin-tag tag-ops">VERIFIED</span>
         </div>
@@ -1832,7 +1847,7 @@ dev: `<div class="section-divider"></div>
               <tr><td><span class="dev-mode n">10</span></td><td><span class="dev-mname">Immelmann</span></td><td><span class="dev-by">MC</span></td><td>Defensive — zoom-climb &amp; reverse.</td></tr>
               <tr class="dev-hot"><td><span class="dev-mode n">11</span></td><td><span class="dev-mname">Carrier takeoff</span></td><td><span class="dev-by">Both</span></td><td>Addon shapes the deck-run waypoint; an eligible MC runs full power down the deck and climbs away, gear up. Addon eligibility is Avenger and He-111 only. <b>Seaplane: false</b> even if a raw controller contains a legacy branch.</td></tr>
               <tr class="dev-hot"><td><span class="dev-mode n">12</span></td><td><span class="dev-mname">Carrier landing</span></td><td><span class="dev-by">Both</span></td><td>Addon builds the final approach; an eligible MC lowers gear and flies the glideslope. Addon eligibility is Avenger and He-111 only. <b>Seaplane: false</b> even if a raw controller contains a legacy branch.</td></tr>
-              <tr><td><span class="dev-mode n">13</span></td><td><span class="dev-mname">Water rescue / taxi</span></td><td><span class="dev-by">Reserved</span></td><td>The addon sends 13 only to a seaplane tagged <code>rescue_water_mode</code>. Neither installed seaplane implements or advertises it, so Catalina and Sunderland currently use mode 5 for rescue.</td></tr>
+              <tr><td><span class="dev-mode n">13</span></td><td><span class="dev-mname">Water rescue / taxi</span></td><td><span class="dev-by">Both</span></td><td>Current seaplane rescue uses mode 13 via <code>rescue_water_mode</code>: a descending water approach, taxi and one-minute pickup hold, followed by a protected mode-13 departure alignment before mode-1 water takeoff. Catalina and Sunderland still refuse carrier modes 11 and 12.</td></tr>
               <tr><td><span class="dev-mode dash">—</span></td><td><span class="dev-mname">Spiral · R-scissors · Barrel · Jink</span></td><td><span class="dev-by">Retired</span></td><td>Former addon-flown evasives (mode 1 + waypoint shaping). Removed — every defensive maneuver is now executed by the microcontroller.</td></tr>
             </tbody>
           </table>
@@ -1873,14 +1888,14 @@ dev: `<div class="section-divider"></div>
               <tr>
                 <td><span class="dev-cls">ai_catalina</span><br>PBY Catalina<br><time datetime="2026-07-12">2026-07-12</time></td>
                 <td>seaplane</td>
-                <td><code>1943 AI Aircraft</code> bus + <code>AI Addon Pilot Script</code> flight MC + <code>Aircarft Turrets From Addon</code> weapon MCs.<br><b>Raw MC branches: 0 · 1 · 2 · 4 · 5 · 6–12</b><br>Addon seaplane policy: <b>11=false · 12=false</b>; mode 4 is legacy; no 3 or 13.</td>
-                <td>Always receives the one-pass/four-charge depth-charge loadout, then falls back to gun strafes. Survivor rescue overrides combat: mode 5, 2 m nav altitude and staged low throttle until pickup. <code>?spawn ai_catalina water</code> starts at sea level and immediately flies a full-power mode-1 takeoff until 30 m. A direct <code>?spawn ai_catalina</code> patrols and RTBs to its exact spawn XY; other seaplane sources may follow their assigned patrol anchor. Carrier modes 11/12 are never sent.</td>
+                <td><code>1943 AI Aircraft</code> bus + <code>AI Addon Pilot Script</code> flight MC + <code>Aircarft Turrets From Addon</code> weapon MCs.<br><b>Raw MC branches: 0 · 1 · 2 · 4 · 5 · 6–12</b><br>Addon seaplane policy: <b>11=false · 12=false</b>; rescue uses mode 13 water handling; mode 4 is legacy; no 3.</td>
+                <td>Always receives the one-pass/four-charge depth-charge loadout, then falls back to gun strafes. Survivor rescue overrides combat: the addon stages 3 km out, drives a mode-13 descending water approach, taxis into pickup, holds for one minute, then uses a protected departure before mode-1 water takeoff. <code>?spawn ai_catalina water</code> starts at sea level and immediately flies a full-power mode-1 takeoff until 30 m. A direct <code>?spawn ai_catalina</code> patrols and RTBs to its exact spawn XY; other seaplane sources may follow their assigned patrol anchor. Carrier modes 11/12 are never sent.</td>
               </tr>
               <tr>
                 <td><span class="dev-cls">ai_sunderland</span><br>Short Sunderland<br><time datetime="2026-07-12">2026-07-12</time></td>
                 <td>seaplane</td>
-                <td><code>1943 AI Aircraft</code> bus + <code>VMAN AP AI LUA</code> flight MC, with separate turret-limiter / robotic-pivot MCs.<br><b>MC: 0 · 1 · 2 · 4 · 5 · 6–10</b><br>Addon seaplane policy: <b>11=false · 12=false</b>; mode 4 is legacy; no 3 or 13.</td>
-                <td>Same addon seaplane doctrine as Catalina: surface target first, one mode-5 four-charge DC pass at ~20 m, gun strafes after winchester and rescue priority. A direct <code>?spawn ai_sunderland</code> patrols and RTBs to its exact spawn XY. The <code>water</code> option uses mode 1 for water takeoff; carrier modes 11/12 are never sent.</td>
+                <td><code>1943 AI Aircraft</code> bus + <code>VMAN AP AI LUA</code> flight MC, with separate turret-limiter / robotic-pivot MCs.<br><b>MC: 0 · 1 · 2 · 4 · 5 · 6–10</b><br>Addon seaplane policy: <b>11=false · 12=false</b>; rescue uses mode 13 water handling; mode 4 is legacy; no 3.</td>
+                <td>Same addon seaplane doctrine as Catalina: surface target first, one mode-5 four-charge DC pass at ~20 m, gun strafes after winchester and rescue priority, with survivor pickup handled through the same mode-13 water approach/taxi/hold flow before protected departure. A direct <code>?spawn ai_sunderland</code> patrols and RTBs to its exact spawn XY. The <code>water</code> option uses mode 1 for water takeoff; carrier modes 11/12 are never sent.</td>
               </tr>
             </tbody>
           </table>
