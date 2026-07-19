@@ -374,6 +374,21 @@ updates: `
           <span class="bulletin-date">19 JUL 2026</span>
           <span class="bulletin-tag tag-ops">VERIFIED</span>
         </div>
+        <div class="bulletin-title">PYTHON STRATEGIC AUTHORITY CONTRACT DOCUMENTED</div>
+        <div class="bulletin-body">
+          <ul class="bulletin-list">
+            <li>Systems, Commands, and Dev copy verified against the live Python transport and authority handlers plus their contract tests</li>
+            <li>Documented the operator commands for transport health, authority control, mirror comparison, and snapshot resynchronization</li>
+            <li>Confirmed Python owns abstract strategic movement while Lua retains Stormworks physical execution, with fail-closed safety checks around the handoff</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="update-bulletin reveal reveal-delay-1">
+        <div class="bulletin-header">
+          <span class="bulletin-date">19 JUL 2026</span>
+          <span class="bulletin-tag tag-ops">VERIFIED</span>
+        </div>
         <div class="bulletin-title">COMMANDS AND DEV DOCS RE-VERIFIED</div>
         <div class="bulletin-body">
           <ul class="bulletin-list">
@@ -1045,6 +1060,30 @@ commands: `
       </div>
 
       <div class="cmd-row">
+        <div class="cmd-cell cmd-cell--syntax"><code>?simauthority surface|all|off|status</code></div>
+        <div class="cmd-cell cmd-cell--desc">Controls the Python strategic-authority handoff. <code>surface</code> covers abstract convoys and battle groups, <code>all</code> also covers virtual aircraft and submarines, <code>off</code> freezes the abstract layer, and <code>status</code> reports health and the effective state. Authority only arms from a healthy, synchronized snapshot.</div>
+        <div class="cmd-cell cmd-cell--tags"><span class="cmd-tag cmd-tag--admin">ADMIN</span> <span class="cmd-tag cmd-tag--dev">DEV</span></div>
+      </div>
+
+      <div class="cmd-row">
+        <div class="cmd-cell cmd-cell--syntax"><code>?simcompare</code></div>
+        <div class="cmd-cell cmd-cell--desc">Compares the Lua strategic snapshot with the cached Python mirror, reporting missing or stale entities, position drift, and state/route mismatches. Requires a connected, fully synchronized mirror.</div>
+        <div class="cmd-cell cmd-cell--tags"><span class="cmd-tag cmd-tag--admin">ADMIN</span> <span class="cmd-tag cmd-tag--dev">DEV</span></div>
+      </div>
+
+      <div class="cmd-row">
+        <div class="cmd-cell cmd-cell--syntax"><code>?simresync</code></div>
+        <div class="cmd-cell cmd-cell--desc">Queues a fresh full strategic snapshot for the Python simulation transport. Use when the mirror is not ready or a safe authority handoff needs a clean resynchronization.</div>
+        <div class="cmd-cell cmd-cell--tags"><span class="cmd-tag cmd-tag--admin">ADMIN</span> <span class="cmd-tag cmd-tag--dev">DEV</span></div>
+      </div>
+
+      <div class="cmd-row">
+        <div class="cmd-cell cmd-cell--syntax"><code>?simstatus</code></div>
+        <div class="cmd-cell cmd-cell--desc">Reports Python transport connection, protocol, authority, world/revision, entity and command counts, snapshot/reconcile progress, queue depth, reply age, failures, and any current warning.</div>
+        <div class="cmd-cell cmd-cell--tags"><span class="cmd-tag cmd-tag--admin">ADMIN</span> <span class="cmd-tag cmd-tag--dev">DEV</span></div>
+      </div>
+
+      <div class="cmd-row">
         <div class="cmd-cell cmd-cell--syntax"><code>?simulate [1-1000] convoys|air|subs|battlegroups</code><br><code>?simulate status</code><br><code>?simulate clear</code></div>
         <div class="cmd-cell cmd-cell--desc">Strategic-layer test harness. Creates virtual-only test convoys, aircraft, submarines or battle groups from the current dated route and patrol sources, reports the current test-unit counts, or clears previously injected virtual test units.</div>
         <div class="cmd-cell cmd-cell--tags"><span class="cmd-tag cmd-tag--admin">ADMIN</span> <span class="cmd-tag cmd-tag--dev">DEV</span></div>
@@ -1692,7 +1731,7 @@ systems: `
         <div class="system-info">
           <div class="system-designation">STRATEGIC · WORLD LAYER</div>
           <div class="system-name">VIRTUAL CONVOY WAR</div>
-          <p class="system-desc">The live battle now sits inside a larger strategic simulation. Dated RouteBuilder schedules keep convoys, U-boats, and aircraft moving beyond the player bubble, with only one convoy promoted into a full physical encounter at a time. Reinforcements arrive through persisted response queues, and operators can inspect or filter that hidden layer through <code>?vc</code> and <code>?vcmap intel|debug|off</code>.</p>
+          <p class="system-desc">The live battle now sits inside a larger strategic simulation. Dated RouteBuilder schedules keep convoys, U-boats, aircraft, and surface groups moving beyond the player bubble, with only one convoy promoted into a full physical encounter at a time. Python owns abstract strategic movement from a synchronized snapshot while Lua retains Stormworks physical execution; unsafe positions, stale replies, or transport failures suspend that authority until a safe resynchronization. Operators can inspect the layer through <code>?vc</code>, <code>?vcmap intel|debug|off</code>, and the <code>?sim*</code> diagnostics.</p>
         </div>
       </div>
 
@@ -1841,6 +1880,11 @@ dev: `<div class="section-divider"></div>
     <p class="section-body reveal reveal-delay-2">Verified against the installed addon, all six installed AI-aircraft mission packages, and the current seaplane rescue tests on <time datetime="2026-07-19"><b>19 July 2026</b></time>. Every AI plane is flown by the addon "brain": it picks a target roughly once a second, announces its ID / throttle / XY nav target / mode / AI flag in chat, and pushes a nav / firing solution to the plane's fly-by-wire microcontroller ten times a second over keypads. A canonical <code>ai_*</code> component name (for example <code>ai_spitfire</code>) is classified by its mission class tag; an aircraft-domain class flies as a plane, <code>submarine</code> runs as a sub, and ship classes run as ships. An <code>ai_*</code> component with no recognised class tag remains inert. An explicit <code>?spawn ai_*</code> request is always addon AI, even when its team matches the player, and its patrol/RTB anchor remains its exact spawn XY.</p>
 
     <div class="dev-ref">
+
+      <div class="dev-block reveal">
+        <h3 class="dev-heading"><span class="num">00</span>STRATEGIC SIMULATION &middot; AUTHORITY CONTRACT</h3>
+        <p class="dev-sub">Verified on <b>19 July 2026</b> against <code>script.lua</code>, <code>tests/python_sim_transport.test.js</code>, and <code>tests/python_sim_authority.test.js</code>. The Python service is authoritative for abstract strategic entities after a complete, healthy snapshot; Lua remains authoritative for physical Stormworks spawning and vehicle execution. The handoff is fail-closed: disconnects, stale or rejected synchronization, and unsafe cached positions suspend effective authority and require a safe snapshot before it can resume. Operators can inspect transport state with <code>?simstatus</code>, select <code>surface</code> or <code>all</code> authority with <code>?simauthority</code>, audit mirror drift with <code>?simcompare</code>, and queue a fresh snapshot with <code>?simresync</code>.</p>
+      </div>
 
       <div class="dev-block reveal">
         <h3 class="dev-heading"><span class="num">01</span>FLIGHT MODES · <code>air_mode</code></h3>
