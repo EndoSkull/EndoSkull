@@ -371,6 +371,21 @@ updates: `
 
       <div class="update-bulletin reveal reveal-delay-1">
         <div class="bulletin-header">
+          <span class="bulletin-date">19 JUL 2026</span>
+          <span class="bulletin-tag tag-ops">VERIFIED</span>
+        </div>
+        <div class="bulletin-title">COMMANDS AND DEV DOCS RE-VERIFIED</div>
+        <div class="bulletin-body">
+          <ul class="bulletin-list">
+            <li>Commands re-checked against <code>addon_ConvoySurvival/script.lua</code> and <code>FEATURES.md</code></li>
+            <li>Dev aircraft-contract copy re-checked against the live addon and <code>tests/virtual_convoy_core.test.js</code></li>
+            <li>Corrected the stale mode-5 note so seaplane rescue now points to the live mode-13 water-rescue flow</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="update-bulletin reveal reveal-delay-1">
+        <div class="bulletin-header">
           <span class="bulletin-date">18 JUL 2026</span>
           <span class="bulletin-tag tag-ops">VERIFIED</span>
         </div>
@@ -719,7 +734,7 @@ commands: `
   <div class="section-inner">
     <div class="section-label reveal">Operations Manual</div>
     <h2 class="section-title reveal reveal-delay-1">ADDON <span class="accent">COMMANDS</span></h2>
-    <p class="section-body reveal reveal-delay-2">Current player-facing and operator-facing chat commands for the live addon. Type these directly into the Stormworks chat during a session. Command details were verified against <code>addon_ConvoySurvival/script.lua</code> and <code>FEATURES.md</code> on <time datetime="2026-07-17"><b>17 July 2026</b></time>. Commands marked <span class="cmd-tag cmd-tag--admin">ADMIN</span> are restricted to server operators; one-off internal test hooks are intentionally omitted.</p>
+    <p class="section-body reveal reveal-delay-2">Current player-facing and operator-facing chat commands for the live addon. Type these directly into the Stormworks chat during a session. Command details were verified against <code>addon_ConvoySurvival/script.lua</code> and <code>FEATURES.md</code> on <time datetime="2026-07-19"><b>19 July 2026</b></time>. Commands marked <span class="cmd-tag cmd-tag--admin">ADMIN</span> are restricted to server operators; one-off internal test hooks are intentionally omitted.</p>
 
     <div class="cmd-table reveal reveal-delay-1">
 
@@ -1823,7 +1838,7 @@ dev: `<div class="section-divider"></div>
   <div class="section-inner">
     <div class="section-label reveal">Developer Reference</div>
     <h2 class="section-title reveal reveal-delay-1">AI AIRCRAFT — <span class="accent">FLIGHT &amp; COMBAT</span></h2>
-    <p class="section-body reveal reveal-delay-2">Verified against the installed addon and all six installed AI-aircraft mission packages on <time datetime="2026-07-12"><b>12 July 2026</b></time>. Every AI plane is flown by the addon "brain": it picks a target roughly once a second, announces its ID / throttle / XY nav target / mode / AI flag in chat, and pushes a nav / firing solution to the plane's fly-by-wire microcontroller ten times a second over keypads. A canonical <code>ai_*</code> component name (for example <code>ai_spitfire</code>) is classified by its mission class tag; an aircraft-domain class flies as a plane, <code>submarine</code> runs as a sub, and ship classes run as ships. An <code>ai_*</code> component with no recognised class tag remains inert. An explicit <code>?spawn ai_*</code> request is always addon AI, even when its team matches the player, and its patrol/RTB anchor remains its exact spawn XY.</p>
+    <p class="section-body reveal reveal-delay-2">Verified against the installed addon, all six installed AI-aircraft mission packages, and the current seaplane rescue tests on <time datetime="2026-07-19"><b>19 July 2026</b></time>. Every AI plane is flown by the addon "brain": it picks a target roughly once a second, announces its ID / throttle / XY nav target / mode / AI flag in chat, and pushes a nav / firing solution to the plane's fly-by-wire microcontroller ten times a second over keypads. A canonical <code>ai_*</code> component name (for example <code>ai_spitfire</code>) is classified by its mission class tag; an aircraft-domain class flies as a plane, <code>submarine</code> runs as a sub, and ship classes run as ships. An <code>ai_*</code> component with no recognised class tag remains inert. An explicit <code>?spawn ai_*</code> request is always addon AI, even when its team matches the player, and its patrol/RTB anchor remains its exact spawn XY.</p>
 
     <div class="dev-ref">
 
@@ -1839,7 +1854,7 @@ dev: `<div class="section-divider"></div>
               <tr><td><span class="dev-mode n">2</span></td><td><span class="dev-mname">Attack</span></td><td><span class="dev-by">MC</span></td><td>On a gun / weapon solution — dogfight or strafe run. No nav during combat.</td></tr>
               <tr><td><span class="dev-mode n">3</span></td><td><span class="dev-mname">Unused</span></td><td><span class="dev-by">Neither</span></td><td>No installed aircraft controller implements a mode-3 branch, and the addon never sends it. RTB is mode 1 plus a home waypoint.</td></tr>
               <tr><td><span class="dev-mode dash">4</span></td><td><span class="dev-mname">Legacy branch</span></td><td><span class="dev-by">MC only</span></td><td>Still present in Avenger, Catalina and Sunderland controller variants, but the current addon never sends it. Break turn moved to 6 and carrier landing to 12.</td></tr>
-              <tr><td><span class="dev-mode n">5</span></td><td><span class="dev-mname">Low-level run</span></td><td><span class="dev-by addon">Both</span></td><td>The addon supplies the low waypoint; the MC holds it wings-level. Used for torpedo runs (~15 m), depth-charge runs (~20 m), seaplane rescue fallback and carrier pattern legs.</td></tr>
+              <tr><td><span class="dev-mode n">5</span></td><td><span class="dev-mname">Low-level run</span></td><td><span class="dev-by addon">Both</span></td><td>The addon supplies the low waypoint; the MC holds it wings-level. Used for torpedo runs (~15 m), depth-charge runs (~20 m), and carrier pattern legs. Seaplane survivor rescue now uses mode 13 for the water approach and taxi flow.</td></tr>
               <tr><td><span class="dev-mode n">6</span></td><td><span class="dev-mname">Break turn</span></td><td><span class="dev-by">MC</span></td><td>Defensive — hard break into the attacker.</td></tr>
               <tr><td><span class="dev-mode n">7</span></td><td><span class="dev-mname">Scissors</span></td><td><span class="dev-by">MC</span></td><td>Defensive — rolling reversals.</td></tr>
               <tr><td><span class="dev-mode n">8</span></td><td><span class="dev-mname">Thach weave</span></td><td><span class="dev-by">MC</span></td><td>Defensive — with a wingman.</td></tr>
@@ -1856,43 +1871,43 @@ dev: `<div class="section-divider"></div>
 
       <div class="dev-block reveal">
         <h3 class="dev-heading"><span class="num">02</span>INSTALLED AIRCRAFT · CURRENT CONTRACT</h3>
-        <p class="dev-sub">Each row was checked on <b>12 July 2026</b> against the installed mission vehicle, its flight-control microcontroller and the active addon state machine. “MC modes” means branches the vehicle can execute; “addon behaviour” lists the modes and tactics the addon actually commands.</p>
+        <p class="dev-sub">Each row was checked on <b>19 July 2026</b> against the installed mission vehicle, its flight-control microcontroller and the active addon state machine. “MC modes” means branches the vehicle can execute; “addon behaviour” lists the modes and tactics the addon actually commands.</p>
         <div class="dev-scroll">
           <table class="dev-table">
             <thead><tr><th>Aircraft / verified</th><th>Mission class</th><th>MC and supported modes</th><th>Current addon behaviour</th></tr></thead>
             <tbody>
               <tr>
-                <td><span class="dev-cls">ai_spitfire</span><br>Spitfire<br><time datetime="2026-07-12">2026-07-12</time></td>
+                <td><span class="dev-cls">ai_spitfire</span><br>Spitfire<br><time datetime="2026-07-19">2026-07-19</time></td>
                 <td>fighter</td>
                 <td><code>1943 AI Aircraft</code> keypad bus + <code>VMAN AP AI LUA</code> flight MC.<br><b>MC: 0 · 1 · 2 · 5 · 6–10</b><br>No 3, 4, 11, 12 or 13.</td>
                 <td>Air target first, surface fallback. Commits to a bandit, joins pair/wing tactics and convoy defence, uses mode 2 for guns, modes 6–10 when bounced, and mode 1 for patrol, formation, leash/RTB and attack reset. Can make a surface gun pass.</td>
               </tr>
               <tr>
-                <td><span class="dev-cls">ai_bf110</span><br>Bf-110<br><time datetime="2026-07-12">2026-07-12</time></td>
+                <td><span class="dev-cls">ai_bf110</span><br>Bf-110<br><time datetime="2026-07-19">2026-07-19</time></td>
                 <td>fighterbomber</td>
                 <td><code>1943 AI Aircraft</code> keypad bus + <code>VMAN AP AI LUA</code> flight MC.<br><b>MC: 0 · 1 · 2 · 5 · 6–10</b><br>No 3, 4, 11, 12 or 13.</td>
                 <td>Surface strike is primary: mode-1 setup, mode-2 shallow gun pass, mode-1 egress. If an aircraft is on its tail it temporarily fights that attacker and may use modes 6–10, then resumes the strike. <b>Installed-mission warning:</b> its current playlist location is named <code>allies</code> although the package/catalog says Axis, so runtime catalog discovery currently treats this build as Allied.</td>
               </tr>
               <tr>
-                <td><span class="dev-cls">ai_he111</span><br>He-111<br><time datetime="2026-07-12">2026-07-12</time></td>
+                <td><span class="dev-cls">ai_he111</span><br>He-111<br><time datetime="2026-07-19">2026-07-19</time></td>
                 <td>mediumbomber</td>
                 <td><code>1943 AI Aircraft</code> keypad bus + <code>AI Addon Pilot Script</code> flight MC.<br><b>MC: 0 · 1 · 2 · 5 · 6–12</b><br>No 3, 4 or 13.</td>
                 <td>Surface target first. The current addon has <b>no He-111 bomb payload</b>: it builds a ~3 km setup at ~500 m, then authorizes a mode-2 shallow gun/weapon pass and mode-1 climbing egress before another run. The MC contains 11/12 branches, but ordinary bomber patrol does not use them.</td>
               </tr>
               <tr>
-                <td><span class="dev-cls">ai_avenger</span><br>TBF Avenger<br><time datetime="2026-07-12">2026-07-12</time></td>
+                <td><span class="dev-cls">ai_avenger</span><br>TBF Avenger<br><time datetime="2026-07-19">2026-07-19</time></td>
                 <td>torpedobomber</td>
                 <td><code>1943 AI Aircraft</code> keypad bus + <code>AI Addon Pilot Script</code> flight MC.<br><b>MC: 0 · 1 · 2 · 4 · 5 · 6–12</b><br>Mode 4 is legacy; no 3 or 13.</td>
                 <td>Surface target first. Default loadout is one addon-spawned torpedo: mode-1 setup, mode-5 level run near 15 m, release inside 500 m only when low and level, then mode-1 egress. <code>dc</code> selects one four-charge addon depth-charge stick at ~20 m. After ordnance is spent it makes mode-2 gun passes. Supports carrier 11/12.</td>
               </tr>
               <tr>
-                <td><span class="dev-cls">ai_catalina</span><br>PBY Catalina<br><time datetime="2026-07-12">2026-07-12</time></td>
+                <td><span class="dev-cls">ai_catalina</span><br>PBY Catalina<br><time datetime="2026-07-19">2026-07-19</time></td>
                 <td>seaplane</td>
                 <td><code>1943 AI Aircraft</code> bus + <code>AI Addon Pilot Script</code> flight MC + <code>Aircarft Turrets From Addon</code> weapon MCs.<br><b>Raw MC branches: 0 · 1 · 2 · 4 · 5 · 6–12</b><br>Addon seaplane policy: <b>11=false · 12=false</b>; rescue uses mode 13 water handling; mode 4 is legacy; no 3.</td>
                 <td>Always receives the one-pass/four-charge depth-charge loadout, then falls back to gun strafes. Survivor rescue overrides combat: the addon stages 3 km out, drives a mode-13 descending water approach, taxis into pickup, holds for one minute, then uses a protected departure before mode-1 water takeoff. <code>?spawn ai_catalina water</code> starts at sea level and immediately flies a full-power mode-1 takeoff until 30 m. A direct <code>?spawn ai_catalina</code> patrols and RTBs to its exact spawn XY; other seaplane sources may follow their assigned patrol anchor. Carrier modes 11/12 are never sent.</td>
               </tr>
               <tr>
-                <td><span class="dev-cls">ai_sunderland</span><br>Short Sunderland<br><time datetime="2026-07-12">2026-07-12</time></td>
+                <td><span class="dev-cls">ai_sunderland</span><br>Short Sunderland<br><time datetime="2026-07-19">2026-07-19</time></td>
                 <td>seaplane</td>
                 <td><code>1943 AI Aircraft</code> bus + <code>VMAN AP AI LUA</code> flight MC, with separate turret-limiter / robotic-pivot MCs.<br><b>MC: 0 · 1 · 2 · 4 · 5 · 6–10</b><br>Addon seaplane policy: <b>11=false · 12=false</b>; rescue uses mode 13 water handling; mode 4 is legacy; no 3.</td>
                 <td>Same addon seaplane doctrine as Catalina: surface target first, one mode-5 four-charge DC pass at ~20 m, gun strafes after winchester and rescue priority, with survivor pickup handled through the same mode-13 water approach/taxi/hold flow before protected departure. A direct <code>?spawn ai_sunderland</code> patrols and RTBs to its exact spawn XY. The <code>water</code> option uses mode 1 for water takeoff; carrier modes 11/12 are never sent.</td>
