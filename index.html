@@ -371,6 +371,21 @@ updates: `
 
       <div class="update-bulletin reveal reveal-delay-1">
         <div class="bulletin-header">
+          <span class="bulletin-date">20 JUL 2026</span>
+          <span class="bulletin-tag tag-ops">VERIFIED</span>
+        </div>
+        <div class="bulletin-title">CREW, DAMAGE &amp; REPAIR CONTRACT DOCUMENTED</div>
+        <div class="bulletin-body">
+          <ul class="bulletin-list">
+            <li>Systems, Commands, and Dev copy verified against the live crew-state implementation, interface contract, and Python simulation documentation</li>
+            <li>Documented the player-facing <code>?crew</code> summary and compartment report</li>
+            <li>Confirmed Python owns inferred casualties, morale, fatigue, compartment effects, and repair priorities while Stormworks remains authoritative for physical damage and player controls</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="update-bulletin reveal reveal-delay-1">
+        <div class="bulletin-header">
           <span class="bulletin-date">19 JUL 2026</span>
           <span class="bulletin-tag tag-ops">VERIFIED</span>
         </div>
@@ -749,7 +764,7 @@ commands: `
   <div class="section-inner">
     <div class="section-label reveal">Operations Manual</div>
     <h2 class="section-title reveal reveal-delay-1">ADDON <span class="accent">COMMANDS</span></h2>
-    <p class="section-body reveal reveal-delay-2">Current player-facing and operator-facing chat commands for the live addon. Type these directly into the Stormworks chat during a session. Command details were verified against <code>addon_ConvoySurvival/script.lua</code> and <code>FEATURES.md</code> on <time datetime="2026-07-19"><b>19 July 2026</b></time>. Commands marked <span class="cmd-tag cmd-tag--admin">ADMIN</span> are restricted to server operators; one-off internal test hooks are intentionally omitted.</p>
+    <p class="section-body reveal reveal-delay-2">Current player-facing and operator-facing chat commands for the live addon. Type these directly into the Stormworks chat during a session. Command details were verified against <code>addon_ConvoySurvival/script.lua</code>, <code>INTERFACE.md</code>, and the Python simulation contract on <time datetime="2026-07-20"><b>20 July 2026</b></time>. Commands marked <span class="cmd-tag cmd-tag--admin">ADMIN</span> are restricted to server operators; one-off internal test hooks are intentionally omitted.</p>
 
     <div class="cmd-table reveal reveal-delay-1">
 
@@ -835,6 +850,12 @@ commands: `
         <div class="cmd-cell cmd-cell--syntax"><code>?clear</code><br><code>?clear all</code></div>
         <div class="cmd-cell cmd-cell--desc">Resets route reserves to zero and removes active formations. Adding <code>all</code> also hard-despawns registered addon vehicles, lifeboats and survivor characters. <b>It is not a full addon reset:</b> it does not rebuild <code>g_savedata</code> or clear campaign, configuration, route, player or virtual-world state.</div>
         <div class="cmd-cell cmd-cell--tags"><span class="cmd-tag cmd-tag--admin">ADMIN</span></div>
+      </div>
+
+      <div class="cmd-row">
+        <div class="cmd-cell cmd-cell--syntax"><code>?crew</code><br><code>?crew sections</code></div>
+        <div class="cmd-cell cmd-cell--desc">Reports crew totals, casualties, morale, fatigue, reserves, and major system efficiencies for the registered vessel you are aboard or standing near. Add <code>sections</code> for compartment damage, fire, flooding, and casualty details.</div>
+        <div class="cmd-cell cmd-cell--tags"><span class="cmd-tag cmd-tag--general">GENERAL</span></div>
       </div>
 
       <div class="cmd-row">
@@ -1742,6 +1763,32 @@ systems: `
           </div>
         </div>
         <div class="system-info">
+          <div class="system-designation">DAMAGE CONTROL &middot; REGISTERED VESSELS</div>
+          <div class="system-name">CREW, COMPARTMENTS &amp; REPAIR</div>
+          <p class="system-desc">Registered ships, submarines, and aircraft can carry a persistent virtual crew and damage profile. Stormworks reports bounded physical evidence such as hit positions, fires, representative NPC casualties, and repair results; Python infers compartment or airframe damage, casualties, morale, fatigue, system efficiency, flooding risk, and repair priorities. Those effects shape AI performance, but never override a player's helm, throttle, weapons, sensors, or electrical controls. Crews can inspect the current vessel with <code>?crew</code> or an optional <code>crew_status</code> keypad display.</p>
+        </div>
+      </div>
+
+      <div class="system-card reveal reveal-delay-4">
+        <div class="system-image">
+          <div class="system-image-placeholder">
+            <span class="system-image-label">IMAGE PENDING</span>
+          </div>
+        </div>
+        <div class="system-info">
+          <div class="system-designation">CAMPAIGN &middot; PERSISTENT SERVICE</div>
+          <div class="system-name">WAR LEDGER &amp; PLAYER CAREERS</div>
+          <p class="system-desc">The Python service keeps the authoritative campaign clock, Allied and Axis points, war effort, convoy outcomes, tonnage, requisition wallets, and player campaign progression. Campaign resets and end snapshots do not erase the separate lifetime record: identity, total playtime, sessions, Loyalty Level, medals, Discord links, and lifetime service statistics persist across campaigns.</p>
+        </div>
+      </div>
+
+      <div class="system-card reveal reveal-delay-4">
+        <div class="system-image">
+          <div class="system-image-placeholder">
+            <span class="system-image-label">IMAGE PENDING</span>
+          </div>
+        </div>
+        <div class="system-info">
           <div class="system-designation">NAVIGATION · ALL VESSELS</div>
           <div class="system-name">DEAD RECKONING &amp; CHARTS</div>
           <p class="system-desc">No GPS. No satellites. Position is calculated from last known fix, compass heading, speed, and elapsed time. In the North Atlantic — where overcast skies could deny star sights for days — dead reckoning was the only option. Officers plot on paper charts, accounting for current and leeway. Get it wrong and the convoy misses its rendezvous. Get it very wrong and you find a minefield instead of a harbour.</p>
@@ -1884,6 +1931,21 @@ dev: `<div class="section-divider"></div>
       <div class="dev-block reveal">
         <h3 class="dev-heading"><span class="num">00</span>STRATEGIC SIMULATION &middot; AUTHORITY CONTRACT</h3>
         <p class="dev-sub">Verified on <b>19 July 2026</b> against <code>script.lua</code>, <code>tests/python_sim_transport.test.js</code>, and <code>tests/python_sim_authority.test.js</code>. The Python service is authoritative for abstract strategic entities after a complete, healthy snapshot; Lua remains authoritative for physical Stormworks spawning and vehicle execution. The handoff is fail-closed: disconnects, stale or rejected synchronization, and unsafe cached positions suspend effective authority and require a safe snapshot before it can resume. Operators can inspect transport state with <code>?simstatus</code>, select <code>surface</code> or <code>all</code> authority with <code>?simauthority</code>, audit mirror drift with <code>?simcompare</code>, and queue a fresh snapshot with <code>?simresync</code>.</p>
+      </div>
+
+      <div class="dev-block reveal">
+        <h3 class="dev-heading"><span class="num">00A</span>CREW STATE &middot; PHYSICAL / INFERRED BOUNDARY</h3>
+        <p class="dev-sub">Verified on <b>20 July 2026</b> against <code>script.lua</code>, <code>INTERFACE.md</code>, and the Python crew/damage implementation. Lua reports bounded Stormworks facts and applies explicitly queued repair pulses only to loaded, simulating vehicles. Python owns the virtual crew ledger, section or airframe inference, casualties, morale, fatigue, system efficiencies, flooding risk, damage-control priorities, and repair timing. Reconciliation is byte-bounded, and damaged loaded vessels retain their current ledger when the registry catalog changes. The optional <code>crew_status</code> keypad is the sole addon-to-display data link; vehicles without it simply ignore the write.</p>
+      </div>
+
+      <div class="dev-block reveal">
+        <h3 class="dev-heading"><span class="num">00B</span>PHYSICAL ASSETS &middot; STAGED ACTIVATION</h3>
+        <p class="dev-sub">The hot-reloaded Physical Asset Registry maps exact installed Stormworks mission components to faction, role, route scope, priority, and global active caps. Route and patrol composition slots select registry IDs; player-only assets remain available to crew and damage profiles but are excluded from automatic strategic spawning. Python authors a cap-aware spawn plan, while Lua revalidates eligibility and capacity immediately before using Stormworks APIs. Every Python-triggered convoy, surface group, aircraft, submarine, or reinforcement shares one staged lane: each vehicle must become simulating and settle before the next is created, and a timeout rejects and rolls back a partial formation.</p>
+      </div>
+
+      <div class="dev-block reveal">
+        <h3 class="dev-heading"><span class="num">00C</span>CAMPAIGN &middot; PERSISTENCE BOUNDARY</h3>
+        <p class="dev-sub">Python is the source of truth for two deliberately separate stores: resettable campaign state and never-reset identity/lifetime state. Campaign operations can access only the campaign database. Lua reports deduplicated physical outcomes; the Python ledger owns durable totals, campaign phase and clock, points, war effort, progression, requisition, strategic events, reset operations, and immutable end snapshots. The remote agent routes these contracts to the local Python service, and the one-time migration handshake imports legacy Radio counters before Python's campaign clock takes authority.</p>
       </div>
 
       <div class="dev-block reveal">
