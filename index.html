@@ -371,6 +371,21 @@ updates: `
 
       <div class="update-bulletin reveal reveal-delay-1">
         <div class="bulletin-header">
+          <span class="bulletin-date">22 JUL 2026</span>
+          <span class="bulletin-tag tag-ops">VERIFIED</span>
+        </div>
+        <div class="bulletin-title">DIRECTED MORSE RUNTIME DOCUMENTED</div>
+        <div class="bulletin-body">
+          <ul class="bulletin-list">
+            <li>Systems, Commands, and Dev copy verified against the live Morse runtime, vehicle interface, and Python queue contract tests</li>
+            <li>Documented message-log navigation, command help, receiver diagnostics, and per-player Morse processing controls</li>
+            <li>Confirmed directed headquarters traffic, submarine depth limits, local-report ranges, and HF/DF exposure rules</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="update-bulletin reveal reveal-delay-1">
+        <div class="bulletin-header">
           <span class="bulletin-date">20 JUL 2026</span>
           <span class="bulletin-tag tag-ops">VERIFIED</span>
         </div>
@@ -764,7 +779,7 @@ commands: `
   <div class="section-inner">
     <div class="section-label reveal">Operations Manual</div>
     <h2 class="section-title reveal reveal-delay-1">ADDON <span class="accent">COMMANDS</span></h2>
-    <p class="section-body reveal reveal-delay-2">Current player-facing and operator-facing chat commands for the live addon. Type these directly into the Stormworks chat during a session. Command details were verified against <code>addon_ConvoySurvival/script.lua</code>, <code>INTERFACE.md</code>, and the Python simulation contract on <time datetime="2026-07-20"><b>20 July 2026</b></time>. Commands marked <span class="cmd-tag cmd-tag--admin">ADMIN</span> are restricted to server operators; one-off internal test hooks are intentionally omitted.</p>
+    <p class="section-body reveal reveal-delay-2">Current player-facing and operator-facing chat commands for the live addon. Type these directly into the Stormworks chat during a session. Command details were verified against <code>addon_ConvoySurvival/script.lua</code>, <code>INTERFACE.md</code>, and the Python simulation contract on <time datetime="2026-07-22"><b>22 July 2026</b></time>. Commands marked <span class="cmd-tag cmd-tag--admin">ADMIN</span> are restricted to server operators; one-off internal test hooks are intentionally omitted.</p>
 
     <div class="cmd-table reveal reveal-delay-1">
 
@@ -997,9 +1012,21 @@ commands: `
       </div>
 
       <div class="cmd-row">
-        <div class="cmd-cell cmd-cell--syntax"><code>?m sos</code></div>
-        <div class="cmd-cell cmd-cell--desc">Axis-only distress relay. The Morse addon still sends the transmission, and <code>addon_ConvoySurvival</code> listens in parallel so AI U-boats can react to a player SOS.</div>
-        <div class="cmd-cell cmd-cell--tags"><span class="cmd-tag cmd-tag--axis">AXIS</span> <span class="cmd-tag cmd-tag--general">GENERAL</span></div>
+        <div class="cmd-cell cmd-cell--syntax"><code>?m &lt;keyword|morse&gt;</code><br><code>?m pos</code><br><code>?m orders</code></div>
+        <div class="cmd-cell cmd-cell--desc">Transmits through the live Morse net from an equipped vessel. Use <code>?m</code> alone for the accepted keywords. <code>pos</code> reports position; Axis radio operators can request a directed B.d.U. assignment with <code>orders</code>, subject to a ten-minute sender cooldown. <code>?m sos</code> also alerts nearby AI U-boats.</div>
+        <div class="cmd-cell cmd-cell--tags"><span class="cmd-tag cmd-tag--general">GENERAL</span> <span class="cmd-tag cmd-tag--axis">AXIS</span></div>
+      </div>
+
+      <div class="cmd-row">
+        <div class="cmd-cell cmd-cell--syntax"><code>?msgs</code><br><code>?mprev</code> &middot; <code>?mnext</code></div>
+        <div class="cmd-cell cmd-cell--desc">Opens the current vessel's decoded Morse log and moves backward or forward through stored messages.</div>
+        <div class="cmd-cell cmd-cell--tags"><span class="cmd-tag cmd-tag--general">GENERAL</span></div>
+      </div>
+
+      <div class="cmd-row">
+        <div class="cmd-cell cmd-cell--syntax"><code>?mhelp</code> &middot; <code>?mkeys</code><br><code>?morse_toggle</code><br><code>?mveh</code></div>
+        <div class="cmd-cell cmd-cell--desc">Shows Morse command help, toggles Morse processing for your player, or lists registered receiver vehicles and their tuned channels.</div>
+        <div class="cmd-cell cmd-cell--tags"><span class="cmd-tag cmd-tag--general">GENERAL</span></div>
       </div>
 
       <div class="cmd-row">
@@ -1739,7 +1766,7 @@ systems: `
         <div class="system-info">
           <div class="system-designation">COMMUNICATIONS · ALL VESSELS</div>
           <div class="system-name">RADIO, MORSE &amp; HF/DF</div>
-          <p class="system-desc">Voice radio and Morse traffic are the arteries of the convoy battle. In the current addon, AI ships, aircraft, and U-boats report over team-scoped nets to player vessels tuned to the right channel, while Allied escorts fitted with HF/DF can turn a transmitting U-boat's signal into map bearings and, with enough cuts, a triangulated fix. Keep transmissions short: the net helps your side coordinate, but it can also betray your position.</p>
+          <p class="system-desc">Voice radio and Morse traffic are the arteries of the convoy battle. AI ships, aircraft, U-boats, B.d.U., and Allied command stations use tuned team nets, directed replies, and distance-limited local reports. Player U-boats can transmit only at 15 m depth or shallower and receive only at 30 m or shallower. Allied HF/DF reacts only to a transmitting U-boat, producing bearings and eventually a triangulated fix; receiving, tuning, decoding, and codebreaking do not expose the receiver.</p>
         </div>
       </div>
 
@@ -1946,6 +1973,11 @@ dev: `<div class="section-divider"></div>
       <div class="dev-block reveal">
         <h3 class="dev-heading"><span class="num">00C</span>CAMPAIGN &middot; PERSISTENCE BOUNDARY</h3>
         <p class="dev-sub">Python is the source of truth for two deliberately separate stores: resettable campaign state and never-reset identity/lifetime state. Campaign operations can access only the campaign database. Lua reports deduplicated physical outcomes; the Python ledger owns durable totals, campaign phase and clock, points, war effort, progression, requisition, strategic events, reset operations, and immutable end snapshots. The remote agent routes these contracts to the local Python service, and the one-time migration handshake imports legacy Radio counters before Python's campaign clock takes authority.</p>
+      </div>
+
+      <div class="dev-block reveal">
+        <h3 class="dev-heading"><span class="num">00D</span>MORSE &middot; DELIVERY / INTEL CONTRACT</h3>
+        <p class="dev-sub">Verified on <b>22 July 2026</b> against <code>script.lua</code>, <code>INTERFACE.md</code>, <code>tests/morse_runtime.test.js</code>, and <code>tests/morse_python_queue.test.js</code>. A receiver must expose the <code>rotor</code>, <code>mdot</code>, and <code>mdash</code> interface and be tuned to the sender's channel. Allied tactical and distress reports are local to 15 km; local Axis U-boat reports use 40 km; directed headquarters replies are vessel-specific and not distance-limited. Python chooses actionable B.d.U. orders and queues directed strategic traffic, while Lua validates the physical sender/receiver, depth, channel, delivery, message log, and HF/DF consequences. Only an outgoing U-boat transmission creates an HF/DF bearing.</p>
       </div>
 
       <div class="dev-block reveal">
