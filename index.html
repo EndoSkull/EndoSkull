@@ -371,6 +371,21 @@ updates: `
 
       <div class="update-bulletin reveal reveal-delay-1">
         <div class="bulletin-header">
+          <span class="bulletin-date">23 JUL 2026</span>
+          <span class="bulletin-tag tag-ops">VERIFIED</span>
+        </div>
+        <div class="bulletin-title">DURABLE VEHICLE IDENTITIES DOCUMENTED</div>
+        <div class="bulletin-body">
+          <ul class="bulletin-list">
+            <li>Systems and Dev copy verified against the live Lua identity handoff and Python-owned naming regression tests</li>
+            <li>Documented durable historical identities for ships, U-boats, and aircraft, including aircraft service, type, code, and nickname data</li>
+            <li>Confirmed safe offline labels, bounded retries, and spawn-generation keys that prevent reused Stormworks vehicle IDs from inheriting an old identity</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="update-bulletin reveal reveal-delay-1">
+        <div class="bulletin-header">
           <span class="bulletin-date">22 JUL 2026</span>
           <span class="bulletin-tag tag-ops">VERIFIED</span>
         </div>
@@ -1820,7 +1835,7 @@ systems: `
         <div class="system-info">
           <div class="system-designation">CAMPAIGN &middot; PERSISTENT SERVICE</div>
           <div class="system-name">WAR LEDGER &amp; PLAYER CAREERS</div>
-          <p class="system-desc">The Python service keeps the authoritative campaign clock, Allied and Axis points, war effort, convoy outcomes, tonnage, requisition wallets, and player campaign progression. Campaign resets and end snapshots do not erase the separate lifetime record: identity, total playtime, sessions, Loyalty Level, medals, Discord links, and lifetime service statistics persist across campaigns.</p>
+          <p class="system-desc">The Python service keeps the authoritative campaign clock, Allied and Axis points, war effort, convoy outcomes, tonnage, requisition wallets, and player campaign progression. Campaign resets and end snapshots do not erase the separate lifetime record: player identity, total playtime, sessions, Loyalty Level, medals, Discord links, and lifetime service statistics persist across campaigns. Python also assigns durable wartime identities to physical ships, U-boats, and aircraft; Lua uses type-safe offline labels until that identity arrives.</p>
         </div>
       </div>
 
@@ -1993,6 +2008,11 @@ dev: `<div class="section-divider"></div>
       <div class="dev-block reveal">
         <h3 class="dev-heading"><span class="num">00D</span>MORSE &middot; DELIVERY / INTEL CONTRACT</h3>
         <p class="dev-sub">Verified on <b>22 July 2026</b> against <code>script.lua</code>, <code>INTERFACE.md</code>, <code>tests/morse_runtime.test.js</code>, and <code>tests/morse_python_queue.test.js</code>. A receiver must expose the <code>rotor</code>, <code>mdot</code>, and <code>mdash</code> interface and be tuned to the sender's channel. Allied tactical and distress reports are local to 15 km; local Axis U-boat reports use 40 km; directed headquarters replies are vessel-specific and not distance-limited. Python chooses actionable B.d.U. orders and queues directed strategic traffic, while Lua validates the physical sender/receiver, depth, channel, delivery, message log, and HF/DF consequences. Only an outgoing U-boat transmission creates an HF/DF bearing.</p>
+      </div>
+
+      <div class="dev-block reveal">
+        <h3 class="dev-heading"><span class="num">00E</span>VEHICLE IDENTITY &middot; DURABLE NAMING CONTRACT</h3>
+        <p class="dev-sub">Verified on <b>23 July 2026</b> against <code>script.lua</code> and <code>tests/python_identity_names.test.js</code>. Python owns the durable identity assigned to each physical vehicle and may return its display name, identity ID, operator country, and aircraft code. Lua immediately supplies format-only fallbacks such as a German U-number or an aircraft service, model, and type code, then replaces them when Python replies. Requests use persistent owner or strategic-member keys where available and a physical spawn-generation key otherwise, so a reused Stormworks vehicle ID cannot inherit its predecessor's name. Failed or malformed replies remain eligible for bounded retry, and an accepted identity refreshes nearby UI and map labels.</p>
       </div>
 
       <div class="dev-block reveal">
